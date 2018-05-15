@@ -1,0 +1,187 @@
+<div class="wrapper">
+  <div class="header-container padding-vertical">
+    <nav class="nav padding-horizontal">
+      <div class="site-title">
+        <a href="http://www.ninthvalley.com"><span class="bold">NINTH</span>VALLEY</a>
+      </div>
+      <ul>
+        <li id="sign-in">Sign in</span></li>
+        <li id="register">Register</span></li>
+        <li><span id="menu-click">Menu</span></li>
+      </ul>
+    </nav>
+  </div>
+</div>
+
+<div id="menu-container" class="side-header medium-text">
+  <ul>
+    <li id="close-menu">Close</li>
+    <li><%= link_to "Discover", "#", class: "nav-links" %></li>
+    <% if instructor_signed_in? %>
+      <li><%= link_to "Your Page", instructor_path(current_instructor), class: "nav-links" %></li>
+      <li><%= link_to "Purchases", 'user_purchases_path(current_user)', class: "nav-links" %></li>
+      <li><%= link_to "Membership", 'edit_user_membership_path(current_user)', class: "nav-links" %></li>
+      <li><%= link_to "Account Settings", edit_registration_path(current_instructor), class: "nav-links" %></li>
+      
+
+      <li><%= link_to "Sign Out", sign_out_path, class: "nav-links" %></li>
+
+    <% elsif student_signed_in? %>
+      <li><%= link_to "Your Page", student_path(current_student), class: "nav-links" %></li>
+      <li><%= link_to "Purchases", 'user_purchases_path(current_user)', class: "nav-links" %></li>
+      <li><%= link_to "Membership", 'edit_user_membership_path(current_user)', class: "nav-links" %></li>
+      <li><%= link_to "Account Settings", edit_registration_path(current_student), class: "nav-links" %></li>
+      
+
+      <li><%= link_to "Sign Out", sign_out_path, class: "nav-links" %></li>
+
+    <% else %>
+      <li><span class="nav-links" id="menu-sign-in">Sign in</span></li>
+      <li><span class="nav-links" id="menu-register">Register</span></li>
+    <% end %>
+  </ul>
+</div>
+
+<% unless instructor_signed_in? || student_signed_in? %>
+
+  <div id="sign-in-form">
+    <div class="profile-form-inside">
+      <div class="close"></div>
+
+      <div class="field center mid-text">
+        I am...
+      </div>
+
+      <div class="flex padding-vertical border-top border-bottom">
+        <div id="student-sign-in-click" class="two-column center active-tab">
+          Student
+        </div>
+        <div id="instructor-sign-in-click" class="two-column center deactive-tab">
+          Instructor
+        </div>
+      </div>
+
+
+      <div id="student-sign-in-container" class="padding-vertical">
+        <%= form_for(resource_student, as: resource_name_student, url: session_path(resource_name_student)) do |f| %>
+          <div class="field">
+            <%= f.label :login, "Username or email" %>
+            <%= f.text_field :login, class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %> <%= link_to "I forgot my password.", new_instructor_password_path, class: "mini-text" %>
+            <%= f.password_field :password, autocomplete: "off", class: "text-field" %>
+          </div>
+
+          <% if devise_mapping_student.rememberable? -%>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div>
+          <% end -%>
+
+          <div class="border-bottom padding-bottom">
+            <%= f.submit "Sign in", class: "submit-button" %>
+          </div>
+        <% end %>
+
+        <div class="padding-top">
+          <%= link_to "But I don't have an account yet.", register_path %>
+        </div>
+      </div>
+
+
+      <div id="instructor-sign-in-container" class="padding-vertical">
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="field">
+            <%= f.label :login, "Username or email" %>
+            <%= f.text_field :login, class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %> <%= link_to "I forgot my password.", new_instructor_password_path, class: "mini-text" %>
+            <%= f.password_field :password, autocomplete: "off", class: "text-field" %>
+          </div>
+
+          <% if devise_mapping.rememberable? -%>
+            <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div>
+          <% end -%>
+
+          <div class="border-bottom padding-bottom">
+            <%= f.submit "Sign in", class: "submit-button" %>
+          </div>
+        <% end %>
+
+        <div class="padding-top">
+          <%= link_to "But I don't have an account yet.", register_path %>
+        </div>
+      </div>
+
+
+
+    </div>
+  </div>
+
+  <div id="register-form">
+    <div class="profile-form-inside">
+      <div class="close"></div>
+
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="field">
+          <%= f.label :username %>
+          <%= f.text_field :username, autofocus: true, class: "text-field" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: "text-field" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password %> <span class="dark mini-text"><%= @minimum_password_length.to_s + " characters minimum." if @minimum_password_length %></span>
+          <%= f.password_field :password, autocomplete: "off", class: "text-field" %>
+        </div>
+
+        <div class="actions border-bottom three-space-bottom-padding">
+          <%= f.submit "Register", class: "submit-button" %>
+        </div>
+      <% end %>
+
+      <div class="three-space-top">
+        <%= link_to "But I already have an account.", sign_in_path %>
+      </div>
+
+
+      <%= form_for(resource_student, as: resource_name_student, url: registration_path(resource_name_student)) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="field">
+          <%= f.label :username %>
+          <%= f.text_field :username, autofocus: true, class: "text-field" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :email %>
+          <%= f.email_field :email, class: "text-field" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :password %> <span class="dark mini-text"><%= @minimum_password_length.to_s + " characters minimum." if @minimum_password_length %></span>
+          <%= f.password_field :password, autocomplete: "off", class: "text-field" %>
+        </div>
+
+        <div class="actions border-bottom three-space-bottom-padding">
+          <%= f.submit "Register", class: "submit-button" %>
+        </div>
+      <% end %>
+
+    </div>
+  </div>
+
+<% end %>

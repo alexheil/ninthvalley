@@ -1,0 +1,17 @@
+<%= render 'partials/header' %>
+
+<div class="wrapper">
+  <div class="container">
+    hey what's up man. <%= link_to "hey", '#' %> hey what a dumb day
+  </div>
+</div>
+
+<div class="back"></div>
+
+<% if instructor_signed_in? %>
+  <%= current_instructor.username %>
+<% end %>
+
+<% if student_signed_in? %>
+  <%= current_student.username %>
+<% end %>
