@@ -3,18 +3,20 @@
  *= require_self
  */
 
-$main: #47B975; /* TURQUOISE */
-$light: #3CCFCC; /* CURIOUS BLUE */
-$dark: #C8A223; /* MINSK */
+$main: #47B975; /* OCEAN GREEN */
+$light: #A4C2A7; /* SPRING RAIN */
+$dark: #C8A223; /* HOKEY POKEY */
 $green: #47B975; /* OCEAN GREEN */
 $border: #BEC8CE; /* LOBLOLLY */
 $red: #F44336; /* POMEGRANATE */
-$black: #0C1F14; /* BLACK BEAN */
-$white: #FAFAFA; /* ALABASTER */
-$grey: #EEEEEE;
+$black: #0C1F14; /* GREEN KELP */
+$white: #FAFAFA; /* DESERT STORM */
+$grey: #EEEEEE; /* GALLERY */
 $fancy: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 $radius: 4px;
+$shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+$shadow-lite: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 
 @mixin transition {
   -webkit-transition: .3s;
@@ -25,6 +27,12 @@ $radius: 4px;
     -moz-transition: .3s;
     -o-transition: .3s;
   }
+}
+
+@mixin textLabels {
+  font-size: .75em;
+  font-weight: 400;
+  text-transform: uppercase;
 }
 
 body {
@@ -58,6 +66,10 @@ a {
   background: $main;
 }
 
+.mobile-only {
+  display: none;
+}
+
 .wrapper {
   width: 100%;
   max-width: 1920px;
@@ -67,6 +79,45 @@ a {
 .container {
   width: 96%;
   margin: 0 auto;
+}
+
+.mid-container {
+  width: 73%;
+  margin: 0 auto;
+}
+
+/* *************** FLASH ***************** */
+
+.flash {
+  position: fixed;
+  margin: 0 auto;
+  z-index: 1006;
+  width: 60%;
+  top: 0;
+  left: 20%;
+}
+
+.alert-notice {
+  border-bottom: 10px solid $green;
+  background: $white;
+  border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
+  box-shadow: $shadow-lite;
+}
+
+.alert-alert {
+  border-bottom: 10px solid $red;
+  background: $white;
+  border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
+  box-shadow: $shadow-lite;
+}
+
+.alert {
+  width: 90%;
+  margin: 0 auto;
+  padding: 1vh 0;
+  font-family: $fancy;
 }
 
 /* ***************** UNIVERSAL ************* */
@@ -139,8 +190,6 @@ a {
   padding-left: 2vh;
 }
 
-
-
 /* ****************** TABS AND BUTTONS **************** */
 
 .active-tab {
@@ -149,8 +198,10 @@ a {
   color: $white;
   padding: 2vh 0;
   border-radius: $radius;
+  text-transform: uppercase;
+  font-size: .75em;
   font-weight: 400;
-  box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+  box-shadow: $shadow;
 }
 
 .deactive-tab {
@@ -159,6 +210,8 @@ a {
   color: $black;
   padding: 2vh 0;
   border-radius: $radius;
+  text-transform: uppercase;
+  font-size: .75em;
   &:hover {
     background: $grey;
   }
@@ -177,7 +230,7 @@ a {
   color: $white;
   padding: 1vh 1vw;
   &:hover {
-    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
+    box-shadow: $shadow;
   }
 }
 
@@ -188,11 +241,15 @@ a {
   color: $white;
 }
 
-
 /* ****************** FORMS ****************** */
 
 textarea:focus, input:focus {
   outline: none;
+}
+
+label {
+  @include textLabels;
+  -webkit-font-smoothing: antialiased;
 }
 
 @mixin fields {
@@ -208,6 +265,21 @@ textarea:focus, input:focus {
   border-radius: $radius;
   &:focus {
     border: 1px solid $black;
+  }
+}
+
+.search-field {
+  @include fields;
+  padding: .5vh 1vw;
+  font-size: .75em;
+  border: none;
+  color: $white;
+  background-color: rgba(255, 255, 255, 0.1);
+  &:focus {
+    border: none;
+  }
+  &::placeholder {
+    color: $white;
   }
 }
 
@@ -258,7 +330,7 @@ textarea:focus, input:focus {
   width: 100%;
   margin: 0 auto;
   background: $main;
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: $shadow-lite;
   a {
     color: $white;
   }
@@ -268,7 +340,7 @@ textarea:focus, input:focus {
   display: flex;
   .site-title {
     display: inline-block;
-    width: 48%;
+    width: 24%;
     color: $main;
     font-weight: 300;
     &:hover {
@@ -276,14 +348,18 @@ textarea:focus, input:focus {
       color: $light;
     }
   }
+  .search-spacer {
+    width: 24%;
+    display: inline-block;
+  }
   ul {
     width: 50%;
     padding: 0;
     margin: 0;
-    text-align: right;
+    text-align: center;
     display: inline-block;
     li {
-      width: 31%;
+      width: 24%;
       display: inline-block;
       position: relative;
     }
@@ -300,6 +376,50 @@ textarea:focus, input:focus {
   }
 }
 
+.full-footer-container {
+  width: 100%;
+  clear: both;
+  margin-top: 5vh;
+  padding: 2vh 0;
+}
+
+.footer {
+  font-size: .75em;
+  width: 100%;
+  display: inline-block;
+  span {
+    float: left;
+  }
+  .nav-links {
+    @include transition;
+    color: $light;
+    padding: 0;
+    &:hover {
+      @include transition;
+      color: $dark;
+    }
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+    float: right;
+    li {
+      position: relative;
+      display: inline-block;
+      margin: 0 1vw;
+      &:first-child {
+        margin: 0 1vw 0 0;
+      }
+    }
+  }
+}
+
+.footer-disclaimer {
+  font-size: .75em;
+  text-align: center;
+  color: $light;
+}
+
 /* ******************* JAVASCRIPT ************** */
 
 @mixin javaScriptForms {
@@ -313,15 +433,15 @@ textarea:focus, input:focus {
   .profile-form-inside {
     width: 40%;
     background: $white;
-    margin: 5vh auto;
-    padding: 3vh 2vw;
+    margin: 2vh auto;
+    padding: 2vh 2vw;
     border-radius: $radius;
-    box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+    box-shadow: $shadow-lite;
   }
   a {
-    color: $dark;
+    color: $light;
     &:hover {
-      color: $light;
+      color: $dark;
     }
   }
 }
@@ -343,7 +463,6 @@ textarea:focus, input:focus {
   text-decoration: none;
   position: relative;
   z-index: 1001;
-  margin: 0 0 3vh 0;
   cursor: pointer;
   -webkit-transition: .3s;
   -moz-transition: .3s;
@@ -352,9 +471,9 @@ textarea:focus, input:focus {
     content: "";
     display: block;
     height: 30px;
-    width: 1px;
+    width: 2px;
     z-index: 1001;
-    background: $black;
+    background: $light;
     position: absolute;
     left: 11px;
     top: 0px;
@@ -370,9 +489,9 @@ textarea:focus, input:focus {
     content: "";
     display: block;
     height: 30px;
-    width: 1px;
+    width: 2px;
     z-index: 1001;
-    background: $black;
+    background: $light;
     position: absolute;
     left: 11px;
     top: 0px;
@@ -386,13 +505,13 @@ textarea:focus, input:focus {
   }
   &:hover {
     &:before {
-      background: $light;
+      background: $dark;
       -webkit-transition: .3s;
       -moz-transition: .3s;
       -o-transition: .3s;
     }
     &:after {
-      background: $light;
+      background: $dark;
       -webkit-transition: .3s;
       -moz-transition: .3s;
       -o-transition: .3s;
@@ -415,30 +534,55 @@ textarea:focus, input:focus {
   display: none;
 }
 
+svg.search {
+  @include transition;
+  fill: $white;
+  width: 12px;
+  height: 12px;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+#search-icon {
+  @include transition;
+  cursor: pointer;
+  padding: 3vh 1vw;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
 #sign-in {
+  @include textLabels;
   @include transition;
   cursor: pointer;
   color: $white;
+  padding: 3vh 1vw;
   &:hover {
-
+    background-color: rgba(255, 255, 255, 0.1);
   }
 }
 
 #register {
+  @include textLabels;
   @include transition;
   cursor: pointer;
   color: $white;
+  padding: 3vh 1vw;
   &:hover {
-
+    background-color: rgba(255, 255, 255, 0.1);
   }
 }
 
 #menu-click {
+  @include textLabels;
   @include transition;
   cursor: pointer;
   color: $white;
+  padding: 3vh 1vw;
   &:hover {
-    background: $black;
+    background-color: rgba(255, 255, 255, 0.1);
   }
 }
 
@@ -469,10 +613,122 @@ textarea:focus, input:focus {
   display: none;
 }
 
+#student-register-click {
+  cursor: pointer;
+}
 
+#instructor-register-click {
+  cursor: pointer;
+}
 
+#instructor-register-container {
+  display: none;
+}
 
+#why-instructor {
+  display: none;
+}
 
+#search-container {
+  display: none;
+}
+
+/* ******************** MeDIA QUERIES **************** */
+
+@media screen and (max-width: 1024px) {
+
+  @mixin mobile-nav {
+    float: none;
+    text-align: center;
+  }
+
+  .nav {
+    display: block;
+    .site-title {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding-bottom: 1vh;
+    }
+    ul {
+      width: 100%;
+      display: block;
+      li {
+        width: 31%;
+      }
+    }
+  }
+
+  .footer {
+    text-align: center;
+    span {
+      @include mobile-nav;
+    }
+    ul {
+      @include mobile-nav;
+    }
+  }
+
+  @mixin javaScriptForms {
+    .profile-form-inside {
+      padding: 2vh 2vw;
+      width: 60%;
+    }
+  }
+
+  #sign-in-form {
+    @include javaScriptForms;
+  }
+
+  #register-form {
+    @include javaScriptForms;
+  }
+
+  #sign-in {
+    padding: 1vh 1vw;
+  }
+
+  #register {
+    padding: 1vh 1vw;
+  }
+
+  #menu-click {
+    padding: 1vh 1vw;
+  }
+
+  .no-mobile {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+}
+
+@media screen and (max-width: 650px) {
+
+  .two-column {
+    width: 100%;
+    margin: 2vh 0;
+  }
+
+  @mixin javaScriptForms {
+    .profile-form-inside {
+      width: 90%;
+      padding: 2vh 2vw;
+    }
+  }
+
+  #sign-in-form {
+    @include javaScriptForms;
+  }
+
+  #register-form {
+    @include javaScriptForms;
+  }
+
+}
 
 
 

@@ -29,6 +29,18 @@ $(document).ready(menuToggle);
 $(document).on('turbolinks:load', menuToggle);
 
 
+var flashTimeout = function() {
+
+  setTimeout(function() {
+    $('.flash_js').fadeOut();
+  }, 5000);
+
+};
+
+$(document).ready(flashTimeout);
+$(document).on('turbolinks:load', flashTimeout);
+
+
 var signInAndRegister = function() {
 
   $('#sign-in').click(function() {
@@ -111,6 +123,32 @@ var signInAndRegister = function() {
     $('#instructor-sign-in-click').addClass("active-tab");
     $('#student-sign-in-click').removeClass("active-tab");
     $('#student-sign-in-click').addClass("deactive-tab");
+  });
+
+  $('#student-register-click').click(function() {
+    $('#student-register-container').show();
+    $('#instructor-register-container').hide();
+    $('#why-student').show();
+    $('#why-instructor').hide();
+    $('#student-register-click').removeClass("deactive-tab");
+    $('#student-register-click').addClass("active-tab");
+    $('#instructor-register-click').removeClass("active-tab");
+    $('#instructor-register-click').addClass("deactive-tab");
+  });
+
+  $('#instructor-register-click').click(function() {
+    $('#instructor-register-container').show();
+    $('#student-register-container').hide();
+    $('#why-instructor').show();
+    $('#why-student').hide();
+    $('#instructor-register-click').removeClass("deactive-tab");
+    $('#instructor-register-click').addClass("active-tab");
+    $('#student-register-click').removeClass("active-tab");
+    $('#student-register-click').addClass("deactive-tab");
+  });
+
+  $('#search-icon').click(function() {
+    $('#search-container').fadeIn();
   });
 
 };
