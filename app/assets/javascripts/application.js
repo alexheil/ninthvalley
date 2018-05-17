@@ -188,7 +188,7 @@ var signInAndRegister = function() {
   });
 
   $('#search-icon').click(function() {
-    $('#search-container').fadeIn();
+    $('#search-container').fadeIn(300);
   });
 
 };

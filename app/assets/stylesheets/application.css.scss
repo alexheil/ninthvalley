@@ -89,6 +89,12 @@ a {
 .form-container {
   width: 40%;
   margin: 0 auto;
+  a {
+    color: $light;
+    &:hover {
+      color: $dark;
+    }
+  }
 }
 
 /* *************** FLASH ***************** */
@@ -159,7 +165,11 @@ a {
 }
 
 .mid-text {
-  font-size: 1.25em;
+  font-size: 1.5em;
+}
+
+.hard-text {
+  font-size: 16px;
 }
 
 .two-column {
@@ -417,6 +427,8 @@ label {
 }
 
 /* ******************** USERS **************** */
+
+
 
 /* ******************* JAVASCRIPT ************** */
 
