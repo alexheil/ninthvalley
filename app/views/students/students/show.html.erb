@@ -1,12 +1,38 @@
+<% if @student.profile.first_name.present? && @student.profile.last_name.present? %>
+  <%= provide(:title, sanitize(@student.profile.first_name) + " " + sanitize(@student.profile.last_name)) %>
+<% else %>
+  <%= provide(:title, sanitize(@student.username)) %>
+<% end %>
+
 <div class="wrapper">
   <div class="container">
     <div class="mid-container padding-vertical">
 
       <div class="padding-bottom mid-text border-bottom">
-        <%= @student.username %><span class="hard-text"> | 18 Courses | 3 Subscriptions | 5 Reviews</span>
+        <%= @student.username %><span class="hard-text"> | Student | 18 Courses | 3 Subscriptions | 5 Reviews</span>
       </div>
 
+      <div class="flex padding-vertical border-bottom">
 
+        <div class="profile-picture-container">
+          <% if student_signed_in? && current_student == @student %>
+          <div class="padding-bottom">
+            <div id="edit-profile-click">
+              Edit Profile
+            </div>
+          </div>
+          <% end %>
+
+          <% if @student.profile.image_url(:thumb).present? %>
+            <img class="thumbnail-image" src="<%= @student.profile.image_url(:thumb) %>">
+          <% end %>
+        </div>
+
+        <div class="profile-info-container">
+          blah balh
+        </div>
+
+      </div>
 
     </div>
   </div>
@@ -14,21 +40,18 @@
 
 <% if student_signed_in? && current_student == @student %>
 
-  <div id="edit-profile-click">
-    Edit Profile
-  </div>
-
-<% end %>
-
-<% if student_signed_in? && current_student == @student %>
-
   <div id="profile-form">
     <div class="profile-form-inside">
       <div class="close"></div>
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Edit your profile
+      </div>
+
       <%= form_for(@profile, url: student_profile_path(@student)) do |f| %>
         <span id="profile_errors"><%= render 'partials/errors/profile_errors' %></span>
         
-        <div class="field">
+        <div class="field padding-top">
           <%= f.label :first_name %>
           <%= f.text_field :first_name, class: "text-field" %>
         </div>
@@ -36,6 +59,26 @@
           <%= f.label :last_name %>
           <%= f.text_field :last_name, class: "text-field" %>
         </div>
+        <div class="field">
+          <%= f.label :image %>
+          <%= f.hidden_field :image, value: Profile.new.cached_image_data %>
+          <%= f.file_field :image %>
+        </div>
+
+
+        <%- if @profile.image_data? %>
+          <div class="field">
+            <img class="thumbnail-image" src="<%= @student.profile.image_url(:thumb) %>">
+          </div>
+          <div class="field">
+            Remove attachment: <%= f.check_box :remove_image %>
+          </div>
+          <%= f.label :image %>
+          <%= f.hidden_field :image, value: Profile.new.cached_image_data %>
+          <%= f.file_field :image %>
+        <%- end %>
+
+
         <div class="field">
           <%= f.label :city %>
           <%= f.text_field :city, class: "text-field" %>

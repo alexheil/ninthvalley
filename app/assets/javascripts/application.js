@@ -193,21 +193,18 @@ var editProfile = function() {
 
   $('#edit-profile-click').click(function() {
     $('#profile-form').fadeIn(300);
-    $('#edit-profile-click').fadeOut(300);
     $('.back').fadeIn(300);
     $('.wrapper').addClass("blur", 300);
   });
 
   $('.back').click(function() {
     $('#profile-form').fadeOut(300);
-    $('#edit-profile-click').fadeIn(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });
 
   $('.close').click(function() {
     $('#profile-form').fadeOut(300);
-    $('#edit-profile-click').fadeIn(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });

@@ -237,11 +237,14 @@ a {
   width: 100%;
   display: inline-block;
   text-align: center;
-  font-size: 1em;
-  font-weight: 300;
+  font-size: .75em;
+  font-weight: 400;
   cursor: pointer;
   border-radius: $radius;
   box-sizing: border-box;
+  font-family: $fancy;
+  text-transform: uppercase;
+  letter-spacing: .5px;
   color: $white;
   padding: 1vh 1vw;
   background: $main;
@@ -428,7 +431,29 @@ label {
 
 /* ******************** USERS **************** */
 
+.profile-picture-container {
+  margin: 0 auto;
+  width: 30%;
+  display: inline-block;
+  vertical-align: top;
+}
 
+.profile-info-container {
+  margin: 0 auto;
+  width: 65%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.thumbnail-image {
+  height: 31vh;
+  width: 100%;
+  border-radius: $radius;
+  object-fit: cover;
+  display: block;
+  -webkit-backface-visibility: hidden;
+  box-shadow: $shadow-lite;
+}
 
 /* ******************* JAVASCRIPT ************** */
 
@@ -673,7 +698,7 @@ svg.search {
 
 #edit-profile-click {
   @include buttons;
-
+  padding: .51vh .51vw;
 }
 
 #profile-form {
@@ -732,6 +757,10 @@ svg.search {
   .form-container {
     width: 60%;
     margin: 0 auto;
+  }
+
+  .thumbnail-image {
+    height: 22vh;
   }
 
   @mixin javaScriptForms {
@@ -795,6 +824,14 @@ svg.search {
     margin: 0 auto;
   }
 
+  .profile-picture-container {
+    width: 100%;
+  }
+
+  .profile-info-container {
+    width: 100%;
+  }
+
   @mixin javaScriptForms {
     .profile-form-inside {
       width: 90%;
@@ -823,6 +860,10 @@ svg.search {
   }
 
   #register-form {
+    @include javaScriptForms;
+  }
+
+  #profile-form {
     @include javaScriptForms;
   }
 

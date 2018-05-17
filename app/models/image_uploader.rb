@@ -13,12 +13,11 @@ class ImageUploader < Shrine
     original = io.download
     processor = ImageProcessing::MiniMagick
 
-    size_1920 = processor.source(original).resize_to_limit!(1920, 1920)
-    size_600 = processor.source(size_1920).resize_to_limit!(600, 600)
+    size_600 = processor.source(original).resize_to_limit!(600, 600)
 
     original.close!
 
-    { original: io, large: size_1920, thumb: size_600 }
+    { original: io, thumb: size_600 }
   end
 
   Attacher.validate do
