@@ -89,10 +89,6 @@
             <%= f.submit "Sign in", class: "submit-button" %>
           </div>
         <% end %>
-
-        <div class="padding-top">
-          <%= link_to "But I don't have an account yet.", register_path %>
-        </div>
       </div>
 
 
@@ -119,12 +115,11 @@
             <%= f.submit "Sign in", class: "submit-button" %>
           </div>
         <% end %>
-
-        <div class="padding-top">
-          <%= link_to "But I don't have an account yet.", register_path %>
-        </div>
       </div>
 
+      <div class="padding-top">
+        <%= link_to "But I don't have an account yet.", register_path %>
+      </div>
 
     </div>
   </div>
@@ -169,10 +164,6 @@
             <%= f.submit "Register", class: "submit-button" %>
           </div>
         <% end %>
-
-        <div class="padding-top">
-          <%= link_to "But I already have an account.", sign_in_path %>
-        </div>
       </div>
 
 
@@ -199,12 +190,11 @@
             <%= f.submit "Register", class: "submit-button" %>
           </div>
         <% end %>
-
-        <div class="padding-top">
-          <%= link_to "But I already have an account.", sign_in_path %>
-        </div>
       </div>
 
+      <div class="padding-top">
+        <%= link_to "But I already have an account.", sign_in_path %>
+      </div>
 
     </div>
 

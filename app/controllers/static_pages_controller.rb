@@ -1,5 +1,7 @@
 class StaticPagesController < ApplicationController
 
+  before_action :redirect_if_signed_in, only: [:register, :sign_in]
+
   def home
   end
 
@@ -11,5 +13,20 @@ class StaticPagesController < ApplicationController
 
   def about
   end
+
+  def sign_in
+  end
+
+  def register
+  end
+
+  private
+
+    def redirect_if_signed_in
+      if instructor_signed_in? || student_signed_in?
+        redirect_to root_url
+        flash[:notice] = " You are already signed in!"
+      end
+    end
 
 end

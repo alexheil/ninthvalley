@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180515015822) do
+ActiveRecord::Schema.define(version: 20180516222434) do
 
   create_table "instructors", force: :cascade do |t|
     t.string   "username",               default: "", null: false
@@ -40,6 +40,26 @@ ActiveRecord::Schema.define(version: 20180515015822) do
     t.index ["slug"], name: "index_instructors_on_slug", unique: true
     t.index ["unlock_token"], name: "index_instructors_on_unlock_token", unique: true
     t.index ["username"], name: "index_instructors_on_username", unique: true
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.integer  "instructor_id"
+    t.integer  "student_id"
+    t.string   "first_name",      default: ""
+    t.string   "last_name",       default: ""
+    t.text     "image_data"
+    t.string   "website",         default: ""
+    t.string   "linkedin_handle", default: ""
+    t.string   "linkedin_url",    default: ""
+    t.string   "twitter_handle",  default: ""
+    t.string   "twitter_url",     default: ""
+    t.string   "youtube_handle",  default: ""
+    t.string   "youtube_url",     default: ""
+    t.text     "biography",       default: ""
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.index ["instructor_id"], name: "index_profiles_on_instructor_id"
+    t.index ["student_id"], name: "index_profiles_on_student_id"
   end
 
   create_table "students", force: :cascade do |t|

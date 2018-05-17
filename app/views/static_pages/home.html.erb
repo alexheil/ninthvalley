@@ -7,9 +7,9 @@
 </div>
 
 <% if instructor_signed_in? %>
-  <%= current_instructor.username %>
+  <%= link_to current_instructor.username, instructor_path(current_instructor) %>
 <% end %>
 
 <% if student_signed_in? %>
-  <%= current_student.username %>
+  <%= link_to current_student.username, student_path(current_student) %>
 <% end %>

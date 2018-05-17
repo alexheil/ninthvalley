@@ -147,6 +147,46 @@ var signInAndRegister = function() {
     $('#student-register-click').addClass("deactive-tab");
   });
 
+  $('#student-sign-in-click-page').click(function() {
+    $('#student-sign-in-container-page').show();
+    $('#instructor-sign-in-container-page').hide();
+    $('#student-sign-in-click-page').removeClass("deactive-tab");
+    $('#student-sign-in-click-page').addClass("active-tab");
+    $('#instructor-sign-in-click-page').removeClass("active-tab");
+    $('#instructor-sign-in-click-page').addClass("deactive-tab");
+  });
+
+  $('#instructor-sign-in-click-page').click(function() {
+    $('#instructor-sign-in-container-page').show();
+    $('#student-sign-in-container-page').hide();
+    $('#instructor-sign-in-click-page').removeClass("deactive-tab");
+    $('#instructor-sign-in-click-page').addClass("active-tab");
+    $('#student-sign-in-click-page').removeClass("active-tab");
+    $('#student-sign-in-click-page').addClass("deactive-tab");
+  });
+
+  $('#student-register-click-page').click(function() {
+    $('#student-register-container-page').show();
+    $('#instructor-register-container-page').hide();
+    $('#why-student-page').show();
+    $('#why-instructor-page').hide();
+    $('#student-register-click-page').removeClass("deactive-tab");
+    $('#student-register-click-page').addClass("active-tab");
+    $('#instructor-register-click-page').removeClass("active-tab");
+    $('#instructor-register-click-page').addClass("deactive-tab");
+  });
+
+  $('#instructor-register-click-page').click(function() {
+    $('#instructor-register-container-page').show();
+    $('#student-register-container-page').hide();
+    $('#why-instructor-page').show();
+    $('#why-student-page').hide();
+    $('#instructor-register-click-page').removeClass("deactive-tab");
+    $('#instructor-register-click-page').addClass("active-tab");
+    $('#student-register-click-page').removeClass("active-tab");
+    $('#student-register-click-page').addClass("deactive-tab");
+  });
+
   $('#search-icon').click(function() {
     $('#search-container').fadeIn();
   });

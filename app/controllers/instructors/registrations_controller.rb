@@ -10,9 +10,20 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
   # end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super
+    @instructor.create_profile(profile_params)
+  
+    #Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+
+    #customer = Stripe::Customer.create({
+    #  email: @user.email
+    #})
+
+    #@user.update_attributes(
+    #  customer_id: customer.id
+    #)
+  end
 
   # GET /resource/edit
   # def edit
@@ -37,6 +48,12 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
   # def cancel
   #   super
   # end
+
+  private
+
+    def profile_params
+      params.permit(:biography, :first_name, :last_name, :website, :linkedin_handle, :linkedin_url, :twitter_handle, :twitter_url, :youtube_handle, :youtube_url, :image, :remove_image)
+    end
 
   # protected
 

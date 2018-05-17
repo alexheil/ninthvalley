@@ -86,6 +86,11 @@ a {
   margin: 0 auto;
 }
 
+.form-container {
+  width: 40%;
+  margin: 0 auto;
+}
+
 /* *************** FLASH ***************** */
 
 .flash {
@@ -256,16 +261,10 @@ label {
   width: 100%;
   font-size: 1em;
   font-weight: 100;
-  border-bottom: 1px solid $black;
-  border-top: 1px solid transparent;
-  border-left: 1px solid transparent;
-  border-right: 1px solid transparent;
+  border: none;
   display: inline-block;
   box-sizing: border-box;
   border-radius: $radius;
-  &:focus {
-    border: 1px solid $black;
-  }
 }
 
 .search-field {
@@ -275,9 +274,6 @@ label {
   border: none;
   color: $white;
   background-color: rgba(255, 255, 255, 0.1);
-  &:focus {
-    border: none;
-  }
   &::placeholder {
     color: $white;
   }
@@ -286,7 +282,7 @@ label {
 .text-field {
   @include fields;
   padding: 1vh 1vw;
-  background: transparent;
+  background: $grey;
 }
 
 .text-area {
@@ -295,7 +291,7 @@ label {
   max-width: 100%;
   height: 30vh;
   padding: 1vh 1vw;
-  background: transparent;
+  background: $grey;
 }
 
 .field {
@@ -419,6 +415,8 @@ label {
   text-align: center;
   color: $light;
 }
+
+/* ******************** USERS **************** */
 
 /* ******************* JAVASCRIPT ************** */
 
@@ -629,6 +627,34 @@ svg.search {
   display: none;
 }
 
+#student-sign-in-click-page {
+  cursor: pointer;
+}
+
+#instructor-sign-in-click-page {
+  cursor: pointer;
+}
+
+#instructor-sign-in-container-page {
+  display: none;
+}
+
+#student-register-click-page {
+  cursor: pointer;
+}
+
+#instructor-register-click-page {
+  cursor: pointer;
+}
+
+#instructor-register-container-page {
+  display: none;
+}
+
+#why-instructor-page {
+  display: none;
+}
+
 #search-container {
   display: none;
 }
@@ -650,11 +676,19 @@ svg.search {
       text-align: center;
       padding-bottom: 1vh;
     }
+    .search-spacer {
+      width: 100%;
+      display: block;
+      padding-bottom: 1vh;
+    }
     ul {
       width: 100%;
       display: block;
       li {
         width: 31%;
+        &:first-child {
+          display: none;
+        }
       }
     }
   }
@@ -667,6 +701,11 @@ svg.search {
     ul {
       @include mobile-nav;
     }
+  }
+
+  .form-container {
+    width: 60%;
+    margin: 0 auto;
   }
 
   @mixin javaScriptForms {
@@ -682,6 +721,14 @@ svg.search {
 
   #register-form {
     @include javaScriptForms;
+  }
+
+  #search-icon {
+    padding: 1vh 1vw;
+  }
+
+  #search-container {
+    display: block;
   }
 
   #sign-in {
@@ -710,7 +757,11 @@ svg.search {
 
   .two-column {
     width: 100%;
-    margin: 2vh 0;
+  }
+
+  .form-container {
+    width: 90%;
+    margin: 0 auto;
   }
 
   @mixin javaScriptForms {
@@ -718,6 +769,22 @@ svg.search {
       width: 90%;
       padding: 2vh 2vw;
     }
+  }
+
+  #student-sign-in-click {
+    margin-bottom: 2vh;
+  }
+
+  #student-register-click {
+    margin-bottom: 2vh;
+  }
+
+  #student-sign-in-click-page {
+    margin-bottom: 2vh;
+  }
+
+  #student-register-click-page {
+    margin-bottom: 2vh;
   }
 
   #sign-in-form {
