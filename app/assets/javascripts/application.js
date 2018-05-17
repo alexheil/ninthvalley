@@ -45,7 +45,6 @@ var signInAndRegister = function() {
 
   $('#sign-in').click(function() {
     $('#sign-in-form').fadeIn(300);
-    $('#close-sign-in').fadeIn(300);
     $('#sign-in').fadeOut(300);
     $('#register').fadeOut(300);
     $('#menu-container').fadeOut(300);
@@ -55,7 +54,6 @@ var signInAndRegister = function() {
 
   $('#register').click(function() {
     $('#register-form').fadeIn(300);
-    $('#close-register').fadeIn(300);
     $('#sign-in').fadeOut(300);
     $('#register').fadeOut(300);
     $('#menu-container').fadeOut(300);
@@ -65,7 +63,6 @@ var signInAndRegister = function() {
 
   $('#menu-sign-in').click(function() {
     $('#sign-in-form').fadeIn(300);
-    $('#close-sign-in').fadeIn(300);
     $('#sign-in').fadeOut(300);
     $('#register').fadeOut(300);
     $('#menu-container').fadeOut(300);
@@ -75,7 +72,6 @@ var signInAndRegister = function() {
 
   $('#menu-register').click(function() {
     $('#register-form').fadeIn(300);
-    $('#close-register').fadeIn(300);
     $('#sign-in').fadeOut(300);
     $('#register').fadeOut(300);
     $('#menu-container').fadeOut(300);
@@ -86,8 +82,6 @@ var signInAndRegister = function() {
   $('.back').click(function() {
     $('#sign-in-form').fadeOut(300);
     $('#register-form').fadeOut(300);
-    $('#close-sign-in').fadeOut(300);
-    $('#close-register').fadeOut(300);
     $('#sign-in').fadeIn(300);
     $('#register').fadeIn(300);
     $('#menu-container').fadeOut(300);
@@ -97,9 +91,7 @@ var signInAndRegister = function() {
 
   $('.close').click(function() {
     $('#sign-in-form').fadeOut(300);
-    $('#close-sign-in').fadeOut(300);
     $('#register-form').fadeOut(300);
-    $('#close-register').fadeOut(300);
     $('#sign-in').fadeIn(300);
     $('#register').fadeIn(300);
     $('#menu-container').fadeOut(300);
@@ -195,3 +187,32 @@ var signInAndRegister = function() {
 
 $(document).ready(signInAndRegister);
 $(document).on('turbolinks:load', signInAndRegister);
+
+
+var editProfile = function() {
+
+  $('#edit-profile-click').click(function() {
+    $('#profile-form').fadeIn(300);
+    $('#edit-profile-click').fadeOut(300);
+    $('.back').fadeIn(300);
+    $('.wrapper').addClass("blur", 300);
+  });
+
+  $('.back').click(function() {
+    $('#profile-form').fadeOut(300);
+    $('#edit-profile-click').fadeIn(300);
+    $('.back').fadeOut(300);
+    $('.wrapper').removeClass("blur", 300);
+  });
+
+  $('.close').click(function() {
+    $('#profile-form').fadeOut(300);
+    $('#edit-profile-click').fadeIn(300);
+    $('.back').fadeOut(300);
+    $('.wrapper').removeClass("blur", 300);
+  });
+
+};
+
+$(document).ready(editProfile);
+$(document).on('turbolinks:load', editProfile);

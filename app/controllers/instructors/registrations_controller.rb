@@ -52,7 +52,7 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
   private
 
     def profile_params
-      params.permit(:biography, :first_name, :last_name, :website, :linkedin_handle, :linkedin_url, :twitter_handle, :twitter_url, :youtube_handle, :youtube_url, :image, :remove_image)
+      params.permit(:biography, :first_name, :last_name, :website, :city, :state, :country, :twitter_handle, :twitter_url, :youtube_handle, :youtube_url, :image, :remove_image)
     end
 
   # protected

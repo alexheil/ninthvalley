@@ -22,11 +22,11 @@ Rails.application.routes.draw do
   end
 
   resources :students, controller: 'students/students', only: :show do
-    resource :profile, controller: 'students/profiles', only: [:edit, :update]
+    resource :profile, controller: 'profiles/profiles', only: :update
   end
 
   resources :instructors, controller: 'instructors/instructors', only: :show do
-    resource :profile, controller: 'instructors/profiles', only: [:edit, :update]
+    resource :profile, controller: 'profiles/profiles', only: :update
   end
 
 end

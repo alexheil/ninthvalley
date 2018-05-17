@@ -6,8 +6,68 @@
         <%= @student.username %><span class="hard-text"> | 18 Courses | 3 Subscriptions | 5 Reviews</span>
       </div>
 
+
+
     </div>
   </div>
 </div>
 
-<%= @student.profile.created_at %>
+<% if student_signed_in? && current_student == @student %>
+
+  <div id="edit-profile-click">
+    Edit Profile
+  </div>
+
+<% end %>
+
+<% if student_signed_in? && current_student == @student %>
+
+  <div id="profile-form">
+    <div class="profile-form-inside">
+      <div class="close"></div>
+      <%= form_for(@profile, url: student_profile_path(@student)) do |f| %>
+        <span id="profile_errors"><%= render 'partials/errors/profile_errors' %></span>
+        
+        <div class="field">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :city %>
+          <%= f.text_field :city, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :state %>
+          <%= f.text_field :state, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :country %>
+          <%= f.text_field :country, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :website %>
+          <%= f.text_field :website, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :twitter_handle %>
+          <%= f.text_field :twitter_handle, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :youtube_handle %>
+          <%= f.text_field :youtube_handle, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :biography %>
+          <%= f.text_area :biography, class: "text-area" %>
+        </div>
+
+         <%= f.submit "Update profile", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>

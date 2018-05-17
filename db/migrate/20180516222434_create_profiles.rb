@@ -6,9 +6,10 @@ class CreateProfiles < ActiveRecord::Migration[5.0]
       t.string :first_name, default: ""
       t.string :last_name, default: ""
       t.text :image_data
+      t.string :city, default: ""
+      t.string :state, default: ""
+      t.string :country, default: ""
       t.string :website, default: ""
-      t.string :linkedin_handle, default: ""
-      t.string :linkedin_url, default: ""
       t.string :twitter_handle, default: ""
       t.string :twitter_url, default: ""
       t.string :youtube_handle, default: ""

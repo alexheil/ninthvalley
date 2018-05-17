@@ -45,19 +45,20 @@ ActiveRecord::Schema.define(version: 20180516222434) do
   create_table "profiles", force: :cascade do |t|
     t.integer  "instructor_id"
     t.integer  "student_id"
-    t.string   "first_name",      default: ""
-    t.string   "last_name",       default: ""
+    t.string   "first_name",     default: ""
+    t.string   "last_name",      default: ""
     t.text     "image_data"
-    t.string   "website",         default: ""
-    t.string   "linkedin_handle", default: ""
-    t.string   "linkedin_url",    default: ""
-    t.string   "twitter_handle",  default: ""
-    t.string   "twitter_url",     default: ""
-    t.string   "youtube_handle",  default: ""
-    t.string   "youtube_url",     default: ""
-    t.text     "biography",       default: ""
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.string   "city",           default: ""
+    t.string   "state",          default: ""
+    t.string   "country",        default: ""
+    t.string   "website",        default: ""
+    t.string   "twitter_handle", default: ""
+    t.string   "twitter_url",    default: ""
+    t.string   "youtube_handle", default: ""
+    t.string   "youtube_url",    default: ""
+    t.text     "biography",      default: ""
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
     t.index ["instructor_id"], name: "index_profiles_on_instructor_id"
     t.index ["student_id"], name: "index_profiles_on_student_id"
   end
