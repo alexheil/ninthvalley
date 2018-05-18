@@ -102,19 +102,19 @@ var signInAndRegister = function() {
   $('#student-sign-in-click').click(function() {
     $('#student-sign-in-container').show();
     $('#instructor-sign-in-container').hide();
-    $('#student-sign-in-click').removeClass("deactive-tab");
+    $('#student-sign-in-click').removeClass("inactive-tab");
     $('#student-sign-in-click').addClass("active-tab");
     $('#instructor-sign-in-click').removeClass("active-tab");
-    $('#instructor-sign-in-click').addClass("deactive-tab");
+    $('#instructor-sign-in-click').addClass("inactive-tab");
   });
 
   $('#instructor-sign-in-click').click(function() {
     $('#instructor-sign-in-container').show();
     $('#student-sign-in-container').hide();
-    $('#instructor-sign-in-click').removeClass("deactive-tab");
+    $('#instructor-sign-in-click').removeClass("inactive-tab");
     $('#instructor-sign-in-click').addClass("active-tab");
     $('#student-sign-in-click').removeClass("active-tab");
-    $('#student-sign-in-click').addClass("deactive-tab");
+    $('#student-sign-in-click').addClass("inactive-tab");
   });
 
   $('#student-register-click').click(function() {
@@ -122,10 +122,10 @@ var signInAndRegister = function() {
     $('#instructor-register-container').hide();
     $('#why-student').show();
     $('#why-instructor').hide();
-    $('#student-register-click').removeClass("deactive-tab");
+    $('#student-register-click').removeClass("inactive-tab");
     $('#student-register-click').addClass("active-tab");
     $('#instructor-register-click').removeClass("active-tab");
-    $('#instructor-register-click').addClass("deactive-tab");
+    $('#instructor-register-click').addClass("inactive-tab");
   });
 
   $('#instructor-register-click').click(function() {
@@ -133,28 +133,28 @@ var signInAndRegister = function() {
     $('#student-register-container').hide();
     $('#why-instructor').show();
     $('#why-student').hide();
-    $('#instructor-register-click').removeClass("deactive-tab");
+    $('#instructor-register-click').removeClass("inactive-tab");
     $('#instructor-register-click').addClass("active-tab");
     $('#student-register-click').removeClass("active-tab");
-    $('#student-register-click').addClass("deactive-tab");
+    $('#student-register-click').addClass("inactive-tab");
   });
 
   $('#student-sign-in-click-page').click(function() {
     $('#student-sign-in-container-page').show();
     $('#instructor-sign-in-container-page').hide();
-    $('#student-sign-in-click-page').removeClass("deactive-tab");
+    $('#student-sign-in-click-page').removeClass("inactive-tab");
     $('#student-sign-in-click-page').addClass("active-tab");
     $('#instructor-sign-in-click-page').removeClass("active-tab");
-    $('#instructor-sign-in-click-page').addClass("deactive-tab");
+    $('#instructor-sign-in-click-page').addClass("inactive-tab");
   });
 
   $('#instructor-sign-in-click-page').click(function() {
     $('#instructor-sign-in-container-page').show();
     $('#student-sign-in-container-page').hide();
-    $('#instructor-sign-in-click-page').removeClass("deactive-tab");
+    $('#instructor-sign-in-click-page').removeClass("inactive-tab");
     $('#instructor-sign-in-click-page').addClass("active-tab");
     $('#student-sign-in-click-page').removeClass("active-tab");
-    $('#student-sign-in-click-page').addClass("deactive-tab");
+    $('#student-sign-in-click-page').addClass("inactive-tab");
   });
 
   $('#student-register-click-page').click(function() {
@@ -162,10 +162,10 @@ var signInAndRegister = function() {
     $('#instructor-register-container-page').hide();
     $('#why-student-page').show();
     $('#why-instructor-page').hide();
-    $('#student-register-click-page').removeClass("deactive-tab");
+    $('#student-register-click-page').removeClass("inactive-tab");
     $('#student-register-click-page').addClass("active-tab");
     $('#instructor-register-click-page').removeClass("active-tab");
-    $('#instructor-register-click-page').addClass("deactive-tab");
+    $('#instructor-register-click-page').addClass("inactive-tab");
   });
 
   $('#instructor-register-click-page').click(function() {
@@ -173,10 +173,10 @@ var signInAndRegister = function() {
     $('#student-register-container-page').hide();
     $('#why-instructor-page').show();
     $('#why-student-page').hide();
-    $('#instructor-register-click-page').removeClass("deactive-tab");
+    $('#instructor-register-click-page').removeClass("inactive-tab");
     $('#instructor-register-click-page').addClass("active-tab");
     $('#student-register-click-page').removeClass("active-tab");
-    $('#student-register-click-page').addClass("deactive-tab");
+    $('#student-register-click-page').addClass("inactive-tab");
   });
 
   $('#search-icon').click(function() {
@@ -207,6 +207,16 @@ var editProfile = function() {
     $('#profile-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
+  });
+
+  $('#remove-image-inactive').change(function(){
+    if($(this).is(":checked")) {
+        $('#remove-image-tab').addClass("active-removal-tab");
+        $('#remove-image-tab').removeClass("inactive-removal-tab");
+    } else {
+        $('#remove-image-tab').removeClass("active-removal-tab");
+        $('#remove-image-tab').addClass("inactive-removal-tab");
+    }
   });
 
 };

@@ -6,10 +6,18 @@
 
 <div class="wrapper">
   <div class="container">
-    <div class="mid-container padding-vertical">
+    <div class="mid-container padding-top">
 
       <div class="padding-bottom mid-text border-bottom">
-        <%= @student.username %><span class="hard-text"> | Student | 18 Courses | 3 Subscriptions | 5 Reviews</span>
+
+        <%= link_to @student.username, student_path(@student) unless @student.profile.first_name.present? || @student.profile.last_name.present? %> 
+        <%= link_to(student_path(@student)) do %>
+          <%= @student.profile.first_name if @student.profile.first_name.present? %> <%= @student.profile.last_name if @student.profile.last_name.present? %>
+        <% end %>
+
+
+
+        <span class="hard-text"> | Student | 18 Courses | 3 Subscriptions | 5 Reviews</span>
       </div>
 
       <div class="flex padding-vertical border-bottom">
@@ -29,12 +37,42 @@
         </div>
 
         <div class="profile-info-container">
-          blah balh
+          <div class="padding-bottom">
+            <%= @student.profile.biography %>
+          </div>
         </div>
 
       </div>
 
     </div>
+
+
+    <div class="body-container padding-vertical">
+      <div class="flex">
+
+        <div class="sidebar">
+          <li>Courses</li>
+          <li>Posts</li>
+          <li>Example</li>
+        </div>
+
+        <div class="content">
+          An sincerity so extremity he additions. Her yet there truth merit. Mrs all projecting favourable now unpleasing. Son law garden chatty temper. Oh children provided to mr elegance marriage strongly. Off can admiration prosperous now devonshire diminution law. 
+
+Am terminated it excellence invitation projection as. She graceful shy believed distance use nay. Lively is people so basket ladies window expect. Supply as so period it enough income he genius. Themselves acceptance bed sympathize get dissimilar way admiration son. Design for are edward regret met lovers. This are calm case roof and. 
+
+Oh he decisively impression attachment friendship so if everything. Whose her enjoy chief new young. Felicity if ye required likewise so doubtful. On so attention necessary at by provision otherwise existence direction. Unpleasing up announcing unpleasant themselves oh do on. Way advantage age led listening belonging supposing. 
+
+Offered say visited elderly and. Waited period are played family man formed. He ye body or made on pain part meet. You one delay nor begin our folly abode. By disposed replying mr me unpacked no. As moonlight of my resolving unwilling. 
+
+No comfort do written conduct at prevent manners on. Celebrated contrasted discretion him sympathize her collecting occasional. Do answered bachelor occasion in of offended no concerns. Supply worthy warmth branch of no ye. Voice tried known to as my to. Though wished merits or be. Alone visit use these smart rooms ham. No waiting in on enjoyed placing it inquiry. 
+        </div>
+
+      </div>
+    </div>
+
+
+
   </div>
 </div>
 
@@ -59,27 +97,30 @@
           <%= f.label :last_name %>
           <%= f.text_field :last_name, class: "text-field" %>
         </div>
-        <div class="field">
-          <%= f.label :image %>
-          <%= f.hidden_field :image, value: Profile.new.cached_image_data %>
-          <%= f.file_field :image %>
-        </div>
 
-
-        <%- if @profile.image_data? %>
+        <% if @profile.image_data? %>
           <div class="field">
             <img class="thumbnail-image" src="<%= @student.profile.image_url(:thumb) %>">
           </div>
-          <div class="field">
-            Remove attachment: <%= f.check_box :remove_image %>
+          <div class="flex border-bottom">
+            <div class="field-two-column center">
+              <label class="image-button" for="profile-image">Upload a profile image</label>
+              <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+            </div>
+            <div class="field-two-column center">
+              <label class="inactive-removal-tab" id="remove-image-tab" for="remove-image-inactive">Remove image</label>
+              <span class="hidden"><%= f.check_box :remove_image, id: "remove-image-inactive" %></span>
+            </div>
           </div>
-          <%= f.label :image %>
-          <%= f.hidden_field :image, value: Profile.new.cached_image_data %>
-          <%= f.file_field :image %>
-        <%- end %>
+        <% else %>
+          <div class="field">
+            <label class="image-button" for="profile-image">Upload a profile image</label>
+              <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+          </div>
+        <% end %>
 
 
-        <div class="field">
+        <div class="field padding-top">
           <%= f.label :city %>
           <%= f.text_field :city, class: "text-field" %>
         </div>

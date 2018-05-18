@@ -86,6 +86,25 @@ a {
   margin: 0 auto;
 }
 
+.body-container {
+  width: 85%;
+  margin: 0 auto;
+}
+
+.content {
+  width: 80%;
+  margin: 0 auto;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.sidebar {
+  width: 15%;
+  margin: 0 auto;
+  display: inline-block;
+  vertical-align: top;
+}
+
 .form-container {
   width: 40%;
   margin: 0 auto;
@@ -133,6 +152,10 @@ a {
 
 /* ***************** UNIVERSAL ************* */
 
+.hidden {
+  display: none;
+}
+
 .bold {
   font-weight: 400;
 }
@@ -150,12 +173,20 @@ a {
   text-align: center;
 }
 
+.right {
+  text-align: right;
+}
+
 .border-top {
   border-top: 1px solid $border;
 }
 
 .border-bottom {
   border-bottom: 1px solid $border;
+}
+
+.border-left {
+  border-left: 1px solid $border;
 }
 
 /* *************** SIZES AND SPACE ************** */
@@ -209,6 +240,7 @@ a {
 
 .active-tab {
   @include transition;
+  box-sizing: border-box;
   background: $main;
   color: $white;
   padding: 2vh 0;
@@ -219,8 +251,9 @@ a {
   box-shadow: $shadow;
 }
 
-.deactive-tab {
+.inactive-tab {
   @include transition;
+  box-sizing: border-box;
   background: transparent;
   color: $black;
   padding: 2vh 0;
@@ -229,6 +262,51 @@ a {
   font-size: .75em;
   &:hover {
     background: $grey;
+  }
+}
+
+.active-removal-tab {
+  @include transition;
+  box-sizing: border-box;
+  background: $red;
+  color: $white;
+  padding: .51vh .51vw;
+  border-radius: $radius;
+  text-transform: uppercase;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  font-size: .75em;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: $radius;
+  font-family: $fancy;
+  border: 1px solid $red;
+  -webkit-font-smoothing: unset;
+  box-shadow: $shadow;
+}
+
+.inactive-removal-tab {
+  box-sizing: border-box;
+  @include transition;
+  background: transparent;
+  color: $black;
+  padding: .51vh .51vw;
+  border-radius: $radius;
+  text-transform: uppercase;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  font-size: .75em;
+  font-weight: 300;
+  cursor: pointer;
+  border-radius: $radius;
+  font-family: $fancy;
+  border: 1px solid transparent;
+  -webkit-font-smoothing: unset;
+  &:hover {
+    background: $grey;
+    border: 1px solid $grey;
   }
 }
 
@@ -250,6 +328,7 @@ a {
   background: $main;
   border: 1px solid $main;
   color: $white;
+  -webkit-font-smoothing: unset;
   &:hover {
     box-shadow: $shadow;
   }
@@ -257,6 +336,11 @@ a {
 
 .submit-button {
   @include buttons;
+}
+
+.image-button {
+  @include buttons;
+  padding: .51vh .51vw;
 }
 
 /* ****************** FORMS ****************** */
@@ -268,6 +352,10 @@ textarea:focus, input:focus {
 label {
   @include textLabels;
   -webkit-font-smoothing: antialiased;
+}
+
+.text-label {
+  @include textLabels;
 }
 
 @mixin fields {
@@ -302,13 +390,22 @@ label {
   @include fields;
   min-width: 100%;
   max-width: 100%;
-  height: 30vh;
+  min-height: 15vh;
+  max-height: 30vh;
+  height: 15vh;
   padding: 1vh 1vw;
   background: $grey;
 }
 
 .field {
   margin: 0 0 2vh 0;
+}
+
+.field-two-column {
+  margin: 0 auto 2vh auto;
+  width: 48%;
+  display: inline-block;
+  vertical-align: top;
 }
 
 /* ***************** NAV ************* */
@@ -452,7 +549,6 @@ label {
   object-fit: cover;
   display: block;
   -webkit-backface-visibility: hidden;
-  box-shadow: $shadow-lite;
 }
 
 /* ******************* JAVASCRIPT ************** */
@@ -775,6 +871,10 @@ svg.search {
   }
 
   #register-form {
+    @include javaScriptForms;
+  }
+
+  #profile-form {
     @include javaScriptForms;
   }
 
