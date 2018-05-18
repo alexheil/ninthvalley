@@ -33,4 +33,8 @@ Rails.application.routes.draw do
     resource :profile, controller: 'profiles/profiles', only: :update
   end
 
+  resources :categories, controller: 'categories/categories' do
+    resources :subcategories, controller: 'categories/subcategories'
+  end
+
 end

@@ -12,7 +12,7 @@ class Profiles::ProfilesController < ApplicationController
       @profile = @student.profile
     end
     if @result = @profile.update_attributes(profile_params)
-      redirect_to root_url
+      redirect_to (:back)
       flash[:notice] = "Updated."
       #respond_to do |format|
       #  format.html { redirect_to (:back) }

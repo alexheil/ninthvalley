@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180516222434) do
+ActiveRecord::Schema.define(version: 20180518205409) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image"
+    t.string   "slug"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
 
   create_table "instructors", force: :cascade do |t|
     t.string   "username",               default: "", null: false
@@ -91,6 +100,15 @@ ActiveRecord::Schema.define(version: 20180516222434) do
     t.index ["slug"], name: "index_students_on_slug", unique: true
     t.index ["unlock_token"], name: "index_students_on_unlock_token", unique: true
     t.index ["username"], name: "index_students_on_username", unique: true
+  end
+
+  create_table "subcategories", force: :cascade do |t|
+    t.string   "title"
+    t.text     "description"
+    t.string   "image"
+    t.string   "slug"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
 end

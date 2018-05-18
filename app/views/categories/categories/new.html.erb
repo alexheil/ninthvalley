@@ -1,0 +1,23 @@
+<%= provide(:title, "Create New Category") %>
+
+<div class="post-title padding-verical center">
+  Create New Category
+</div>
+
+<div class="form-container">
+  <%= form_for(@category, url: categories_path) do |f| %>
+    <%= render 'partials/errors/category_errors' %>
+    <div class="field">
+      <%= f.text_field :title, placeholder: "Title", class: "text-field" %>
+    </div>
+    <div class="field">
+      <%= f.text_field :image, placeholder: "Image", class: "text-field" %>
+    </div>
+    <div class="field">
+      <%= f.text_area :description, placeholder: "Description", class: "text-area" %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Create Category", class: "submit-button" %>
+    </div>
+  <% end %>
+</div>

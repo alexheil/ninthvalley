@@ -13,10 +13,21 @@ class Profile < ApplicationRecord
   belongs_to :instructor
   belongs_to :student
 
+  before_save :create_twitter_url
+  before_save :create_youtube_url
+  before_save :smart_add_url_protocol
+  before_save :downcase
+
   private
 
     def create_twitter_url
+      self.twitter_url = nil if self.twitter_handle.blank?
       self.twitter_url = "https://twitter.com/#{self.twitter_handle}" if self.twitter_handle.present?
+    end
+
+    def create_youtube_url
+      self.youtube_url = nil if self.youtube_handle.blank?
+      self.youtube_url = "https://youtube.com/#{self.youtube_handle}" if self.youtube_handle.present?
     end
 
     def smart_add_url_protocol
@@ -26,8 +37,8 @@ class Profile < ApplicationRecord
     end
 
     def downcase
-      self.twitter_url = twitter_url.downcase
-      self.website = website.downcase
+      self.twitter_url = twitter_url.downcase if self.twitter_url.present?
+      self.website = website.downcase if self.website.present?
     end
   
 end

@@ -38,6 +38,11 @@
 
         <div class="profile-info-container">
           <div class="padding-bottom">
+            <%= @student.profile.city if @student.profile.city.present? %><%= ", " if @student.profile.city.present? && (@student.profile.state.present? || @student.profile.country.present?) %><%= @student.profile.state if @student.profile.state.present? %><%= ", " if @student.profile.state.present? && @student.profile.country.present? %><%= @student.profile.country if @student.profile.country.present? %> 
+
+            <%= "|" if (@student.profile.city.present? || @student.profile.state.present? || @student.profile.country.present?) && (@student.profile.website.present? || @student.profile.twitter_url.present? || @student.profile.youtube_url.present?) %> <%= link_to "Website", @student.profile.website, target: :_blank if @student.profile.website.present? %> <%= "|" if @student.profile.website.present? && (@student.profile.twitter_url.present? || @student.profile.youtube_url.present?) %> <%= link_to "Twitter", @student.profile.twitter_url, target: :_blank, class: "twitter" if @student.profile.twitter_url.present? %> <%= "|" if @student.profile.twitter_url.present? && @student.profile.youtube_url.present? %> <%= link_to "YouTube", @student.profile.youtube_url, target: :_blank, class: "youtube" if @student.profile.youtube_url.present? %>
+          </div>
+          <div class="padding-bottom">
             <%= @student.profile.biography %>
           </div>
         </div>
