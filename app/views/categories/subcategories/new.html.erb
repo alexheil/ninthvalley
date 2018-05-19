@@ -1,12 +1,12 @@
-<%= provide(:title, "Create New Category") %>
+<%= provide(:title, "Create New Subcategory for" + sanitize(@category.title)) %>
 
-<div class="post-title padding-verical center">
-  Create New Category
+<div class="text padding-vertical border-bottom center">
+  Create new subcategory
 </div>
 
-<div class="form-container">
-  <%= form_for(@category, url: categories_path) do |f| %>
-    <%= render 'partials/errors/category_errors' %>
+<div class="form-container padding-vertical">
+  <%= form_for(@subcategory, url: category_subcategories_path) do |f| %>
+    <%= render 'partials/errors/subcategory_errors' %>
     <div class="field">
       <%= f.text_field :title, placeholder: "Title", class: "text-field" %>
     </div>
@@ -17,7 +17,7 @@
       <%= f.text_area :description, placeholder: "Description", class: "text-area" %>
     </div>
     <div class="actions">
-      <%= f.submit "Create Category", class: "submit-button" %>
+      <%= f.submit "Create subcategory", class: "submit-button" %>
     </div>
   <% end %>
 </div>

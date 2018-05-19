@@ -66,6 +66,11 @@ a {
   background: $main;
 }
 
+img {
+  border-radius: $radius;
+  display: block;
+}
+
 .mobile-only {
   display: none;
 }

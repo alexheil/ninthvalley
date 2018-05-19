@@ -1,0 +1,43 @@
+<%= provide(:title, sanitize(@subcategory.title)) %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="mid-container padding-top">
+
+      <div class="padding-bottom mid-text border-bottom">
+
+        <%= @subcategory.title %>
+
+        <span class="hard-text"> | 18 Courses</span>
+      </div>
+
+      <div class="padding-vertical border-bottom">
+
+        <img srcset="<%= @subcategory.image %>" width="100%" height="auto">
+
+        <div class="padding-top">
+          <%= @subcategory.description %>
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="body-container padding-vertical">
+      <div class="flex">
+
+        <div class="sidebar">
+          <%= @subcategory.category_id %>
+        </div>
+
+        <div class="content">
+          "<\n% @subcategory.courses.each do |course| %>
+                          <\n%= link_to course.title, instructor_course_path(course.instructor, course) %>
+                        <\n% end %>"
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

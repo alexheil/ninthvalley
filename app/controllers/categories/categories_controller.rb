@@ -4,15 +4,10 @@ class Categories::CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
-    @recent_posts = Post.reorder("created_at desc").limit(5)
   end
 
   def show
-    @categories = Category.all
     @category = Category.friendly.find(params[:id])
-    @posts = @category.posts.page params[:page]
-    @top_post = @category.posts.last
-    @recent_posts = Post.reorder("created_at desc").limit(5)
   end
 
   def new
