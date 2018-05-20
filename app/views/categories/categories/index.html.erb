@@ -1,0 +1,80 @@
+<%= provide(:title, "Categories") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="mid-container padding-top">
+
+      <div class="padding-bottom mid-text border-bottom">
+        Categories
+      </div>
+
+      <div class="padding-vertical border-bottom">
+
+        <img srcset="https://i.imgur.com/z6Qqgxa.jpg" width="100%" height="auto">
+
+        <div class="padding-top">
+          All the categories for Ninth Valley!
+        </div>
+      </div>
+
+    </div>
+
+
+    <div class="body-container padding-vertical">
+      <div class="flex">
+
+        <aside class="sidebar">
+          <ul>
+            <% @categories.each do |category| %>
+              <li><%= link_to category.title, category_path(category) %></li>
+            <% end %>
+          </ul>
+        </aside>
+
+        <main class="content">
+
+          <div class="padding-bottom border-bottom">
+            <div class="mid-text padding-bottom">
+              Popular
+            </div>
+            <div class="">
+              <div class="flex">
+                <div class="five-column">
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% @categories.each do |category| %>
+            <div class="padding-vertical border-bottom">
+              <div class="mid-text padding-bottom">
+                <%= link_to category.title, category_path(category) %>
+              </div>
+              <div class="flex">
+                <% category.subcategories.take(8).each do |course| %>
+                  <div class="four-column border shadow margin-bottom">
+                    <%= link_to(category_subcategory_path(category, course)) do %>
+                      <img class="thumbnail-image-feed-five" src="<%= course.image %>">
+                    <% end %>
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical border-bottom">
+                        <%= course.title %>
+                      </div>
+                    </div>
+                    <div class="padding-vertical padding-horizontal">
+                      <%= course.description %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+
+        </main>
+
+      </div>
+    </div>
+
+  </div>
+</div>
