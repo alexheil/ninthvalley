@@ -63,7 +63,7 @@
                       </div>
                     </div>
                     <div class="padding-vertical padding-horizontal">
-                      <%= course.description %>
+                      <%= truncate(course.description, length: 50) %>
                     </div>
                   </div>
                 <% end %>
