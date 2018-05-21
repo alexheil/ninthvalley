@@ -36,7 +36,7 @@
           <% end %>
         </div>
 
-        <div class="profile-info-container">
+        //<div class="profile-info-container">
           <div class="padding-bottom">
             <%= @student.profile.city if @student.profile.city.present? %><%= ", " if @student.profile.city.present? && (@student.profile.state.present? || @student.profile.country.present?) %><%= @student.profile.state if @student.profile.state.present? %><%= ", " if @student.profile.state.present? && @student.profile.country.present? %><%= @student.profile.country if @student.profile.country.present? %> 
 
