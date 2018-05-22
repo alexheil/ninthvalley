@@ -31,9 +31,9 @@
         </div>
 
         <div class="content">
-          "<\n% @subcategory.courses.each do |course| %>
-                          <\n%= link_to course.title, instructor_course_path(course.instructor, course) %>
-                        <\n% end %>"
+          <% @subcategory.courses.each do |course| %>
+            <li><%= link_to course.title, instructor_course_path(course.instructor, course) %></li>
+          <% end %>
         </div>
 
       </div>

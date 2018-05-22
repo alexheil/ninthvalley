@@ -12,6 +12,11 @@ class Instructor < ApplicationRecord
 
   has_one :profile, dependent: :destroy
 
+  has_many :courses, dependent: :destroy
+  has_many :tracks, dependent: :destroy
+  has_many :videos, dependent: :destroy
+  has_many :comments, dependent: :destroy
+
   before_save :should_generate_new_friendly_id?, if: :username_changed?
   before_save :downcase_username
 

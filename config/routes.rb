@@ -31,6 +31,14 @@ Rails.application.routes.draw do
 
   resources :instructors, controller: 'instructors/instructors', only: :show do
     resource :profile, controller: 'profiles/profiles', only: :update
+    resources :courses, controller: 'instructors/courses' do 
+      resources :reviews, controller: 'instructors/reviews', only: [:create, :update, :destroy]
+      resources :tracks, controller: 'instructors/tracks' do
+        resources :videos, controller: 'instructors/videos' do
+          resources :comments, controller: 'instructors/comments', only: [:create, :update, :destroy]
+        end
+      end
+    end
   end
 
   resources :categories, controller: 'categories/categories' do

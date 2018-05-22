@@ -3,7 +3,7 @@ class Category < ApplicationRecord
   friendly_id :title, use: :slugged
 
   has_many :subcategories
-  #has_many :courses
+  has_many :courses
 
   before_save :should_generate_new_friendly_id?, if: :title_changed?
   

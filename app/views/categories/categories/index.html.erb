@@ -52,7 +52,7 @@
                 <%= link_to category.title, category_path(category) %>
               </div>
               <div class="flex">
-                <% category.subcategories.take(8).each do |course| %>
+                <% category.courses.take(8).each do |course| %>
                   <div class="four-column border shadow margin-bottom">
                     <%= link_to(category_subcategory_path(category, course)) do %>
                       <img class="thumbnail-image-feed-five" src="<%= course.image %>">
@@ -63,7 +63,7 @@
                       </div>
                     </div>
                     <div class="padding-vertical padding-horizontal mini-text">
-                      <%= truncate(course.description, length: 50) %>
+                      <%= course.tagline %>
                     </div>
                   </div>
                 <% end %>
