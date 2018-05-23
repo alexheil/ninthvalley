@@ -2,7 +2,7 @@ class Instructors::VideosController < ApplicationController
 
   before_action :authenticate_instructor!, except: :show
   before_action :correct_instructor, only: :create
-  before_action :correct_course_instructor, only: [:update, :destroy]
+  before_action :correct_video_instructor, only: [:update, :destroy]
   before_action :set_instructor, except: :show
 
   def show
@@ -43,6 +43,7 @@ class Instructors::VideosController < ApplicationController
     @course = Course.friendly.find(params[:course_id])
     @track = Track.friendly.find(params[:track_id])
     @video = Video.friendly.find(params[:id]).destroy
+    redirect_to instructor_course_track_path(@instructor, @course, @track)
   end
 
   private
@@ -63,9 +64,11 @@ class Instructors::VideosController < ApplicationController
       end
     end
 
-    def correct_course_instructor
-      @course = Course.friendly.find(params[:id])
-      redirect_to instructor_path(@course.instructor_id) if @course.instructor_id != current_instructor.id
+    def correct_video_instructor
+      @course = Course.friendly.find(params[:course_id])
+      @track = Track.friendly.find(params[:track_id])
+      @video = Video.friendly.find(params[:id])
+      redirect_to instructor_path(@course.instructor_id) if @video.instructor_id != current_instructor.id
     end
 
 end

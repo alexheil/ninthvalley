@@ -6,10 +6,149 @@
 
 <div class="wrapper">
   <div class="container">
-    <div class="mid-container padding-vertical">
-      <%= @instructor.username %>
+    <div class="mid-container padding-top">
+
+      <div class="padding-bottom mid-text border-bottom">
+
+        <%= link_to @instructor.username, instructor_path(@instructor) unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> 
+        <%= link_to(instructor_path(@instructor)) do %>
+          <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %>
+        <% end %>
+
+
+
+        <span class="hard-text"> | Instructor | 18 Courses | 3 Subscriptions | 5 Reviews</span>
+      </div>
+
+      <div class="flex padding-vertical border-bottom">
+
+        <div class="profile-picture-container">
+          <% if instructor_signed_in? && current_instructor == @instructor %>
+          <div class="padding-bottom">
+            <div id="edit-profile-click">
+              Edit Profile
+            </div>
+          </div>
+          <% end %>
+
+          <% if @instructor.profile.image_url(:thumb).present? %>
+            <img class="thumbnail-image" src="<%= @instructor.profile.image_url(:thumb) %>">
+          <% end %>
+        </div>
+
+        <div class="profile-info-container">
+          <div class="padding-bottom">
+            <%= @instructor.profile.city if @instructor.profile.city.present? %><%= ", " if @instructor.profile.city.present? && (@instructor.profile.state.present? || @instructor.profile.country.present?) %><%= @instructor.profile.state if @instructor.profile.state.present? %><%= ", " if @instructor.profile.state.present? && @instructor.profile.country.present? %><%= @instructor.profile.country if @instructor.profile.country.present? %> 
+
+            <%= "|" if (@instructor.profile.city.present? || @instructor.profile.state.present? || @instructor.profile.country.present?) && (@instructor.profile.website.present? || @instructor.profile.twitter_url.present? || @instructor.profile.youtube_url.present?) %> <%= link_to "Website", @instructor.profile.website, target: :_blank if @instructor.profile.website.present? %> <%= "|" if @instructor.profile.website.present? && (@instructor.profile.twitter_url.present? || @instructor.profile.youtube_url.present?) %> <%= link_to "Twitter", @instructor.profile.twitter_url, target: :_blank, class: "twitter" if @instructor.profile.twitter_url.present? %> <%= "|" if @instructor.profile.twitter_url.present? && @instructor.profile.youtube_url.present? %> <%= link_to "YouTube", @instructor.profile.youtube_url, target: :_blank, class: "youtube" if @instructor.profile.youtube_url.present? %>
+          </div>
+          <div class="padding-bottom">
+            <%= @instructor.profile.biography %>
+          </div>
+        </div>
+
+      </div>
+
     </div>
+
+
+    <div class="body-container padding-vertical">
+      <div class="flex">
+
+        <div class="sidebar">
+          <li>Courses</li>
+          <li>Posts</li>
+          <li>Example</li>
+        </div>
+
+        <div class="content">
+          
+        </div>
+
+      </div>
+    </div>
+
+
+
   </div>
 </div>
 
-<%= @instructor.profile.created_at %>
+<% if instructor_signed_in? && current_instructor == @instructor %>
+
+  <div id="profile-form">
+    <div class="profile-form-inside">
+      <div class="close"></div>
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Edit your profile
+      </div>
+
+      <%= form_for(@profile, url: instructor_profile_path(@instructor)) do |f| %>
+        <span id="profile_errors"><%= render 'partials/errors/profile_errors' %></span>
+        
+        <div class="field padding-top">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name, class: "text-field" %>
+        </div>
+
+        <% if @profile.image_data? %>
+          <div class="field">
+            <img class="thumbnail-image" src="<%= @instructor.profile.image_url(:thumb) %>">
+          </div>
+          <div class="flex border-bottom">
+            <div class="field-two-column center">
+              <label class="image-button" for="profile-image">Upload a profile image</label>
+              <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+            </div>
+            <div class="field-two-column center">
+              <label class="inactive-removal-tab" id="remove-image-tab" for="remove-image-inactive">Remove image</label>
+              <span class="hidden"><%= f.check_box :remove_image, id: "remove-image-inactive" %></span>
+            </div>
+          </div>
+        <% else %>
+          <div class="field">
+            <label class="image-button" for="profile-image">Upload a profile image</label>
+              <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+          </div>
+        <% end %>
+
+
+        <div class="field padding-top">
+          <%= f.label :city %>
+          <%= f.text_field :city, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :state %>
+          <%= f.text_field :state, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :country %>
+          <%= f.text_field :country, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :website %>
+          <%= f.text_field :website, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :twitter_handle %>
+          <%= f.text_field :twitter_handle, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :youtube_handle %>
+          <%= f.text_field :youtube_handle, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :biography %>
+          <%= f.text_area :biography, class: "text-area" %>
+        </div>
+
+         <%= f.submit "Update profile", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>

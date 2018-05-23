@@ -2,7 +2,7 @@ class Instructors::TracksController < ApplicationController
 
   before_action :authenticate_instructor!, except: :show
   before_action :correct_instructor, only: :create
-  before_action :correct_course_instructor, only: [:update, :destroy]
+  before_action :correct_track_instructor, only: [:update, :destroy]
   before_action :set_instructor, except: :show
 
   def show
@@ -39,6 +39,7 @@ class Instructors::TracksController < ApplicationController
   def destroy
     @course = Course.friendly.find(params[:course_id])
     @track = Track.friendly.find(params[:id]).destroy
+    redirect_to instructor_course_path(@instructor, @course)
   end
 
   private
@@ -52,16 +53,17 @@ class Instructors::TracksController < ApplicationController
     end
 
     def correct_instructor
-      @instructor = User.friendly.find(params[:instructor_id])
+      @instructor = Instructor.friendly.find(params[:instructor_id])
       if current_instructor != @instructor
         redirect_to instructor_path(@instructor)
         flash[:alert] = "This is not your profile."
       end
     end
 
-    def correct_course_instructor
-      @course = Course.friendly.find(params[:id])
-      redirect_to instructor_path(@course.instructor_id) if @course.instructor_id != current_instructor.id
+    def correct_track_instructor
+      @course = Course.friendly.find(params[:course_id])
+      @track = Track.friendly.find(params[:id])
+      redirect_to instructor_path(@course.instructor_id) if @track.instructor_id != current_instructor.id
     end
 
 end
