@@ -239,6 +239,13 @@ img {
   vertical-align: top;
 }
 
+.seventy-column {
+  margin: 0 auto;
+  width: 73%;
+  display: inline-block;
+  vertical-align: top;
+}
+
 .margin-bottom {
   margin-bottom: 2vh;
 }
@@ -622,6 +629,35 @@ label {
   -webkit-backface-visibility: hidden;
 }
 
+.post-content {
+  word-break: break-word;
+  white-space: pre-line;
+  padding-bottom: 2vh;
+  margin-top: -25px;
+}
+
+.track-card {
+  width: 100%;
+  margin-top: 2vh;
+  cursor: pointer;
+}
+
+.video-card {
+  @include transition;
+  width: 100%;
+  margin-bottom: 2vh;
+  cursor: pointer;
+  background: $grey;
+  font-size: .75em;
+  padding: .51vh 0;
+  text-transform: uppercase;
+  border-radius: $radius;
+  color: $black;
+  &:hover {
+    box-shadow: $shadow;
+  }
+}
+
 /* ******************* JAVASCRIPT ************** */
 
 @mixin javaScriptForms {
@@ -890,13 +926,26 @@ svg.search {
   @include javaScriptForms;
 }
 
-#video-button-click {
+.edit-track-button-click {
   @include buttons;
   padding: .51vh .51vw;
 }
 
-#video-form {
+.edit-track-form {
   @include javaScriptForms;
+}
+
+.video-button-click {
+  @include buttons;
+  padding: .51vh .51vw;
+}
+
+.video-form {
+  @include javaScriptForms;
+}
+
+.video-list {
+  display: none;
 }
 
 #second-tab {
@@ -912,6 +961,10 @@ svg.search {
 }
 
 #fifth-tab {
+  display: none;
+}
+
+#sixth-tab {
   display: none;
 }
 

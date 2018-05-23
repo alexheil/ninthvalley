@@ -10,6 +10,7 @@ class Instructors::CoursesController < ApplicationController
     @course = Course.friendly.find(params[:id])
     if instructor_signed_in? && current_instructor == @instructor
       @track = Track.new
+      @video = Video.new
     end
   end
 

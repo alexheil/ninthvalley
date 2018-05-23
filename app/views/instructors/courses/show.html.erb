@@ -54,7 +54,8 @@
             <li><span id="second-tab-click" class="inactive-sidebar-tab">Tracks</span></li>
             <li><span id="third-tab-click" class="inactive-sidebar-tab">Highlights</span></li>
             <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Requirements</span></li>
-            <li><span id="fifth-tab-click" class="inactive-sidebar-tab">Description</span></li>
+            <li><span id="fifth-tab-click" class="inactive-sidebar-tab">Target</span></li>
+            <li><span id="sixth-tab-click" class="inactive-sidebar-tab">Description</span></li>
           </ul>
         </aside>
 
@@ -69,23 +70,210 @@
           <% end %>
 
           <div id="first-tab">
-            Overview
+            <div class="mid-text">
+              Tracks 
+            </div>
+
+            <% @course.tracks.take(3).each do |track| %>
+              <div class="track-card inactive-tab">
+                <div class="padding-horizontal flex">
+                  <div class="two-column">
+                    <%= track.title %>
+                  </div>
+                  <div class="two-column right">
+                    <span class="expand-videos"><%= pluralize(track.videos.count, "video") %></span>
+                  </div>
+                </div>
+              </div>
+              <div class="video-list border-bottom padding-top">
+                <% track.videos.take(3).each do |video| %>
+                  <%= link_to(instructor_course_track_video_path(@instructor, @course, track, video)) do %>
+                    <div class="video-card">
+                      <div class="padding-horizontal flex">
+                        <div class="two-column">
+                          <%= video.title %>
+                        </div>
+                        <div class="two-column right">
+                          01:02
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+                <% if track.videos.count > 3 %>
+                  <div class="padding-bottom mini-text">
+                    <%= pluralize(track.videos.count - 3, "more video") %>
+                  </div>
+                <% end %>
+              </div>
+            <% end %>
+
+            <% if @course.tracks.count > 3 %>
+              <div class="padding-vertical mini-text">
+                <%= link_to "#{@course.tracks.count - 3} more tracks", instructor_course_tracks_path(@instructor, @course) %>
+              </div>
+            <% end %>
+            <div class="padding-bottom mid-text">
+              Highlights
+            </div>
+            <div class="post-content">
+              <%= sanitize(truncate(@course.highlights, length: 280)) %>
+            </div>
+            <div class="padding-bottom mid-text">
+              Requirements
+            </div>
+            <div class="post-content">
+              <%= sanitize(truncate(@course.requirements, length: 280)) %>
+            </div>
+            <div class="padding-bottom mid-text">
+              Target
+            </div>
+            <div class="post-content">
+              <%= sanitize(truncate(@course.target, length: 280)) %>
+            </div>
+            <div class="padding-bottom mid-text">
+              Description
+            </div>
+            <div class="post-content">
+              <%= sanitize(truncate(@course.description, length: 280)) %>
+            </div>
           </div>
 
           <div id="second-tab">
-            Tracks
+            <div class="padding-bottom mid-text">
+              Tracks 
+            </div>
+            <% @course.tracks.each do |track| %>
+              <div class="track-card inactive-tab">
+                <div class="padding-horizontal flex">
+                  <div class="two-column">
+                    <%= track.title %>
+                  </div>
+                  <div class="two-column right">
+                    <span class="expand-videos"><%= pluralize(track.videos.count, "video") %></span>
+                  </div>
+                </div>
+              </div>
+              <div class="video-list border-bottom padding-top">
+
+                <% if instructor_signed_in? && current_instructor == @instructor %>
+
+                  <div class="flex">
+                    <div class="four-column padding-bottom">
+                      <div class="edit-track-button-click">
+                        Edit track
+                      </div>
+                    </div>
+                    <div class="seventy-column padding-bottom">
+                      <div class="video-button-click">
+                        Create a video
+                      </div>
+                    </div>
+                  </div>
+
+                <% end %>
+
+                <% track.videos.each do |video| %>
+                  <%= link_to(instructor_course_track_video_path(@instructor, @course, track, video)) do %>
+                    <div class="video-card">
+                      <div class="padding-horizontal flex">
+                        <div class="two-column">
+                          <%= video.title %>
+                        </div>
+                        <div class="two-column right">
+                          01:02
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+
+              <% if instructor_signed_in? && current_instructor == @instructor %>
+  
+                <div class="edit-track-form">
+                  <div class="popup-form-inside">
+                    <div class="close"></div>
+
+                    <div class="padding-bottom center mid-text border-bottom">
+                      Edit your track
+                    </div>
+
+                    <%= form_for(track, url: instructor_course_track_path(@instructor, @course, track)) do |f| %>
+                      <span id="track_errors"><%= render 'partials/errors/track_errors' %></span>
+                      
+                      <div class="field padding-top">
+                        <%= f.label :title %>
+                        <%= f.text_field :title, class: "text-field" %>
+                      </div>
+
+                       <%= f.submit "Update track", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+                    <% end %>
+                  </div>
+                </div>
+
+
+                <div class="video-form">
+                  <div class="popup-form-inside">
+                    <div class="close"></div>
+
+                    <div class="padding-bottom center mid-text border-bottom">
+                      Create a video
+                    </div>
+
+                    <%= form_for(@video, url: instructor_course_track_videos_path(@instructor, @course, track)) do |f| %>
+                      <span id="video_errors"><%= render 'partials/errors/video_errors' %></span>
+                      
+                      <div class="field padding-top">
+                        <%= f.label :title %>
+                        <%= f.text_field :title, class: "text-field" %>
+                      </div>
+
+                       <%= f.submit "Create video", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+                    <% end %>
+                  </div>
+                </div>
+
+              <% end %>
+
+
+            <% end %>
           </div>
 
           <div id="third-tab">
-            <%= @course.highlights %>
+            <div class="padding-bottom mid-text">
+              Highlights
+            </div>
+            <div class="post-content">
+              <%= sanitize(@course.highlights) %>
+            </div>
           </div>
 
           <div id="fourth-tab">
-            <%= @course.requirements %>
+            <div class="padding-bottom mid-text">
+              Requirements
+            </div>
+            <div class="post-content">
+              <%= sanitize(@course.requirements) %>
+            </div>
           </div>
 
           <div id="fifth-tab">
-            <%= @course.description %>
+            <div class="padding-bottom mid-text">
+              Target
+            </div>
+            <div class="post-content">
+              <%= sanitize(@course.target) %>
+            </div>
+          </div>
+
+          <div id="sixth-tab">
+            <div class="padding-bottom mid-text">
+              Description
+            </div>
+            <div class="post-content">
+              <%= sanitize(@course.description) %>
+            </div>
           </div>
 
         </main>
@@ -146,20 +334,20 @@
           <%= f.text_field :language, class: "text-field" %>
         </div>
         <div class="field">
-          <%= f.label :requirements %>
-          <%= f.text_area :requirements, class: "text-area" %>
-        </div>
-        <div class="field">
-          <%= f.label :description %>
-          <%= f.text_area :description, class: "text-area" %>
-        </div>
-        <div class="field">
           <%= f.label :highlights %>
           <%= f.text_area :highlights, class: "text-area" %>
         </div>
         <div class="field">
+          <%= f.label :requirements %>
+          <%= f.text_area :requirements, class: "text-area" %>
+        </div>
+        <div class="field">
           <%= f.label :target %>
           <%= f.text_area :target, class: "text-area" %>
+        </div>
+        <div class="field">
+          <%= f.label :description %>
+          <%= f.text_area :description, class: "text-area" %>
         </div>
         <div class="field">
           <%= f.label :price %>
@@ -180,9 +368,6 @@
   </div>
 
 
-
-
-
   <div id="track-form">
     <div class="popup-form-inside">
       <div class="close"></div>
@@ -199,7 +384,7 @@
           <%= f.text_field :title, class: "text-field" %>
         </div>
 
-         <%= f.submit "Create track", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+         <%= f.submit "Create track", data: { disable_with: 'Creating...' }, class: "submit-button" %>
       <% end %>
     </div>
   </div>

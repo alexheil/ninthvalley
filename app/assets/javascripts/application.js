@@ -209,10 +209,24 @@ var editProfile = function() {
     $('.wrapper').addClass("blur", 300);
   });
 
+  $('.edit-track-button-click').click(function() {
+    $('.edit-track-form').hide();
+    $(this).parent().parent().parent().next().fadeIn(100);
+    $('.back').fadeIn(300);
+  });
+
+  $('.video-button-click').click(function() {
+    $('.video-form').hide();
+    $(this).parent().parent().parent().next().next().fadeIn(100);
+    $('.back').fadeIn(300);
+  });
+
   $('.back').click(function() {
     $('#profile-form').fadeOut(300);
     $('#course-form').fadeOut(300);
     $('#track-form').fadeOut(300);
+    $('.edit-track-form').fadeOut(300);
+    $('.video-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });
@@ -221,6 +235,8 @@ var editProfile = function() {
     $('#profile-form').fadeOut(300);
     $('#course-form').fadeOut(300);
     $('#track-form').fadeOut(300);
+    $('.edit-track-form').fadeOut(300);
+    $('.video-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });
@@ -259,6 +275,9 @@ var sidebarTabs = function() {
     $('#fifth-tab').hide();
     $('#fifth-tab-click').addClass('inactive-sidebar-tab');
     $('#fifth-tab-click').removeClass('active-sidebar-tab');
+    $('#sixth-tab').hide();
+    $('#sixth-tab-click').addClass('inactive-sidebar-tab');
+    $('#sixth-tab-click').removeClass('active-sidebar-tab');
   });
 
   $('#second-tab-click').click(function() {
@@ -277,6 +296,9 @@ var sidebarTabs = function() {
     $('#fifth-tab').hide();
     $('#fifth-tab-click').addClass('inactive-sidebar-tab');
     $('#fifth-tab-click').removeClass('active-sidebar-tab');
+    $('#sixth-tab').hide();
+    $('#sixth-tab-click').addClass('inactive-sidebar-tab');
+    $('#sixth-tab-click').removeClass('active-sidebar-tab');
   });
 
   $('#third-tab-click').click(function() {
@@ -295,6 +317,9 @@ var sidebarTabs = function() {
     $('#fifth-tab').hide();
     $('#fifth-tab-click').addClass('inactive-sidebar-tab');
     $('#fifth-tab-click').removeClass('active-sidebar-tab');
+    $('#sixth-tab').hide();
+    $('#sixth-tab-click').addClass('inactive-sidebar-tab');
+    $('#sixth-tab-click').removeClass('active-sidebar-tab');
   });
 
   $('#fourth-tab-click').click(function() {
@@ -313,6 +338,9 @@ var sidebarTabs = function() {
     $('#fifth-tab').hide();
     $('#fifth-tab-click').addClass('inactive-sidebar-tab');
     $('#fifth-tab-click').removeClass('active-sidebar-tab');
+    $('#sixth-tab').hide();
+    $('#sixth-tab-click').addClass('inactive-sidebar-tab');
+    $('#sixth-tab-click').removeClass('active-sidebar-tab');
   });
 
   $('#fifth-tab-click').click(function() {
@@ -331,6 +359,39 @@ var sidebarTabs = function() {
     $('#fourth-tab').hide();
     $('#fourth-tab-click').addClass('inactive-sidebar-tab');
     $('#fourth-tab-click').removeClass('active-sidebar-tab');
+    $('#sixth-tab').hide();
+    $('#sixth-tab-click').addClass('inactive-sidebar-tab');
+    $('#sixth-tab-click').removeClass('active-sidebar-tab');
+  });
+
+  $('#sixth-tab-click').click(function() {
+    $('#sixth-tab').fadeIn(300);
+    $('#sixth-tab-click').addClass('active-sidebar-tab');
+    $('#sixth-tab-click').removeClass('inactive-sidebar-tab');
+    $('#first-tab').hide();
+    $('#first-tab-click').addClass('inactive-sidebar-tab');
+    $('#first-tab-click').removeClass('active-sidebar-tab');
+    $('#second-tab').hide();
+    $('#second-tab-click').addClass('inactive-sidebar-tab');
+    $('#second-tab-click').removeClass('active-sidebar-tab');
+    $('#third-tab').hide();
+    $('#third-tab-click').addClass('inactive-sidebar-tab');
+    $('#third-tab-click').removeClass('active-sidebar-tab');
+    $('#fourth-tab').hide();
+    $('#fourth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fourth-tab-click').removeClass('active-sidebar-tab');
+    $('#fifth-tab').hide();
+    $('#fifth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fifth-tab-click').removeClass('active-sidebar-tab');
+  });
+
+  $('.track-card').click(function() {
+    $('.track-card').removeClass('active-tab');
+    $('.track-card').addClass('inactive-tab');
+    $(this).addClass('active-tab');
+    $(this).removeClass('inactive-tab');
+    $('.video-list').hide();
+    $(this).next('.video-list').slideDown(300).delay(100);
   });
 
 };
