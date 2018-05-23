@@ -57,7 +57,7 @@ class Instructors::VideosController < ApplicationController
     end
 
     def correct_instructor
-      @instructor = User.friendly.find(params[:instructor_id])
+      @instructor = Instructor.friendly.find(params[:instructor_id])
       if current_instructor != @instructor
         redirect_to instructor_path(@instructor)
         flash[:alert] = "This is not your profile."

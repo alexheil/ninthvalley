@@ -2,6 +2,8 @@ class Course < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
+  include ImageUploader[:image]
+
   belongs_to :instructor
   belongs_to :category
   belongs_to :subcategory

@@ -15,6 +15,7 @@ class Instructor < ApplicationRecord
   has_many :courses, dependent: :destroy
   has_many :tracks, dependent: :destroy
   has_many :videos, dependent: :destroy
+  has_many :reviews, dependent: :destroy
   has_many :comments, dependent: :destroy
 
   before_save :should_generate_new_friendly_id?, if: :username_changed?

@@ -109,7 +109,7 @@ img {
   display: inline-block;
   vertical-align: top;
   ul {
-    padding: 0vh 2vw;
+    padding: 0;
     margin: 0;
     li {
       padding-bottom: 2vh;
@@ -364,6 +364,23 @@ img {
   }
 }
 
+.active-sidebar-tab {
+  @include transition;
+  border-left: 3px solid $main;
+  padding-left: 2vw;
+  cursor: pointer;
+}
+
+.inactive-sidebar-tab {
+  @include transition;
+  border-left: 3px solid transparent;
+  padding-left: 2vw;
+  cursor: pointer;
+  &:hover {
+    border-left: 3px solid $grey;
+  }
+}
+
 @mixin buttons {
   @include transition;
   width: 100%;
@@ -615,7 +632,7 @@ label {
   margin: 0 10% 0 0;
   z-index: 1005;
   display: none;
-  .profile-form-inside {
+  .popup-form-inside {
     width: 40%;
     background: $white;
     margin: 2vh auto;
@@ -846,13 +863,56 @@ svg.search {
   display: none;
 }
 
-#edit-profile-click {
+#profile-button-click {
   @include buttons;
   padding: .51vh .51vw;
 }
 
 #profile-form {
   @include javaScriptForms;
+}
+
+#course-button-click {
+  @include buttons;
+  padding: .51vh .51vw;
+}
+
+#course-form {
+  @include javaScriptForms;
+}
+
+#track-button-click {
+  @include buttons;
+  padding: .51vh .51vw;
+}
+
+#track-form {
+  @include javaScriptForms;
+}
+
+#video-button-click {
+  @include buttons;
+  padding: .51vh .51vw;
+}
+
+#video-form {
+  @include javaScriptForms;
+}
+
+#second-tab {
+  display: none;
+}
+
+#third-tab {
+  display: none;
+}
+
+#fourth-tab {
+  display: none;
+}
+
+#fifth-tab {
+  display: none;
 }
 
 /* ******************** MeDIA QUERIES **************** */
@@ -914,7 +974,7 @@ svg.search {
   }
 
   @mixin javaScriptForms {
-    .profile-form-inside {
+    .popup-form-inside {
       padding: 2vh 2vw;
       width: 60%;
     }
@@ -987,7 +1047,7 @@ svg.search {
   }
 
   @mixin javaScriptForms {
-    .profile-form-inside {
+    .popup-form-inside {
       width: 90%;
       padding: 2vh 2vw;
     }

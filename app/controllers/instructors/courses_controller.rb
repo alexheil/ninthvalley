@@ -8,6 +8,9 @@ class Instructors::CoursesController < ApplicationController
   def show
     @instructor = Instructor.friendly.find(params[:instructor_id])
     @course = Course.friendly.find(params[:id])
+    if instructor_signed_in? && current_instructor == @instructor
+      @track = Track.new
+    end
   end
 
   def create
@@ -47,7 +50,7 @@ class Instructors::CoursesController < ApplicationController
     end
 
     def correct_instructor
-      @instructor = User.friendly.find(params[:instructor_id])
+      @instructor = Instructor.friendly.find(params[:instructor_id])
       if current_instructor != @instructor
         redirect_to instructor_path(@instructor)
         flash[:alert] = "This is not your profile."

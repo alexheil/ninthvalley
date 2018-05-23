@@ -15,20 +15,17 @@
           <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %>
         <% end %>
 
-
-
-        <span class="hard-text"> | Instructor | 18 Courses | 3 Subscriptions | 5 Reviews</span>
       </div>
 
       <div class="flex padding-vertical border-bottom">
 
         <div class="profile-picture-container">
           <% if instructor_signed_in? && current_instructor == @instructor %>
-          <div class="padding-bottom">
-            <div id="edit-profile-click">
-              Edit Profile
+            <div class="padding-bottom">
+              <div id="profile-button-click">
+                Edit Profile
+              </div>
             </div>
-          </div>
           <% end %>
 
           <% if @instructor.profile.image_url(:thumb).present? %>
@@ -37,6 +34,9 @@
         </div>
 
         <div class="profile-info-container">
+          <div class="padding-bottom">
+            Instructor | <%= pluralize(@instructor.courses.count, "Course") %> | 3 Students | <%= pluralize(@instructor.reviews.count, "Review") %>
+          </div>
           <div class="padding-bottom">
             <%= @instructor.profile.city if @instructor.profile.city.present? %><%= ", " if @instructor.profile.city.present? && (@instructor.profile.state.present? || @instructor.profile.country.present?) %><%= @instructor.profile.state if @instructor.profile.state.present? %><%= ", " if @instructor.profile.state.present? && @instructor.profile.country.present? %><%= @instructor.profile.country if @instructor.profile.country.present? %> 
 
@@ -55,15 +55,43 @@
     <div class="body-container padding-vertical">
       <div class="flex">
 
-        <div class="sidebar">
-          <li>Courses</li>
-          <li>Posts</li>
-          <li>Example</li>
-        </div>
+        <aside class="sidebar">
+          <ul>
+            <li>Overview</li>
+            <li>Courses</li>
+            <li>Posts</li>
+          </ul>
+        </aside>
 
-        <div class="content">
+        <main class="content">
           
-        </div>
+          <% if instructor_signed_in? && current_instructor == @instructor %>
+            <div class="padding-bottom">
+              <div id="course-button-click">
+                Create a course
+              </div>
+            </div>
+          <% end %>
+
+          <% @popular_courses.each do |course| %>
+            <div class="four-column border shadow margin-bottom">
+              <%= link_to(instructor_course_path(@instructor, course)) do %>
+                <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
+              <% end %>
+              <div class="padding-horizontal">
+                <div class="padding-vertical border-bottom">
+                  <%= link_to course.title, instructor_course_path(@instructor, course) %>
+                </div>
+              </div>
+              <div class="padding-vertical padding-horizontal mini-text">
+                <%= course.tagline %>
+              </div>
+            </div>
+          <% end %>
+
+
+
+        </main>
 
       </div>
     </div>
@@ -76,7 +104,7 @@
 <% if instructor_signed_in? && current_instructor == @instructor %>
 
   <div id="profile-form">
-    <div class="profile-form-inside">
+    <div class="popup-form-inside">
       <div class="close"></div>
 
       <div class="padding-bottom center mid-text border-bottom">
@@ -110,12 +138,11 @@
             </div>
           </div>
         <% else %>
-          <div class="field">
+          <div class="padding-bottom border-bottom">
             <label class="image-button" for="profile-image">Upload a profile image</label>
               <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
           </div>
         <% end %>
-
 
         <div class="field padding-top">
           <%= f.label :city %>
@@ -147,6 +174,72 @@
         </div>
 
          <%= f.submit "Update profile", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+      <% end %>
+    </div>
+  </div>
+
+
+
+
+  <div id="course-form">
+    <div class="popup-form-inside">
+      <div class="close"></div>
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Create your course
+      </div>
+
+      <%= form_for(@course, url: instructor_courses_path(@instructor)) do |f| %>
+        <span id="course_errors"><%= render 'partials/errors/course_errors' %></span>
+        
+        <div class="field padding-top">
+          <%= f.label :title %>
+          <%= f.text_field :title, class: "text-field" %>
+        </div>
+
+        <div class="padding-bottom border-bottom">
+          <label class="image-button" for="course-image">Upload a course thumbnail</label>
+            <span class="hidden"><%= f.file_field :image, id: "course-image" %></span>
+        </div>
+        
+        <div class="field padding-top">
+          <%= f.label :tagline %>
+          <%= f.text_field :tagline, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :language %>
+          <%= f.text_field :language, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :requirements %>
+          <%= f.text_area :requirements, class: "text-area" %>
+        </div>
+        <div class="field">
+          <%= f.label :description %>
+          <%= f.text_area :description, class: "text-area" %>
+        </div>
+        <div class="field">
+          <%= f.label :highlights %>
+          <%= f.text_area :highlights, class: "text-area" %>
+        </div>
+        <div class="field">
+          <%= f.label :target %>
+          <%= f.text_area :target, class: "text-area" %>
+        </div>
+        <div class="field">
+          <%= f.label :price %>
+          <%= f.text_field :price, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :currency %>
+          <%= f.text_field :currency, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :refund_policy %>
+          <%= f.text_area :refund_policy, class: "text-area" %>
+        </div>
+
+         <%= f.submit "Create course", data: { disable_with: 'Creating...' }, class: "submit-button" %>
       <% end %>
     </div>
   </div>

@@ -1,0 +1,207 @@
+<%= provide(:title, sanitize(@course.title)) %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="mid-container padding-top">
+
+      <div class="padding-bottom mid-text border-bottom">
+        <%= @course.title %> 
+      </div>
+
+      <div class="flex padding-vertical border-bottom">
+
+        <div class="profile-picture-container">
+          <% if instructor_signed_in? && current_instructor == @instructor %>
+            <div class="padding-bottom">
+              <div id="course-button-click">
+                Edit course
+              </div>
+            </div>
+          <% end %>
+
+          <% if @course.image_url(:thumb).present? %>
+            <img class="thumbnail-image" src="<%= @course.image_url(:thumb) %>">
+          <% end %>
+        </div>
+
+        <div class="profile-info-container">
+          <div class="padding-bottom">
+            <%= link_to @instructor.username, instructor_path(@instructor) unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %>
+            <%= link_to(instructor_path(@instructor)) do %>
+              <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %>
+            <% end %>
+         | <%= @course.created_at.strftime("Created on %m.%d.%Y") %> | <%= @course.updated_at.strftime("Last updated on %m.%d.%Y") %> | <%= @course.language %>
+          </div>
+          <div class="padding-bottom">
+            <%= pluralize(@course.tracks.count, "Tracks") %> | 3 Videos | 3 Students | <%= pluralize(@course.reviews.count, "Review") %>
+          </div>
+          <div class="padding-bottom">
+            <%= @course.tagline %>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="body-container padding-vertical">
+      <div class="flex">
+
+        <aside class="sidebar">
+          <ul>
+            <li><span id="first-tab-click" class="active-sidebar-tab">Overview</span></li>
+            <li><span id="second-tab-click" class="inactive-sidebar-tab">Tracks</span></li>
+            <li><span id="third-tab-click" class="inactive-sidebar-tab">Highlights</span></li>
+            <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Requirements</span></li>
+            <li><span id="fifth-tab-click" class="inactive-sidebar-tab">Description</span></li>
+          </ul>
+        </aside>
+
+        <main class="content">
+          
+          <% if instructor_signed_in? && current_instructor == @instructor %>
+            <div class="padding-bottom">
+              <div id="track-button-click">
+                Create a track
+              </div>
+            </div>
+          <% end %>
+
+          <div id="first-tab">
+            Overview
+          </div>
+
+          <div id="second-tab">
+            Tracks
+          </div>
+
+          <div id="third-tab">
+            <%= @course.highlights %>
+          </div>
+
+          <div id="fourth-tab">
+            <%= @course.requirements %>
+          </div>
+
+          <div id="fifth-tab">
+            <%= @course.description %>
+          </div>
+
+        </main>
+
+      </div>
+    </div>
+
+
+
+  </div>
+</div>
+
+<% if instructor_signed_in? && current_instructor == @instructor %>
+
+  <div id="course-form">
+    <div class="popup-form-inside">
+      <div class="close"></div>
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Edit your course
+      </div>
+
+      <%= form_for(@course, url: instructor_course_path(@instructor)) do |f| %>
+        <span id="course_errors"><%= render 'partials/errors/course_errors' %></span>
+        
+        <div class="field padding-top">
+          <%= f.label :title %>
+          <%= f.text_field :title, class: "text-field" %>
+        </div>
+
+        <% if @course.image_data? %>
+          <div class="field">
+            <img class="thumbnail-image" src="<%= @course.image_url(:thumb) %>">
+          </div>
+          <div class="flex border-bottom">
+            <div class="field-two-column center">
+              <label class="image-button" for="course-image">Upload a new course thumbnail</label>
+              <span class="hidden"><%= f.file_field :image, id: "course-image" %></span>
+            </div>
+            <div class="field-two-column center">
+              <label class="inactive-removal-tab" id="remove-image-tab" for="remove-image-inactive">Remove image</label>
+              <span class="hidden"><%= f.check_box :remove_image, id: "remove-image-inactive" %></span>
+            </div>
+          </div>
+        <% else %>
+          <div class="padding-bottom border-bottom">
+            <label class="image-button" for="course-image">Upload a course thumbnail</label>
+              <span class="hidden"><%= f.file_field :image, id: "course-image" %></span>
+          </div>
+        <% end %>
+
+        <div class="field padding-top">
+          <%= f.label :tagline %>
+          <%= f.text_field :tagline, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :language %>
+          <%= f.text_field :language, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :requirements %>
+          <%= f.text_area :requirements, class: "text-area" %>
+        </div>
+        <div class="field">
+          <%= f.label :description %>
+          <%= f.text_area :description, class: "text-area" %>
+        </div>
+        <div class="field">
+          <%= f.label :highlights %>
+          <%= f.text_area :highlights, class: "text-area" %>
+        </div>
+        <div class="field">
+          <%= f.label :target %>
+          <%= f.text_area :target, class: "text-area" %>
+        </div>
+        <div class="field">
+          <%= f.label :price %>
+          <%= f.text_field :price, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :currency %>
+          <%= f.text_field :currency, class: "text-field" %>
+        </div>
+        <div class="field">
+          <%= f.label :refund_policy %>
+          <%= f.text_area :refund_policy, class: "text-area" %>
+        </div>
+
+         <%= f.submit "Update course", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+      <% end %>
+    </div>
+  </div>
+
+
+
+
+
+  <div id="track-form">
+    <div class="popup-form-inside">
+      <div class="close"></div>
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Create a track
+      </div>
+
+      <%= form_for(@track, url: instructor_course_tracks_path(@instructor, @course)) do |f| %>
+        <span id="track_errors"><%= render 'partials/errors/track_errors' %></span>
+        
+        <div class="field padding-top">
+          <%= f.label :title %>
+          <%= f.text_field :title, class: "text-field" %>
+        </div>
+
+         <%= f.submit "Create track", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180518205409) do
+ActiveRecord::Schema.define(version: 20180521200053) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "title"
@@ -19,6 +19,42 @@ ActiveRecord::Schema.define(version: 20180518205409) do
     t.string   "slug"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.integer  "instructor_id"
+    t.integer  "student_id"
+    t.integer  "video_id"
+    t.text     "content"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["instructor_id"], name: "index_comments_on_instructor_id"
+    t.index ["student_id"], name: "index_comments_on_student_id"
+    t.index ["video_id"], name: "index_comments_on_video_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.integer  "instructor_id"
+    t.integer  "category_id"
+    t.integer  "subcategory_id"
+    t.string   "title"
+    t.text     "image_data"
+    t.string   "tagline"
+    t.string   "language"
+    t.text     "requirements"
+    t.text     "description"
+    t.text     "highlights"
+    t.text     "target"
+    t.boolean  "paid",                                   default: false
+    t.decimal  "price",          precision: 9, scale: 2
+    t.string   "currency"
+    t.text     "refund_policy",                          default: ""
+    t.string   "slug"
+    t.datetime "created_at",                                             null: false
+    t.datetime "updated_at",                                             null: false
+    t.index ["category_id"], name: "index_courses_on_category_id"
+    t.index ["instructor_id"], name: "index_courses_on_instructor_id"
+    t.index ["subcategory_id"], name: "index_courses_on_subcategory_id"
   end
 
   create_table "instructors", force: :cascade do |t|
@@ -72,6 +108,19 @@ ActiveRecord::Schema.define(version: 20180518205409) do
     t.index ["student_id"], name: "index_profiles_on_student_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.integer  "instructor_id"
+    t.integer  "student_id"
+    t.integer  "course_id"
+    t.integer  "rating",        default: 3
+    t.text     "content"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.index ["course_id"], name: "index_reviews_on_course_id"
+    t.index ["instructor_id"], name: "index_reviews_on_instructor_id"
+    t.index ["student_id"], name: "index_reviews_on_student_id"
+  end
+
   create_table "students", force: :cascade do |t|
     t.string   "username",               default: "", null: false
     t.string   "slug",                   default: "", null: false
@@ -111,6 +160,30 @@ ActiveRecord::Schema.define(version: 20180518205409) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.index ["category_id"], name: "index_subcategories_on_category_id"
+  end
+
+  create_table "tracks", force: :cascade do |t|
+    t.integer  "instructor_id"
+    t.integer  "course_id"
+    t.string   "title"
+    t.string   "slug"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["course_id"], name: "index_tracks_on_course_id"
+    t.index ["instructor_id"], name: "index_tracks_on_instructor_id"
+  end
+
+  create_table "videos", force: :cascade do |t|
+    t.integer  "instructor_id"
+    t.integer  "track_id"
+    t.string   "title"
+    t.text     "video_data"
+    t.text     "description"
+    t.string   "slug"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["instructor_id"], name: "index_videos_on_instructor_id"
+    t.index ["track_id"], name: "index_videos_on_track_id"
   end
 
 end

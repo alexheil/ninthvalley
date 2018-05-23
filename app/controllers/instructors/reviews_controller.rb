@@ -8,7 +8,8 @@ class Instructors::ReviewsController < ApplicationController
     @instructor = Instructor.friendly.find(params[:instructor_id])
     @course = Course.friendly.find(params[:course_id])
     @review = @course.reviews.build(review_params)
-    @review.student_id = @student_id
+    @review.student_id = @student.id
+    @review.instructor_id = @instructor.id
     if @review.save
       flash.now[:notice] = "You posted a review on #{@course.title}."
       redirect_to instructor_course_path(@instructor, @course)

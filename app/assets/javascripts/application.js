@@ -191,20 +191,36 @@ $(document).on('turbolinks:load', signInAndRegister);
 
 var editProfile = function() {
 
-  $('#edit-profile-click').click(function() {
+  $('#profile-button-click').click(function() {
     $('#profile-form').fadeIn(300);
+    $('.back').fadeIn(300);
+    $('.wrapper').addClass("blur", 300);
+  });
+
+  $('#course-button-click').click(function() {
+    $('#course-form').fadeIn(300);
+    $('.back').fadeIn(300);
+    $('.wrapper').addClass("blur", 300);
+  });
+
+  $('#track-button-click').click(function() {
+    $('#track-form').fadeIn(300);
     $('.back').fadeIn(300);
     $('.wrapper').addClass("blur", 300);
   });
 
   $('.back').click(function() {
     $('#profile-form').fadeOut(300);
+    $('#course-form').fadeOut(300);
+    $('#track-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });
 
   $('.close').click(function() {
     $('#profile-form').fadeOut(300);
+    $('#course-form').fadeOut(300);
+    $('#track-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });
@@ -223,3 +239,101 @@ var editProfile = function() {
 
 $(document).ready(editProfile);
 $(document).on('turbolinks:load', editProfile);
+
+
+var sidebarTabs = function() {
+
+  $('#first-tab-click').click(function() {
+    $('#first-tab').fadeIn(300);
+    $('#first-tab-click').addClass('active-sidebar-tab');
+    $('#first-tab-click').removeClass('inactive-sidebar-tab');
+    $('#second-tab').hide();
+    $('#second-tab-click').addClass('inactive-sidebar-tab');
+    $('#second-tab-click').removeClass('active-sidebar-tab');
+    $('#third-tab').hide();
+    $('#third-tab-click').addClass('inactive-sidebar-tab');
+    $('#third-tab-click').removeClass('active-sidebar-tab');
+    $('#fourth-tab').hide();
+    $('#fourth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fourth-tab-click').removeClass('active-sidebar-tab');
+    $('#fifth-tab').hide();
+    $('#fifth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fifth-tab-click').removeClass('active-sidebar-tab');
+  });
+
+  $('#second-tab-click').click(function() {
+    $('#second-tab').fadeIn(300);
+    $('#second-tab-click').addClass('active-sidebar-tab');
+    $('#second-tab-click').removeClass('inactive-sidebar-tab');
+    $('#first-tab').hide();
+    $('#first-tab-click').addClass('inactive-sidebar-tab');
+    $('#first-tab-click').removeClass('active-sidebar-tab');
+    $('#third-tab').hide();
+    $('#third-tab-click').addClass('inactive-sidebar-tab');
+    $('#third-tab-click').removeClass('active-sidebar-tab');
+    $('#fourth-tab').hide();
+    $('#fourth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fourth-tab-click').removeClass('active-sidebar-tab');
+    $('#fifth-tab').hide();
+    $('#fifth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fifth-tab-click').removeClass('active-sidebar-tab');
+  });
+
+  $('#third-tab-click').click(function() {
+    $('#third-tab').fadeIn(300);
+    $('#third-tab-click').addClass('active-sidebar-tab');
+    $('#third-tab-click').removeClass('inactive-sidebar-tab');
+    $('#first-tab').hide();
+    $('#first-tab-click').addClass('inactive-sidebar-tab');
+    $('#first-tab-click').removeClass('active-sidebar-tab');
+    $('#second-tab').hide();
+    $('#second-tab-click').addClass('inactive-sidebar-tab');
+    $('#second-tab-click').removeClass('active-sidebar-tab');
+    $('#fourth-tab').hide();
+    $('#fourth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fourth-tab-click').removeClass('active-sidebar-tab');
+    $('#fifth-tab').hide();
+    $('#fifth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fifth-tab-click').removeClass('active-sidebar-tab');
+  });
+
+  $('#fourth-tab-click').click(function() {
+    $('#fourth-tab').fadeIn(300);
+    $('#fourth-tab-click').addClass('active-sidebar-tab');
+    $('#fourth-tab-click').removeClass('inactive-sidebar-tab');
+    $('#first-tab').hide();
+    $('#first-tab-click').addClass('inactive-sidebar-tab');
+    $('#first-tab-click').removeClass('active-sidebar-tab');
+    $('#second-tab').hide();
+    $('#second-tab-click').addClass('inactive-sidebar-tab');
+    $('#second-tab-click').removeClass('active-sidebar-tab');
+    $('#third-tab').hide();
+    $('#third-tab-click').addClass('inactive-sidebar-tab');
+    $('#third-tab-click').removeClass('active-sidebar-tab');
+    $('#fifth-tab').hide();
+    $('#fifth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fifth-tab-click').removeClass('active-sidebar-tab');
+  });
+
+  $('#fifth-tab-click').click(function() {
+    $('#fifth-tab').fadeIn(300);
+    $('#fifth-tab-click').addClass('active-sidebar-tab');
+    $('#fifth-tab-click').removeClass('inactive-sidebar-tab');
+    $('#first-tab').hide();
+    $('#first-tab-click').addClass('inactive-sidebar-tab');
+    $('#first-tab-click').removeClass('active-sidebar-tab');
+    $('#second-tab').hide();
+    $('#second-tab-click').addClass('inactive-sidebar-tab');
+    $('#second-tab-click').removeClass('active-sidebar-tab');
+    $('#third-tab').hide();
+    $('#third-tab-click').addClass('inactive-sidebar-tab');
+    $('#third-tab-click').removeClass('active-sidebar-tab');
+    $('#fourth-tab').hide();
+    $('#fourth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fourth-tab-click').removeClass('active-sidebar-tab');
+  });
+
+};
+
+$(document).ready(sidebarTabs);
+$(document).on('turbolinks:load', sidebarTabs);

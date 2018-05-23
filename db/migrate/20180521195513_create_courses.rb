@@ -14,8 +14,8 @@ class CreateCourses < ActiveRecord::Migration[5.0]
       t.text :target
       t.boolean :paid, default: false
       t.decimal :price, precision: 9, scale: 2
-      t.string :refund_policy, default: ""
       t.string :currency
+      t.text :refund_policy, default: ""
       t.string :slug
 
       t.timestamps

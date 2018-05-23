@@ -25,7 +25,7 @@
         <div class="profile-picture-container">
           <% if student_signed_in? && current_student == @student %>
           <div class="padding-bottom">
-            <div id="edit-profile-click">
+            <div id="profile-button-click">
               Edit Profile
             </div>
           </div>
@@ -76,7 +76,7 @@
 <% if student_signed_in? && current_student == @student %>
 
   <div id="profile-form">
-    <div class="profile-form-inside">
+    <div class="popup-form-inside">
       <div class="close"></div>
 
       <div class="padding-bottom center mid-text border-bottom">
@@ -101,7 +101,7 @@
           </div>
           <div class="flex border-bottom">
             <div class="field-two-column center">
-              <label class="image-button" for="profile-image">Upload a profile image</label>
+              <label class="image-button" for="profile-image">Upload a new profile image</label>
               <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
             </div>
             <div class="field-two-column center">
