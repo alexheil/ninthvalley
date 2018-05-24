@@ -293,7 +293,7 @@ img {
     -webkit-transition: .3s ease-in-out;
     -moz-transition: .3s ease-in-out;
     -o-transition: .3s ease-in-out;
-    opacity: .33;
+    opacity: .75;
   }
 }
 
@@ -384,7 +384,7 @@ img {
   padding-left: 2vw;
   cursor: pointer;
   &:hover {
-    border-left: 3px solid $grey;
+    border-left: 3px solid $border;
   }
 }
 
@@ -899,12 +899,30 @@ svg.search {
   display: none;
 }
 
+#purchase-button-click {
+  @include buttons;
+  padding: .51vh .51vw;
+}
+
+#purchase-form {
+  @include javaScriptForms;
+}
+
 #profile-button-click {
   @include buttons;
   padding: .51vh .51vw;
 }
 
 #profile-form {
+  @include javaScriptForms;
+}
+
+#post-button-click {
+  @include buttons;
+  padding: .51vh .51vw;
+}
+
+#post-form {
   @include javaScriptForms;
 }
 
@@ -946,6 +964,15 @@ svg.search {
 
 .video-list {
   display: none;
+}
+
+#more-tracks {
+  @include transition;
+  color: $main;
+  cursor: pointer;
+  &:hover {
+    color: $dark;
+  }
 }
 
 #second-tab {
@@ -1093,6 +1120,10 @@ svg.search {
 
   .profile-picture-container {
     width: 100%;
+  }
+
+  .thumbnail-image {
+    padding-bottom: 2vh;
   }
 
   .profile-info-container {

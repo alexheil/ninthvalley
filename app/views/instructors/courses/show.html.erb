@@ -26,6 +26,11 @@
 
         <div class="profile-info-container">
           <div class="padding-bottom">
+            <div id="purchase-button-click">
+              Purchase this course for <%= @course.price %> <%= @course.currency %>
+            </div>
+          </div>
+          <div class="padding-bottom">
             <%= link_to @instructor.username, instructor_path(@instructor) unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %>
             <%= link_to(instructor_path(@instructor)) do %>
               <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %>
@@ -70,34 +75,35 @@
           <% end %>
 
           <div id="first-tab">
-            <div class="mid-text">
-              Tracks 
-            </div>
-
-            <% @course.tracks.take(3).each do |track| %>
-              <div class="track-card inactive-tab">
-                <div class="padding-horizontal flex">
-                  <div class="two-column">
-                    <%= track.title %>
-                  </div>
-                  <div class="two-column right">
-                    <span class="expand-videos"><%= pluralize(track.videos.count, "video") %></span>
+            <% if @course.tracks.any? %>
+              <div class="mid-text">
+                Tracks 
+              </div>
+              <% @course.tracks.take(3).each do |track| %>
+                <div class="track-card inactive-tab">
+                  <div class="padding-horizontal flex">
+                    <div class="two-column">
+                      <%= track.title %>
+                    </div>
+                    <div class="two-column right">
+                      <span class="expand-videos"><%= pluralize(track.videos.count, "video") %></span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="video-list border-bottom padding-top">
-                <% track.videos.take(3).each do |video| %>
-                  <%= link_to(instructor_course_track_video_path(@instructor, @course, track, video)) do %>
-                    <div class="video-card">
-                      <div class="padding-horizontal flex">
-                        <div class="two-column">
-                          <%= video.title %>
-                        </div>
-                        <div class="two-column right">
-                          01:02
+                <div class="video-list border-bottom padding-top">
+                  <% track.videos.take(3).each do |video| %>
+                    <%= link_to(instructor_course_track_video_path(@instructor, @course, track, video)) do %>
+                      <div class="video-card">
+                        <div class="padding-horizontal flex">
+                          <div class="two-column">
+                            <%= video.title %>
+                          </div>
+                          <div class="two-column right">
+                            01:02
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    <% end %>
                   <% end %>
                 <% end %>
                 <% if track.videos.count > 3 %>
@@ -110,7 +116,7 @@
 
             <% if @course.tracks.count > 3 %>
               <div class="padding-vertical mini-text">
-                <%= link_to "#{@course.tracks.count - 3} more tracks", instructor_course_tracks_path(@instructor, @course) %>
+                <span id="more-tracks"><%= pluralize(@course.tracks.count - 3, "more track") %></span>
               </div>
             <% end %>
             <div class="padding-bottom mid-text">
@@ -140,7 +146,7 @@
           </div>
 
           <div id="second-tab">
-            <div class="padding-bottom mid-text">
+            <div class="mid-text">
               Tracks 
             </div>
             <% @course.tracks.each do |track| %>

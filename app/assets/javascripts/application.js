@@ -385,6 +385,15 @@ var sidebarTabs = function() {
     $('#fifth-tab-click').removeClass('active-sidebar-tab');
   });
 
+  $('#more-tracks').click(function() {
+    $('#second-tab').fadeIn(300);
+    $('#second-tab-click').addClass('active-sidebar-tab');
+    $('#second-tab-click').removeClass('inactive-sidebar-tab');
+    $('#first-tab').hide();
+    $('#first-tab-click').addClass('inactive-sidebar-tab');
+    $('#first-tab-click').removeClass('active-sidebar-tab');
+  });
+
   $('.track-card').click(function() {
     $('.track-card').removeClass('active-tab');
     $('.track-card').addClass('inactive-tab');

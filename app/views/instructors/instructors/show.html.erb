@@ -35,6 +35,11 @@
 
         <div class="profile-info-container">
           <div class="padding-bottom">
+            <div id="purchase-button-click">
+              Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for $25
+            </div>
+          </div>
+          <div class="padding-bottom">
             Instructor | <%= pluralize(@instructor.courses.count, "Course") %> | 3 Students | <%= pluralize(@instructor.reviews.count, "Review") %>
           </div>
           <div class="padding-bottom">
@@ -57,38 +62,87 @@
 
         <aside class="sidebar">
           <ul>
-            <li>Overview</li>
-            <li>Courses</li>
-            <li>Posts</li>
+            <li><span id="first-tab-click" class="active-sidebar-tab">Overview</span></li>
+            <li><span id="second-tab-click" class="inactive-sidebar-tab">Course</span></li>
+            <li><span id="third-tab-click" class="inactive-sidebar-tab">Post</span></li>
           </ul>
         </aside>
 
         <main class="content">
           
           <% if instructor_signed_in? && current_instructor == @instructor %>
-            <div class="padding-bottom">
-              <div id="course-button-click">
-                Create a course
-              </div>
-            </div>
-          <% end %>
-
-          <% @popular_courses.each do |course| %>
-            <div class="four-column border shadow margin-bottom">
-              <%= link_to(instructor_course_path(@instructor, course)) do %>
-                <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
-              <% end %>
-              <div class="padding-horizontal">
-                <div class="padding-vertical border-bottom">
-                  <%= link_to course.title, instructor_course_path(@instructor, course) %>
+            <div class="flex">
+              <div class="four-column padding-bottom">
+                <div id="post-button-click">
+                  Create a post
                 </div>
               </div>
-              <div class="padding-vertical padding-horizontal mini-text">
-                <%= course.tagline %>
+              <div class="seventy-column padding-bottom">
+                <div id="course-button-click">
+                  Create a course
+                </div>
               </div>
             </div>
           <% end %>
 
+
+
+          <div id="first-tab">
+            <div class="padding-bottom mid-text">
+              Popular courses 
+            </div>
+
+            <% @popular_courses.each do |course| %>
+              <div class="four-column border shadow margin-bottom">
+                <%= link_to(instructor_course_path(@instructor, course)) do %>
+                  <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
+                <% end %>
+                <div class="padding-horizontal">
+                  <div class="padding-vertical border-bottom">
+                    <%= link_to course.title, instructor_course_path(@instructor, course) %>
+                  </div>
+                </div>
+                <div class="padding-vertical padding-horizontal mini-text">
+                  <%= course.tagline %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+
+
+          <div id="second-tab">
+            <div class="padding-bottom mid-text">
+              Courses 
+            </div>
+
+            <% @courses.each do |course| %>
+              <div class="four-column border shadow margin-bottom">
+                <%= link_to(instructor_course_path(@instructor, course)) do %>
+                  <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
+                <% end %>
+                <div class="padding-horizontal">
+                  <div class="padding-vertical border-bottom">
+                    <%= link_to course.title, instructor_course_path(@instructor, course) %>
+                  </div>
+                </div>
+                <div class="padding-vertical padding-horizontal mini-text">
+                  <%= course.tagline %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+
+
+          <div id="third-tab">
+            <div class="padding-bottom mid-text">
+              Posts 
+            </div>
+
+            All the posts go here
+
+          </div>
 
 
         </main>
