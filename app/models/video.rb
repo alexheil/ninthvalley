@@ -2,6 +2,8 @@ class Video < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
+  include VideoUploader[:video]
+
   belongs_to :instructor
   belongs_to :track
 

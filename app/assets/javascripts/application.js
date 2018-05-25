@@ -221,12 +221,19 @@ var editProfile = function() {
     $('.back').fadeIn(300);
   });
 
+  $('#video-button-click').click(function() {
+    $('#video-form').fadeIn(300);
+    $('.back').fadeIn(300);
+    $('.wrapper').addClass("blur", 300);
+  });
+
   $('.back').click(function() {
     $('#profile-form').fadeOut(300);
     $('#course-form').fadeOut(300);
     $('#track-form').fadeOut(300);
     $('.edit-track-form').fadeOut(300);
     $('.video-form').fadeOut(300);
+    $('#video-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });
@@ -237,6 +244,7 @@ var editProfile = function() {
     $('#track-form').fadeOut(300);
     $('.edit-track-form').fadeOut(300);
     $('.video-form').fadeOut(300);
+    $('#video-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });

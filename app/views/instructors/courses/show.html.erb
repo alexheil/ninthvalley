@@ -79,6 +79,7 @@
               <div class="mid-text">
                 Tracks 
               </div>
+
               <% @course.tracks.take(3).each do |track| %>
                 <div class="track-card inactive-tab">
                   <div class="padding-horizontal flex">
@@ -91,27 +92,33 @@
                   </div>
                 </div>
                 <div class="video-list border-bottom padding-top">
-                  <% track.videos.take(3).each do |video| %>
-                    <%= link_to(instructor_course_track_video_path(@instructor, @course, track, video)) do %>
-                      <div class="video-card">
-                        <div class="padding-horizontal flex">
-                          <div class="two-column">
-                            <%= video.title %>
-                          </div>
-                          <div class="two-column right">
-                            01:02
+                  <% if track.videos.any? %>
+                    <% track.videos.take(3).each do |video| %>
+                      <%= link_to(instructor_course_track_video_path(@instructor, @course, track, video)) do %>
+                        <div class="video-card">
+                          <div class="padding-horizontal flex">
+                            <div class="two-column">
+                              <%= video.title %>
+                            </div>
+                            <div class="two-column right">
+                              01:02
+                            </div>
                           </div>
                         </div>
+                      <% end %>
+                    <% end %>
+                    <% if track.videos.count > 3 %>
+                      <div class="padding-bottom mini-text">
+                        <%= pluralize(track.videos.count - 3, "more video") %>
                       </div>
                     <% end %>
+                  <% else %>
+                    <div class="padding-bottom">
+                      There are no videos for this track yet. <%= "Add a video to this track to start teaching your students." if instructor_signed_in? && @instructor == current_instructor %>
+                    </div>
                   <% end %>
-                <% end %>
-                <% if track.videos.count > 3 %>
-                  <div class="padding-bottom mini-text">
-                    <%= pluralize(track.videos.count - 3, "more video") %>
-                  </div>
-                <% end %>
-              </div>
+                </div>
+              <% end %>
             <% end %>
 
             <% if @course.tracks.count > 3 %>
@@ -119,9 +126,15 @@
                 <span id="more-tracks"><%= pluralize(@course.tracks.count - 3, "more track") %></span>
               </div>
             <% end %>
-            <div class="padding-bottom mid-text">
-              Highlights
-            </div>
+            <% if @course.tracks.count < 3 %>
+              <div class="padding-vertical mid-text">
+                Highlights
+              </div>
+            <% else %>
+              <div class="padding-bottom mid-text">
+                Highlights
+              </div>
+            <% end %>
             <div class="post-content">
               <%= sanitize(truncate(@course.highlights, length: 280)) %>
             </div>
@@ -149,100 +162,122 @@
             <div class="mid-text">
               Tracks 
             </div>
-            <% @course.tracks.each do |track| %>
-              <div class="track-card inactive-tab">
-                <div class="padding-horizontal flex">
-                  <div class="two-column">
-                    <%= track.title %>
-                  </div>
-                  <div class="two-column right">
-                    <span class="expand-videos"><%= pluralize(track.videos.count, "video") %></span>
+            <% if @course.tracks.any? %>
+              <% @course.tracks.each do |track| %>
+                <div class="track-card inactive-tab">
+                  <div class="padding-horizontal flex">
+                    <div class="two-column">
+                      <%= track.title %>
+                    </div>
+                    <div class="two-column right">
+                      <span class="expand-videos"><%= pluralize(track.videos.count, "video") %></span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="video-list border-bottom padding-top">
+                <div class="video-list border-bottom padding-top">
 
-                <% if instructor_signed_in? && current_instructor == @instructor %>
+                  <% if instructor_signed_in? && current_instructor == @instructor %>
 
-                  <div class="flex">
-                    <div class="four-column padding-bottom">
-                      <div class="edit-track-button-click">
-                        Edit track
-                      </div>
-                    </div>
-                    <div class="seventy-column padding-bottom">
-                      <div class="video-button-click">
-                        Create a video
-                      </div>
-                    </div>
-                  </div>
-
-                <% end %>
-
-                <% track.videos.each do |video| %>
-                  <%= link_to(instructor_course_track_video_path(@instructor, @course, track, video)) do %>
-                    <div class="video-card">
-                      <div class="padding-horizontal flex">
-                        <div class="two-column">
-                          <%= video.title %>
-                        </div>
-                        <div class="two-column right">
-                          01:02
+                    <div class="flex">
+                      <div class="four-column padding-bottom">
+                        <div class="edit-track-button-click">
+                          Edit track
                         </div>
                       </div>
+                      <div class="seventy-column padding-bottom">
+                        <div class="video-button-click">
+                          Create a video
+                        </div>
+                      </div>
+                    </div>
+
+                  <% end %>
+
+                  <% if track.videos.any? %>
+                    <% track.videos.each do |video| %>
+                      <%= link_to(instructor_course_track_video_path(@instructor, @course, track, video)) do %>
+                        <div class="video-card">
+                          <div class="padding-horizontal flex">
+                            <div class="two-column">
+                              <%= video.title %>
+                            </div>
+                            <div class="two-column right">
+                              01:02
+                            </div>
+                          </div>
+                        </div>
+                      <% end %>
+                    <% end %>
+                  <% else %>
+                    <div class="padding-bottom">
+                      There are no videos for this track yet. <%= "Add a video to this track to start teaching your students." if instructor_signed_in? && @instructor == current_instructor %>
                     </div>
                   <% end %>
+                </div>
+
+                <% if instructor_signed_in? && current_instructor == @instructor %>
+    
+                  <div class="edit-track-form">
+                    <div class="popup-form-inside">
+                      <div class="close"></div>
+
+                      <div class="padding-bottom center mid-text border-bottom">
+                        Edit your track
+                      </div>
+
+                      <%= form_for(track, url: instructor_course_track_path(@instructor, @course, track)) do |f| %>
+                        <span class="track_errors"><%= render 'partials/errors/track_errors' %></span>
+                        
+                        <div class="field padding-top">
+                          <%= f.label :title %>
+                          <%= f.text_field :title, class: "text-field" %>
+                        </div>
+
+                        <%= f.submit "Update track", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+                      <% end %>
+                    </div>
+                  </div>
+
+
+                  <div class="video-form">
+                    <div class="popup-form-inside">
+                      <div class="close"></div>
+
+                      <div class="padding-bottom center mid-text border-bottom">
+                        Create a video
+                      </div>
+
+                      <%= form_for(@video, url: instructor_course_track_videos_path(@instructor, @course, track)) do |f| %>
+                        <span class="video_errors"><%= render 'partials/errors/video_errors' %></span>
+                        
+                        <div class="field padding-top">
+                          <%= f.label :title %>
+                          <%= f.text_field :title, class: "text-field" %>
+                        </div>
+                        
+                        <div class="field">
+                          <label class="image-button" for="video-image">Upload a video</label>
+                          <%= f.hidden_field :video, value: @video.cached_video_data %>
+                          <span class="hidden"><%= f.file_field :video, id: "video-image" %></span>
+                        </div>
+
+                        <div class="field">
+                          <%= f.label :description %>
+                          <%= f.text_area :description, class: "text-area" %>
+                        </div>
+
+                        <%= f.submit "Create video", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+                      <% end %>
+                    </div>
+                  </div>
+
                 <% end %>
-              </div>
-
-              <% if instructor_signed_in? && current_instructor == @instructor %>
-  
-                <div class="edit-track-form">
-                  <div class="popup-form-inside">
-                    <div class="close"></div>
-
-                    <div class="padding-bottom center mid-text border-bottom">
-                      Edit your track
-                    </div>
-
-                    <%= form_for(track, url: instructor_course_track_path(@instructor, @course, track)) do |f| %>
-                      <span id="track_errors"><%= render 'partials/errors/track_errors' %></span>
-                      
-                      <div class="field padding-top">
-                        <%= f.label :title %>
-                        <%= f.text_field :title, class: "text-field" %>
-                      </div>
-
-                       <%= f.submit "Update track", data: { disable_with: 'Updating...' }, class: "submit-button" %>
-                    <% end %>
-                  </div>
-                </div>
-
-
-                <div class="video-form">
-                  <div class="popup-form-inside">
-                    <div class="close"></div>
-
-                    <div class="padding-bottom center mid-text border-bottom">
-                      Create a video
-                    </div>
-
-                    <%= form_for(@video, url: instructor_course_track_videos_path(@instructor, @course, track)) do |f| %>
-                      <span id="video_errors"><%= render 'partials/errors/video_errors' %></span>
-                      
-                      <div class="field padding-top">
-                        <%= f.label :title %>
-                        <%= f.text_field :title, class: "text-field" %>
-                      </div>
-
-                       <%= f.submit "Create video", data: { disable_with: 'Creating...' }, class: "submit-button" %>
-                    <% end %>
-                  </div>
-                </div>
 
               <% end %>
-
-
+            <% else %>
+              <div class="padding-top">
+                There are no tracks yet. <%= "Add a track to this course for to start teaching your students." if instructor_signed_in? && @instructor == current_instructor %>
+              </div>
             <% end %>
           </div>
 
@@ -317,6 +352,7 @@
           <div class="flex border-bottom">
             <div class="field-two-column center">
               <label class="image-button" for="course-image">Upload a new course thumbnail</label>
+              <%= f.hidden_field :image, value: @course.cached_image_data %>
               <span class="hidden"><%= f.file_field :image, id: "course-image" %></span>
             </div>
             <div class="field-two-column center">
@@ -327,7 +363,8 @@
         <% else %>
           <div class="padding-bottom border-bottom">
             <label class="image-button" for="course-image">Upload a course thumbnail</label>
-              <span class="hidden"><%= f.file_field :image, id: "course-image" %></span>
+            <%= f.hidden_field :image, value: @course.cached_image_data %>
+            <span class="hidden"><%= f.file_field :image, id: "course-image" %></span>
           </div>
         <% end %>
 
@@ -368,7 +405,7 @@
           <%= f.text_area :refund_policy, class: "text-area" %>
         </div>
 
-         <%= f.submit "Update course", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+        <%= f.submit "Update course", data: { disable_with: 'Updating...' }, class: "submit-button" %>
       <% end %>
     </div>
   </div>
@@ -383,14 +420,14 @@
       </div>
 
       <%= form_for(@track, url: instructor_course_tracks_path(@instructor, @course)) do |f| %>
-        <span id="track_errors"><%= render 'partials/errors/track_errors' %></span>
+        <span class="track_errors"><%= render 'partials/errors/track_errors' %></span>
         
         <div class="field padding-top">
           <%= f.label :title %>
           <%= f.text_field :title, class: "text-field" %>
         </div>
 
-         <%= f.submit "Create track", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+        <%= f.submit "Create track", data: { disable_with: 'Creating...' }, class: "submit-button" %>
       <% end %>
     </div>
   </div>

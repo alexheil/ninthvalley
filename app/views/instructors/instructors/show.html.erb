@@ -184,6 +184,7 @@
           <div class="flex border-bottom">
             <div class="field-two-column center">
               <label class="image-button" for="profile-image">Upload a profile image</label>
+              <%= f.hidden_field :image, value: @profile.cached_image_data %>
               <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
             </div>
             <div class="field-two-column center">
@@ -194,7 +195,8 @@
         <% else %>
           <div class="padding-bottom border-bottom">
             <label class="image-button" for="profile-image">Upload a profile image</label>
-              <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+            <%= f.hidden_field :image, value: @profile.cached_image_data %>
+            <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
           </div>
         <% end %>
 
@@ -227,7 +229,7 @@
           <%= f.text_area :biography, class: "text-area" %>
         </div>
 
-         <%= f.submit "Update profile", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+        <%= f.submit "Update profile", data: { disable_with: 'Updating...' }, class: "submit-button" %>
       <% end %>
     </div>
   </div>
@@ -293,7 +295,7 @@
           <%= f.text_area :refund_policy, class: "text-area" %>
         </div>
 
-         <%= f.submit "Create course", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+        <%= f.submit "Create course", data: { disable_with: 'Creating...' }, class: "submit-button" %>
       <% end %>
     </div>
   </div>

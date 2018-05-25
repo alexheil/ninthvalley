@@ -1,1 +1,110 @@
-<%= @video.title %>
+<%= provide(:title, sanitize(@video.title)) %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="mid-container padding-top">
+
+      <div class="padding-bottom mid-text border-bottom">
+        <%= @video.title %> 
+      </div>
+
+      <div class="flex padding-vertical border-bottom">
+        <div class="video-container">
+          <% if instructor_signed_in? && current_instructor == @instructor %>
+            <div class="padding-bottom">
+              <div id="video-button-click">
+                Edit video
+              </div>
+            </div>
+          <% end %>
+
+          <video class="video-player" width="100%" height="auto" controls>
+            <source src="<%= @video.video_url %>">
+          Your browser does not support the video tag.
+          </video>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="body-container padding-vertical">
+      <div class="flex">
+
+        <aside class="sidebar">
+          <ul>
+            <li><span id="first-tab-click" class="active-sidebar-tab">Overview</span></li>
+            <li><span id="second-tab-click" class="inactive-sidebar-tab">Description</span></li>
+            <li><span id="third-tab-click" class="inactive-sidebar-tab">Other videos</span></li>
+            <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Comments</span></li>
+          </ul>
+        </aside>
+
+        <main class="content">
+          main content
+
+        </main>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+<% if instructor_signed_in? && current_instructor == @instructor %>
+
+<div id="video-form">
+  <div class="popup-form-inside">
+    <div class="close"></div>
+
+    <div class="padding-bottom center mid-text border-bottom">
+      Edit your video
+    </div>
+
+    <%= form_for(@video, url: instructor_course_track_video_path(@instructor, @course, @track, @video)) do |f| %>
+      <span class="video_errors"><%= render 'partials/errors/video_errors' %></span>
+                        
+      <div class="field padding-top">
+        <%= f.label :title %>
+        <%= f.text_field :title, class: "text-field" %>
+      </div>
+
+      <% if @video.video_data? %>
+        <div class="field">
+          <img class="thumbnail-image" src="<%= @video.video_url(:thumb) %>">
+        </div>
+        <div class="flex border-bottom">
+          <div class="field-two-column center">
+            <label class="image-button" for="video-image">Upload a video</label>
+            <%= f.hidden_field :video, value: @video.cached_video_data %>
+            <span class="hidden"><%= f.file_field :video, id: "video-image" %></span>
+          </div>
+          <div class="field-two-column center">
+            <label class="inactive-removal-tab" id="remove-image-tab" for="remove-image-inactive">Remove video</label>
+            <span class="hidden"><%= f.check_box :remove_video, id: "remove-image-inactive" %></span>
+          </div>
+        </div>
+      <% else %>
+        <div class="padding-bottom border-bottom">
+          <label class="image-button" for="video-image">Upload a video</label>
+          <%= f.hidden_field :video, value: @video.cached_video_data %>
+          <span class="hidden"><%= f.file_field :video, id: "video-image" %></span>
+        </div>
+      <% end %>
+
+
+      <div class="field padding-top">
+        <%= f.label :description %>
+        <%= f.text_area :description, class: "text-area" %>
+      </div>
+
+      <%= f.submit "Update video", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+    <% end %>
+  </div>
+</div>
+
+<% end %>

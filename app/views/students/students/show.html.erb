@@ -102,6 +102,7 @@
           <div class="flex border-bottom">
             <div class="field-two-column center">
               <label class="image-button" for="profile-image">Upload a new profile image</label>
+              <%= f.hidden_field :image, value: Profile.new.cached_image_data %>
               <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
             </div>
             <div class="field-two-column center">
@@ -112,7 +113,8 @@
         <% else %>
           <div class="field">
             <label class="image-button" for="profile-image">Upload a profile image</label>
-              <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+            <%= f.hidden_field :image, value: Profile.new.cached_image_data %>
+            <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
           </div>
         <% end %>
 
