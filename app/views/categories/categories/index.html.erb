@@ -10,7 +10,7 @@
 
       <div class="padding-vertical border-bottom">
 
-        <img srcset="https://i.imgur.com/z6Qqgxa.jpg" width="100%" height="auto">
+        <img class="tall-thumbnail-image" srcset="https://i.imgur.com/z6Qqgxa.jpg" width="100%" height="auto">
 
         <div class="padding-top">
           All the categories for Ninth Valley!
@@ -20,7 +20,7 @@
     </div>
 
 
-    <div class="body-container padding-vertical">
+    <div class="body-container">
       <div class="flex">
 
         <aside class="sidebar">
@@ -53,8 +53,8 @@
               </div>
               <div class="flex">
                 <% category.courses.take(8).each do |course| %>
-                  <div class="four-column border shadow margin-bottom">
-                    <%= link_to(category_subcategory_path(category, course)) do %>
+                  <div class="four-column border margin-bottom">
+                    <%= link_to(instructor_course_path(course.instructor, course)) do %>
                       <img class="thumbnail-image-feed-five" src="<%= course.image %>">
                     <% end %>
                     <div class="padding-horizontal">

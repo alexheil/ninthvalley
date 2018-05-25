@@ -197,6 +197,12 @@ var editProfile = function() {
     $('.wrapper').addClass("blur", 300);
   });
 
+  $('#post-button-click').click(function() {
+    $('#post-form').fadeIn(300);
+    $('.back').fadeIn(300);
+    $('.wrapper').addClass("blur", 300);
+  });
+
   $('#course-button-click').click(function() {
     $('#course-form').fadeIn(300);
     $('.back').fadeIn(300);
@@ -205,6 +211,12 @@ var editProfile = function() {
 
   $('#track-button-click').click(function() {
     $('#track-form').fadeIn(300);
+    $('.back').fadeIn(300);
+    $('.wrapper').addClass("blur", 300);
+  });
+
+  $('#purchase-button-click').click(function() {
+    $('#purchase-form').fadeIn(300);
     $('.back').fadeIn(300);
     $('.wrapper').addClass("blur", 300);
   });
@@ -229,22 +241,26 @@ var editProfile = function() {
 
   $('.back').click(function() {
     $('#profile-form').fadeOut(300);
+    $('#post-form').fadeOut(300);
     $('#course-form').fadeOut(300);
     $('#track-form').fadeOut(300);
     $('.edit-track-form').fadeOut(300);
     $('.video-form').fadeOut(300);
     $('#video-form').fadeOut(300);
+    $('#purchase-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });
 
   $('.close').click(function() {
     $('#profile-form').fadeOut(300);
+    $('#post-form').fadeOut(300);
     $('#course-form').fadeOut(300);
     $('#track-form').fadeOut(300);
     $('.edit-track-form').fadeOut(300);
     $('.video-form').fadeOut(300);
     $('#video-form').fadeOut(300);
+    $('#purchase-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });

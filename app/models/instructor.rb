@@ -12,6 +12,7 @@ class Instructor < ApplicationRecord
 
   has_one :profile, dependent: :destroy
 
+  has_many :posts, dependent: :destroy
   has_many :courses, dependent: :destroy
   has_many :tracks, dependent: :destroy
   has_many :videos, dependent: :destroy

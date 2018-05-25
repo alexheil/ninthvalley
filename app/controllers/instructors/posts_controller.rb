@@ -14,7 +14,7 @@ class Instructors::PostsController < ApplicationController
     @post = @instructor.posts.build(post_params)
     if @post.save
       flash[:notice] = "You just created " + @post.title + "!"
-      redirect_to instructor_post_path(@instructor, @post)
+      redirect_to instructor_path(@instructor, @post)
     else
       flash.now[:alert] = 'Whoa! Something went wrong!'
       render 'new'

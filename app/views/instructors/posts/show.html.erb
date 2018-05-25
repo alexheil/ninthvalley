@@ -1,0 +1,42 @@
+<div class="wrapper">
+  <div class="container">
+    <div class="mid-container padding-top">
+
+      <div class="padding-bottom mid-text border-bottom">
+
+        <%= @post.title %>
+
+      </div>
+
+      <div class="padding-vertical border-bottom">
+
+        <img class="tall-thumbnail-image" src="<%= @post.image_url(:original) %>">
+
+      </div>
+
+    </div>
+
+
+    <div class="body-container padding-vertical">
+      <div class="flex">
+
+        <div class="sidebar">
+          <ul>
+            <li>hi</li>
+          </ul>
+        </div>
+
+        <div class="content">
+          <div class="padding-bottom mid-text">
+            Highlights
+          </div>
+          <div class="post-content">
+            <%= sanitize(@post.content) %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

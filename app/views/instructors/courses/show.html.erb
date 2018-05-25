@@ -61,7 +61,7 @@
     </div>
 
 
-    <div class="body-container padding-vertical">
+    <div class="body-container">
       <div class="flex">
 
         <aside class="sidebar">
@@ -126,7 +126,7 @@
                     <% end %>
                   <% else %>
                     <div class="padding-bottom">
-                      There are no videos for this track yet. <%= "Visit the tracks tab to add a video to this track and start teaching your students." if instructor_signed_in? && @instructor == current_instructor %>
+                      There are no videos for this track yet. <%= "Visit the tracks tab to add a video to this track to start teaching your students." if instructor_signed_in? && @instructor == current_instructor %>
                     </div>
                   <% end %>
                 </div>
@@ -147,25 +147,25 @@
                 Highlights
               </div>
             <% end %>
-            <div class="post-content">
+            <div class="post-content padding-bottom">
               <%= sanitize(truncate(@course.highlights, length: 280)) %>
             </div>
             <div class="padding-bottom mid-text">
               Requirements
             </div>
-            <div class="post-content">
+            <div class="post-content padding-bottom">
               <%= sanitize(truncate(@course.requirements, length: 280)) %>
             </div>
             <div class="padding-bottom mid-text">
               Target
             </div>
-            <div class="post-content">
+            <div class="post-content padding-bottom">
               <%= sanitize(truncate(@course.target, length: 280)) %>
             </div>
             <div class="padding-bottom mid-text">
               Description
             </div>
-            <div class="post-content">
+            <div class="post-content padding-bottom">
               <%= sanitize(truncate(@course.description, length: 280)) %>
             </div>
           </div>
@@ -190,13 +190,13 @@
 
                   <% if instructor_signed_in? && current_instructor == @instructor %>
 
-                    <div class="flex">
-                      <div class="four-column padding-bottom">
+                    <div class="flex padding-bottom">
+                      <div class="four-column">
                         <div class="edit-track-button-click">
                           Edit track
                         </div>
                       </div>
-                      <div class="seventy-column padding-bottom">
+                      <div class="seventy-column">
                         <div class="video-button-click">
                           Create a video
                         </div>
@@ -288,7 +288,7 @@
               <% end %>
             <% else %>
               <div class="padding-top">
-                There are no tracks yet. <%= "Add a track to this course for to start teaching your students." if instructor_signed_in? && @instructor == current_instructor %>
+                There are no tracks yet. <%= "Add a track to this course to start teaching your students." if instructor_signed_in? && @instructor == current_instructor %>
               </div>
             <% end %>
           </div>
@@ -297,7 +297,7 @@
             <div class="padding-bottom mid-text">
               Highlights
             </div>
-            <div class="post-content">
+            <div class="post-content padding-bottom">
               <%= sanitize(@course.highlights) %>
             </div>
           </div>
@@ -306,7 +306,7 @@
             <div class="padding-bottom mid-text">
               Requirements
             </div>
-            <div class="post-content">
+            <div class="post-content padding-bottom">
               <%= sanitize(@course.requirements) %>
             </div>
           </div>
@@ -315,7 +315,7 @@
             <div class="padding-bottom mid-text">
               Target
             </div>
-            <div class="post-content">
+            <div class="post-content padding-bottom">
               <%= sanitize(@course.target) %>
             </div>
           </div>
@@ -324,7 +324,7 @@
             <div class="padding-bottom mid-text">
               Description
             </div>
-            <div class="post-content">
+            <div class="post-content padding-bottom">
               <%= sanitize(@course.description) %>
             </div>
           </div>
@@ -333,7 +333,7 @@
             <div class="padding-bottom mid-text">
               Reviews
             </div>
-            <div class="post-content">
+            <div class="post-content padding-bottom">
               Buncha reviews here
             </div>
           </div>

@@ -182,6 +182,8 @@ video {
 .body-container {
   width: 85%;
   margin: 0 auto;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
 }
 
 .video-container {
@@ -238,6 +240,13 @@ video {
 .two-column {
   margin: 0 auto;
   width: 48%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.four-column-course {
+  margin: 0 auto;
+  width: 23%;
   display: inline-block;
   vertical-align: top;
 }
@@ -697,10 +706,27 @@ select {
   -webkit-backface-visibility: hidden;
 }
 
+.short-thumbnail-image {
+  height: 100%;
+  width: 100%;
+  border-radius: $radius;
+  object-fit: cover;
+  display: block;
+  -webkit-backface-visibility: hidden;
+}
+
+.tall-thumbnail-image {
+  height: 50vh;
+  width: 100%;
+  border-radius: $radius;
+  object-fit: cover;
+  display: block;
+  -webkit-backface-visibility: hidden;
+}
+
 .post-content {
   word-break: break-word;
   white-space: pre-line;
-  padding-bottom: 2vh;
   margin-top: -25px;
 }
 
@@ -1114,6 +1140,48 @@ svg.search {
 
 @media screen and (max-width: 1024px) {
 
+  .body-container {
+    padding-top: 0;
+  }
+
+  .content {
+    width: 100%;
+  }
+
+  .sidebar {
+    width: 100%;
+    ul {
+      padding-bottom: 2vh;
+      li {
+        padding-right: 2vw;
+        padding-bottom: 0;
+        padding-top: 2vh;
+        display: inline-block;
+        &:last-child {
+          padding-right: 0;
+        }
+      }
+    }
+  }
+
+  .active-sidebar-tab {
+    border-left: 0px;
+    border-bottom: 3px solid $main;
+    padding-left: 0;
+    padding-bottom: 2vw;
+  }
+
+  .inactive-sidebar-tab {
+    border-left: 0px;
+    border-bottom: 3px solid transparent;
+    padding-left: 0;
+    padding-bottom: 2vw;
+    &:hover {
+      border-left: 0px;
+      border-bottom: 3px solid $border;
+    }
+  }
+
   @mixin mobile-nav {
     float: none;
     text-align: center;
@@ -1189,6 +1257,34 @@ svg.search {
     @include javaScriptForms;
   }
 
+  #post-form {
+    @include javaScriptForms;
+  }
+
+  #course-form {
+    @include javaScriptForms;
+  }
+
+  #track-form {
+    @include javaScriptForms;
+  }
+
+  #video-form {
+    @include javaScriptForms;
+  }
+
+  #purchase-form {
+    @include javaScriptForms;
+  }
+
+  .edit-track-form {
+    @include javaScriptForms;
+  }
+
+  .video-form {
+    @include javaScriptForms;
+  }
+
   #search-icon {
     padding: 1vh 1vw;
   }
@@ -1225,6 +1321,19 @@ svg.search {
     width: 100%;
   }
 
+  .four-column {
+    width: 100%;
+    padding-bottom: 2vh;
+  }
+
+  .four-column-course {
+    width: 100%;
+  }
+
+  .seventy-column {
+    width: 100%;
+  }
+
   .mid-container {
     width: 100%;
     margin: 0 auto;
@@ -1240,6 +1349,10 @@ svg.search {
   }
 
   .thumbnail-image {
+    padding-bottom: 2vh;
+  }
+
+  .short-thumbnail-image {
     padding-bottom: 2vh;
   }
 
@@ -1281,6 +1394,34 @@ svg.search {
   }
 
   #profile-form {
+    @include javaScriptForms;
+  }
+
+  #post-form {
+    @include javaScriptForms;
+  }
+
+  #course-form {
+    @include javaScriptForms;
+  }
+
+  #track-form {
+    @include javaScriptForms;
+  }
+
+  #video-form {
+    @include javaScriptForms;
+  }
+
+  #purchase-form {
+    @include javaScriptForms;
+  }
+
+  .edit-track-form {
+    @include javaScriptForms;
+  }
+
+  .video-form {
     @include javaScriptForms;
   }
 

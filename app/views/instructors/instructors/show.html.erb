@@ -35,9 +35,21 @@
 
         <div class="profile-info-container">
           <div class="padding-bottom">
-            <div id="purchase-button-click">
-              Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for $25
-            </div>
+            <% if instructor_signed_in? && @instructor == current_instructor %>
+              <div class="free-card center">
+                <div class="padding-horizontal">
+                  Your subscription is $25 per month
+                </div>
+              </div>
+            <% elsif student_signed_in? %>
+              <div id="purchase-button-click">
+                Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for $25 per month
+              </div>
+            <% else %>
+              <div id="purchase-button-click">
+                Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for $25 per month
+              </div>
+            <% end %>
           </div>
           <div class="padding-bottom">
             Instructor | <%= pluralize(@instructor.courses.count, "Course") %> | 3 Students | <%= pluralize(@instructor.reviews.count, "Review") %>
@@ -57,7 +69,7 @@
     </div>
 
 
-    <div class="body-container padding-vertical">
+    <div class="body-container">
       <div class="flex">
 
         <aside class="sidebar">
@@ -71,13 +83,13 @@
         <main class="content">
           
           <% if instructor_signed_in? && current_instructor == @instructor %>
-            <div class="flex">
-              <div class="four-column padding-bottom">
+            <div class="flex padding-bottom">
+              <div class="four-column">
                 <div id="post-button-click">
                   Create a post
                 </div>
               </div>
-              <div class="seventy-column padding-bottom">
+              <div class="seventy-column">
                 <div id="course-button-click">
                   Create a course
                 </div>
@@ -94,7 +106,7 @@
 
             <div class="flex">
               <% @popular_courses.each do |course| %>
-                <div class="four-column border margin-bottom">
+                <div class="four-column-course border margin-bottom">
                   <%= link_to(instructor_course_path(@instructor, course)) do %>
                     <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
                   <% end %>
@@ -120,7 +132,7 @@
 
             <div class="flex">
               <% @courses.each do |course| %>
-                <div class="four-column border margin-bottom">
+                <div class="four-column-course border margin-bottom">
                   <%= link_to(instructor_course_path(@instructor, course)) do %>
                     <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
                   <% end %>
@@ -140,13 +152,28 @@
 
 
           <div id="third-tab">
-            <div class="padding-bottom mid-text">
+            <div class="mid-text">
               Posts 
             </div>
 
             <% if @posts.any? %>
               <% @posts.each do |post| %>
-                <%= post.title %>
+                <div class="flex padding-vertical border-bottom">
+                  <div class="four-column">
+                    <img class="short-thumbnail-image" src="<%= post.image_url(:thumb) %>">
+                  </div>
+                  <div class="seventy-column">
+                    <div class="mid-text">
+                      <%= link_to post.title, instructor_post_path(@instructor, post) %> 
+                    </div>
+                    <div class="mini-text padding-bottom">
+                      <%= post.created_at.strftime("Posted on %m.%d.%Y") %>
+                    </div>
+                    <div class="post-content">
+                      <%= sanitize(truncate(post.content, length: 300)) %>
+                    </div>
+                  </div>
+                </div>
               <% end %>
             <% else %>
 
@@ -356,6 +383,34 @@
 
         <%= f.submit "Create post", data: { disable_with: 'Creating...' }, class: "submit-button" %>
       <% end %>
+    </div>
+  </div>
+
+<% elsif student_signed_in? %>
+
+  <div id="purchase-form">
+    <div class="popup-form-inside">
+      <div class="close"></div>
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> 
+      </div>
+
+      
+    </div>
+  </div>
+
+<% else %>
+
+  <div id="purchase-form">
+    <div class="popup-form-inside">
+      <div class="close"></div>
+
+      <div class="padding-top">
+        You must <%= link_to "Register", new_student_registration_path %> or <%= link_to "Sign in", student_session_path %> as a student to subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %>.
+      </div>
+
+      
     </div>
   </div>
 
