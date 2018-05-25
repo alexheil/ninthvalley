@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180521200053) do
+ActiveRecord::Schema.define(version: 20180525154209) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "title"
@@ -85,6 +85,17 @@ ActiveRecord::Schema.define(version: 20180521200053) do
     t.index ["slug"], name: "index_instructors_on_slug", unique: true
     t.index ["unlock_token"], name: "index_instructors_on_unlock_token", unique: true
     t.index ["username"], name: "index_instructors_on_username", unique: true
+  end
+
+  create_table "posts", force: :cascade do |t|
+    t.integer  "instructor_id"
+    t.string   "title"
+    t.text     "image_data"
+    t.text     "content"
+    t.string   "slug"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["instructor_id"], name: "index_posts_on_instructor_id"
   end
 
   create_table "profiles", force: :cascade do |t|
