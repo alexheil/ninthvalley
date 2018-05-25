@@ -5,12 +5,6 @@ class Instructors::TracksController < ApplicationController
   before_action :correct_track_instructor, only: [:update, :destroy]
   before_action :set_instructor, except: :show
 
-  def show
-    @instructor = Instructor.friendly.find(params[:instructor_id])
-    @course = Course.friendly.find(params[:course_id])
-    @track = Track.friendly.find(params[:id])
-  end
-
   def create
     @course = Course.friendly.find(params[:course_id])
     @track = @course.tracks.build(track_params)

@@ -232,6 +232,7 @@ video {
 
 .hard-text {
   font-size: 16px;
+  line-height: 1em;
 }
 
 .two-column {
@@ -493,11 +494,13 @@ label {
 @mixin fields {
   width: 100%;
   font-size: 1em;
-  font-weight: 100;
+  font-weight: 300;
   border: none;
   display: inline-block;
   box-sizing: border-box;
   border-radius: $radius;
+  font-family: $fancy;
+  letter-spacing: .5px;
 }
 
 .search-field {
@@ -510,6 +513,16 @@ label {
   &::placeholder {
     color: $white;
   }
+}
+
+select {
+  @include fields;
+  text-indent: 1vw;
+  background: $grey;
+  height: 3.75vh;
+  background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat right $grey;
+  -webkit-appearance: none;
+  background-position-x: 98%;
 }
 
 .text-field {

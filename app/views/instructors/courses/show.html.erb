@@ -126,7 +126,7 @@
                     <% end %>
                   <% else %>
                     <div class="padding-bottom">
-                      There are no videos for this track yet. <%= "Add a video to this track to start teaching your students." if instructor_signed_in? && @instructor == current_instructor %>
+                      There are no videos for this track yet. <%= "Visit the tracks tab to add a video to this track and start teaching your students." if instructor_signed_in? && @instructor == current_instructor %>
                     </div>
                   <% end %>
                 </div>
@@ -364,6 +364,12 @@
         <div class="field padding-top">
           <%= f.label :title %>
           <%= f.text_field :title, class: "text-field" %>
+        </div>
+
+        <div class="field">
+          <%= f.label :category_id %>
+          <%= f.hidden_field :category_id %>
+          <%= f.collection_select(:category_id, Category.all, :id, :title) %>
         </div>
 
         <% if @course.image_data? %>
