@@ -259,6 +259,24 @@ var editProfile = function() {
     }
   });
 
+  $('#paid-inactive').change(function(){
+    if($(this).is(":checked")) {
+      $('#paid-container').slideDown(300);
+      $('#paid-tab').addClass("active-paid-tab");
+      $('#paid-tab').removeClass("inactive-paid-tab");
+    } else {
+      $('#paid-container').slideUp(300);
+      $('#paid-tab').removeClass("active-paid-tab");
+      $('#paid-tab').addClass("inactive-paid-tab");
+    }
+  });
+
+  if ($('#paid-inactive').prop('checked')) {
+    $('#paid-tab').addClass("active-paid-tab");
+    $('#paid-tab').removeClass("inactive-paid-tab");
+    $('#paid-container').show();
+  };
+
 };
 
 $(document).ready(editProfile);
@@ -286,6 +304,9 @@ var sidebarTabs = function() {
     $('#sixth-tab').hide();
     $('#sixth-tab-click').addClass('inactive-sidebar-tab');
     $('#sixth-tab-click').removeClass('active-sidebar-tab');
+    $('#seventh-tab').hide();
+    $('#seventh-tab-click').addClass('inactive-sidebar-tab');
+    $('#seventh-tab-click').removeClass('active-sidebar-tab');
   });
 
   $('#second-tab-click').click(function() {
@@ -307,6 +328,9 @@ var sidebarTabs = function() {
     $('#sixth-tab').hide();
     $('#sixth-tab-click').addClass('inactive-sidebar-tab');
     $('#sixth-tab-click').removeClass('active-sidebar-tab');
+    $('#seventh-tab').hide();
+    $('#seventh-tab-click').addClass('inactive-sidebar-tab');
+    $('#seventh-tab-click').removeClass('active-sidebar-tab');
   });
 
   $('#third-tab-click').click(function() {
@@ -328,6 +352,9 @@ var sidebarTabs = function() {
     $('#sixth-tab').hide();
     $('#sixth-tab-click').addClass('inactive-sidebar-tab');
     $('#sixth-tab-click').removeClass('active-sidebar-tab');
+    $('#seventh-tab').hide();
+    $('#seventh-tab-click').addClass('inactive-sidebar-tab');
+    $('#seventh-tab-click').removeClass('active-sidebar-tab');
   });
 
   $('#fourth-tab-click').click(function() {
@@ -349,6 +376,9 @@ var sidebarTabs = function() {
     $('#sixth-tab').hide();
     $('#sixth-tab-click').addClass('inactive-sidebar-tab');
     $('#sixth-tab-click').removeClass('active-sidebar-tab');
+    $('#seventh-tab').hide();
+    $('#seventh-tab-click').addClass('inactive-sidebar-tab');
+    $('#seventh-tab-click').removeClass('active-sidebar-tab');
   });
 
   $('#fifth-tab-click').click(function() {
@@ -370,6 +400,9 @@ var sidebarTabs = function() {
     $('#sixth-tab').hide();
     $('#sixth-tab-click').addClass('inactive-sidebar-tab');
     $('#sixth-tab-click').removeClass('active-sidebar-tab');
+    $('#seventh-tab').hide();
+    $('#seventh-tab-click').addClass('inactive-sidebar-tab');
+    $('#seventh-tab-click').removeClass('active-sidebar-tab');
   });
 
   $('#sixth-tab-click').click(function() {
@@ -391,6 +424,33 @@ var sidebarTabs = function() {
     $('#fifth-tab').hide();
     $('#fifth-tab-click').addClass('inactive-sidebar-tab');
     $('#fifth-tab-click').removeClass('active-sidebar-tab');
+    $('#seventh-tab').hide();
+    $('#seventh-tab-click').addClass('inactive-sidebar-tab');
+    $('#seventh-tab-click').removeClass('active-sidebar-tab');
+  });
+
+  $('#seventh-tab-click').click(function() {
+    $('#seventh-tab').fadeIn(300);
+    $('#seventh-tab-click').addClass('active-sidebar-tab');
+    $('#seventh-tab-click').removeClass('inactive-sidebar-tab');
+    $('#first-tab').hide();
+    $('#first-tab-click').addClass('inactive-sidebar-tab');
+    $('#first-tab-click').removeClass('active-sidebar-tab');
+    $('#second-tab').hide();
+    $('#second-tab-click').addClass('inactive-sidebar-tab');
+    $('#second-tab-click').removeClass('active-sidebar-tab');
+    $('#third-tab').hide();
+    $('#third-tab-click').addClass('inactive-sidebar-tab');
+    $('#third-tab-click').removeClass('active-sidebar-tab');
+    $('#fourth-tab').hide();
+    $('#fourth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fourth-tab-click').removeClass('active-sidebar-tab');
+    $('#fifth-tab').hide();
+    $('#fifth-tab-click').addClass('inactive-sidebar-tab');
+    $('#fifth-tab-click').removeClass('active-sidebar-tab');
+    $('#sixth-tab').hide();
+    $('#sixth-tab-click').addClass('inactive-sidebar-tab');
+    $('#sixth-tab-click').removeClass('active-sidebar-tab');
   });
 
   $('#more-tracks').click(function() {

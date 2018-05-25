@@ -32,7 +32,7 @@ class Instructors::VideosController < ApplicationController
     @video = Video.friendly.find(params[:id])
     if @video.update_attributes(video_params)
       flash[:notice] = "You just updated " + @video.title + "!"
-      redirect_to instructor_course_track_path(@instructor, @course, @track)
+      redirect_to instructor_course_track_video_path(@instructor, @course, @track, @video)
     else
       flash.now[:alert] = 'Whoa! Something went wrong!'
       redirect_to root_url
@@ -43,7 +43,7 @@ class Instructors::VideosController < ApplicationController
     @course = Course.friendly.find(params[:course_id])
     @track = Track.friendly.find(params[:track_id])
     @video = Video.friendly.find(params[:id]).destroy
-    redirect_to instructor_course_track_path(@instructor, @course, @track)
+    redirect_to instructor_course_path(@instructor, @course)
   end
 
   private

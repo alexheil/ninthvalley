@@ -8,10 +8,15 @@ class Course < ApplicationRecord
   belongs_to :category
   belongs_to :subcategory
 
-  has_many :reviews
-  has_many :tracks
+  has_many :reviews, dependent: :destroy
+  has_many :tracks, dependent: :destroy
+  has_many :videos, through: :tracks
 
   before_save :should_generate_new_friendly_id?, if: :title_changed?
+    
+  def self.is_free
+    self.paid == false
+  end
     
   private
 

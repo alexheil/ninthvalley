@@ -37,13 +37,15 @@ class Instructors::CoursesController < ApplicationController
   end
 
   def destroy
-    Course.friendly.find(params[:id]).destroy
+    @course = Course.friendly.find(params[:id]).destroy
+    redirect_to instructor_path(@instructor)
+    flash[:notice] = "You deleted your course. "
   end
 
   private
 
     def course_params
-      params.require(:course).permit(:title, :tagline, :language, :requirements, :description, :highlights, :target, :paid, :price, :refund_policy, :currency, :image, :remove_image)
+      params.require(:course).permit(:category_id, :title, :tagline, :language, :requirements, :description, :highlights, :target, :paid, :price, :refund_policy, :currency, :image, :remove_image)
     end
 
     def set_instructor

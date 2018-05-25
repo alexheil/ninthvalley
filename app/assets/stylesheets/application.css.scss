@@ -141,7 +141,7 @@ video {
 }
 
 .border {
-  border: 1px solid $grey;
+  border: 1px solid $border;
   border-radius: $radius;
 }
 
@@ -290,8 +290,8 @@ video {
   width: 100%;
   object-fit: cover;
   display: block;
-  border-top-left-radius: $radius;
-  border-top-right-radius: $radius;
+  border-top-left-radius: $radius - 1;
+  border-top-right-radius: $radius - 1;
   border-bottom-left-radius: 0px;
   border-bottom-right-radius: 0px;
   -webkit-backface-visibility: hidden;
@@ -357,6 +357,51 @@ video {
 }
 
 .inactive-removal-tab {
+  box-sizing: border-box;
+  @include transition;
+  background: transparent;
+  color: $black;
+  padding: .51vh .51vw;
+  border-radius: $radius;
+  text-transform: uppercase;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  font-size: .75em;
+  font-weight: 300;
+  cursor: pointer;
+  border-radius: $radius;
+  font-family: $fancy;
+  border: 1px solid transparent;
+  -webkit-font-smoothing: unset;
+  &:hover {
+    background: $grey;
+    border: 1px solid $grey;
+  }
+}
+
+.active-paid-tab {
+  @include transition;
+  box-sizing: border-box;
+  background: $main;
+  color: $white;
+  padding: .51vh .51vw;
+  border-radius: $radius;
+  text-transform: uppercase;
+  width: 100%;
+  display: inline-block;
+  text-align: center;
+  font-size: .75em;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: $radius;
+  font-family: $fancy;
+  border: 1px solid $main;
+  -webkit-font-smoothing: unset;
+  box-shadow: $shadow;
+}
+
+.inactive-paid-tab {
   box-sizing: border-box;
   @include transition;
   background: transparent;
@@ -482,6 +527,7 @@ label {
   height: 15vh;
   padding: 1vh 1vw;
   background: $grey;
+  display: block;
 }
 
 .field {
@@ -645,6 +691,18 @@ label {
   margin-top: -25px;
 }
 
+.free-card {
+  @include transition;
+  width: 100%;
+  background: $grey;
+  font-size: .75em;
+  padding: .51vh 0;
+  text-transform: uppercase;
+  border-radius: $radius;
+  border: 1px solid $grey;
+  color: $black;
+}
+
 .track-card {
   width: 100%;
   margin-top: 2vh;
@@ -670,6 +728,18 @@ label {
 .video-player {
   border: 1px solid $border;
   border-radius: $radius;
+}
+
+.ad-trash-text {
+  font-size: .75em;
+  letter-spacing: 10px;
+  text-transform: uppercase;
+}
+
+.blackbox {
+  background: $black;
+  height: 105px;
+  color: $white;
 }
 
 /* ******************* JAVASCRIPT ************** */
@@ -950,6 +1020,10 @@ svg.search {
   @include javaScriptForms;
 }
 
+#paid-container {
+  display: none;
+}
+
 #track-button-click {
   @include buttons;
   padding: .51vh .51vw;
@@ -1016,6 +1090,10 @@ svg.search {
 }
 
 #sixth-tab {
+  display: none;
+}
+
+#seventh-tab {
   display: none;
 }
 

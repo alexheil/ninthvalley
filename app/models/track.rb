@@ -5,7 +5,7 @@ class Track < ApplicationRecord
   belongs_to :instructor
   belongs_to :course
 
-  has_many :videos
+  has_many :videos, dependent: :destroy
 
   before_save :should_generate_new_friendly_id?, if: :title_changed?
     

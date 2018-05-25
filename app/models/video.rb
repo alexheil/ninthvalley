@@ -5,9 +5,10 @@ class Video < ApplicationRecord
   include VideoUploader[:video]
 
   belongs_to :instructor
+  belongs_to :course
   belongs_to :track
 
-  has_many :comments
+  has_many :comments, dependent: :destroy
 
   before_save :should_generate_new_friendly_id?, if: :title_changed?
     

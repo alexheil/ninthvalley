@@ -28,8 +28,8 @@
 
         <div class="sidebar">
           <ul>
-            <% @category.subcategories.each do |subcategory| %>
-              <li><%= link_to subcategory.title, category_subcategory_path(@category, subcategory) %></li>
+            <% @category.courses.each do |course| %>
+              <li><%= link_to course.title, instructor_course_path(course.instructor, course) %></li>
             <% end %>
           </ul>
         </div>

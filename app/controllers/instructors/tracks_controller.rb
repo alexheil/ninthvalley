@@ -17,7 +17,7 @@ class Instructors::TracksController < ApplicationController
     @track.instructor_id = @instructor.id
     if @track.save
       flash[:notice] = "You just created " + @track.title + "!"
-      redirect_to instructor_course_track_path(@instructor, @course, @track)
+      redirect_to instructor_course_path(@instructor, @course)
     else
       flash.now[:alert] = 'Whoa! Something went wrong!'
       render 'new'
@@ -29,7 +29,7 @@ class Instructors::TracksController < ApplicationController
     @track = Track.friendly.find(params[:id])
     if @track.update_attributes(track_params)
       flash[:notice] = "You just updated " + @track.title + "!"
-      redirect_to instructor_course_track_path(@instructor, @course, @track)
+      redirect_to instructor_course_path(@instructor, @course)
     else
       flash.now[:alert] = 'Whoa! Something went wrong!'
       render 'new'

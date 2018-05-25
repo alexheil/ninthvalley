@@ -6,6 +6,9 @@
 
       <div class="padding-bottom mid-text border-bottom">
         <%= @course.title %> 
+        <% if instructor_signed_in? && current_instructor == @instructor %>
+          <span class="hard-text"> - <%= link_to "Delete course", instructor_course_path(@instructor, @course), data: { confirm: "Are you sure? This cannot be undone. Ever..." }, method: :delete %></span>
+        <% end %>
       </div>
 
       <div class="flex padding-vertical border-bottom">
@@ -26,19 +29,27 @@
 
         <div class="profile-info-container">
           <div class="padding-bottom">
-            <div id="purchase-button-click">
-              Purchase this course for <%= @course.price %> <%= @course.currency %>
-            </div>
+            <% if @course.paid? %>
+              <div id="purchase-button-click">
+                Purchase this course for <%= @course.price %> <%= @course.currency %>
+              </div>
+            <% else %>
+              <div class="free-card center">
+                <div class="padding-horizontal">
+                  This course is free!
+                </div>
+              </div>
+            <% end %>
           </div>
           <div class="padding-bottom">
             <%= link_to @instructor.username, instructor_path(@instructor) unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %>
             <%= link_to(instructor_path(@instructor)) do %>
               <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %>
             <% end %>
-         | <%= @course.created_at.strftime("Created on %m.%d.%Y") %> | <%= @course.updated_at.strftime("Last updated on %m.%d.%Y") %> | <%= @course.language %>
+         | <%= link_to @course.category.title, category_path(@course.category) %> | <%= @course.created_at.strftime("Created on %m.%d.%Y") %> | <%= @course.updated_at.strftime("Last updated on %m.%d.%Y") %> | <%= @course.language %>
           </div>
           <div class="padding-bottom">
-            <%= pluralize(@course.tracks.count, "Tracks") %> | 3 Videos | 3 Students | <%= pluralize(@course.reviews.count, "Review") %>
+            <%= pluralize(@course.tracks.count, "Track") %> | <%= pluralize(@course.videos.count, "Video") %> | 3 Students | <%= pluralize(@course.reviews.count, "Review") %>
           </div>
           <div class="padding-bottom">
             <%= @course.tagline %>
@@ -61,6 +72,7 @@
             <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Requirements</span></li>
             <li><span id="fifth-tab-click" class="inactive-sidebar-tab">Target</span></li>
             <li><span id="sixth-tab-click" class="inactive-sidebar-tab">Description</span></li>
+            <li><span id="seventh-tab-click" class="inactive-sidebar-tab">Reviews</span></li>
           </ul>
         </aside>
 
@@ -126,7 +138,7 @@
                 <span id="more-tracks"><%= pluralize(@course.tracks.count - 3, "more track") %></span>
               </div>
             <% end %>
-            <% if @course.tracks.count < 3 %>
+            <% if @course.tracks.any? %>
               <div class="padding-vertical mid-text">
                 Highlights
               </div>
@@ -317,6 +329,15 @@
             </div>
           </div>
 
+          <div id="seventh-tab">
+            <div class="padding-bottom mid-text">
+              Reviews
+            </div>
+            <div class="post-content">
+              Buncha reviews here
+            </div>
+          </div>
+
         </main>
 
       </div>
@@ -392,17 +413,26 @@
           <%= f.label :description %>
           <%= f.text_area :description, class: "text-area" %>
         </div>
-        <div class="field">
-          <%= f.label :price %>
-          <%= f.text_field :price, class: "text-field" %>
-        </div>
-        <div class="field">
-          <%= f.label :currency %>
-          <%= f.text_field :currency, class: "text-field" %>
-        </div>
-        <div class="field">
-          <%= f.label :refund_policy %>
-          <%= f.text_area :refund_policy, class: "text-area" %>
+
+          <div class="field">
+            <label class="inactive-paid-tab" id="paid-tab" for="paid-inactive">Pay for course</label>
+            <span class="hidden"><%= f.check_box :paid, id: "paid-inactive" %></span>
+          </div>
+
+
+        <div id="paid-container">
+          <div class="field">
+            <%= f.label :price %>
+            <%= f.text_field :price, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :currency %>
+            <%= f.text_field :currency, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :refund_policy %>
+            <%= f.text_area :refund_policy, class: "text-area" %>
+          </div>
         </div>
 
         <%= f.submit "Update course", data: { disable_with: 'Updating...' }, class: "submit-button" %>
