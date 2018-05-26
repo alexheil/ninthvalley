@@ -15,6 +15,10 @@ class Student < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  #has_many :courses, through: :purchases
+  #has_many :instructors, through: :subscriptions
+  #has_many :subscriptions, dependent: :destroy
+
   before_save :should_generate_new_friendly_id?, if: :username_changed?
   before_save :downcase_username
 

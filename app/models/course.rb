@@ -8,6 +8,8 @@ class Course < ApplicationRecord
   belongs_to :category
   belongs_to :subcategory
 
+  #belongs_to :students
+
   has_many :reviews, dependent: :destroy
   has_many :tracks, dependent: :destroy
   has_many :videos, through: :tracks

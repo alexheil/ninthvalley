@@ -19,6 +19,9 @@ class Instructor < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :comments, dependent: :destroy
 
+  #has_many :subscriptions, dependent: :destroy
+  #has_many :students, through: :subscriptions
+
   before_save :should_generate_new_friendly_id?, if: :username_changed?
   before_save :downcase_username
 
