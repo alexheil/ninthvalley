@@ -4,8 +4,8 @@ class DeviseCreateStudents < ActiveRecord::Migration[5.0]
   def change
     create_table :students do |t|
       ## Database authenticatable
-      t.string :username,              null: false, default: ""
-      t.string :slug,              null: false, default: ""
+      t.string :username,           null: false, default: ""
+      t.string :slug,               null: false, default: ""
       t.string :email,              null: false, default: ""
       t.string :encrypted_password, null: false, default: ""
 
@@ -34,11 +34,13 @@ class DeviseCreateStudents < ActiveRecord::Migration[5.0]
       t.string   :unlock_token # Only if unlock strategy is :email or :both
       t.datetime :locked_at
 
+      t.string :customer_id, default: false
 
       t.timestamps null: false
     end
 
     add_index :students, :username,                unique: true
+    add_index :students, :customer_id, unique: true
     add_index :students, :slug, unique: true
     add_index :students, :email,                unique: true
     add_index :students, :reset_password_token, unique: true

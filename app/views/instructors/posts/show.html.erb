@@ -22,13 +22,15 @@
 
         <div class="sidebar">
           <ul>
-            <li>hi</li>
+            <li>Overview</li>
+            <li>Content</li>
+            <li>Comments</li>
           </ul>
         </div>
 
         <div class="content">
           <div class="padding-bottom mid-text">
-            Highlights
+            <%= @post.title %>
           </div>
           <div class="post-content">
             <%= sanitize(@post.content) %>

@@ -14,15 +14,15 @@ class Students::RegistrationsController < Devise::RegistrationsController
     super
     @profile = @student.create_profile(profile_params)
   
-    #Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
 
-    #customer = Stripe::Customer.create({
-    #  email: @user.email
-    #})
+    customer = Stripe::Customer.create({
+      email: @student.email
+    })
 
-    #@user.update_attributes(
-    #  customer_id: customer.id
-    #)
+    @student.update_attributes(
+      customer_id: customer.id
+    )
   end
 
 

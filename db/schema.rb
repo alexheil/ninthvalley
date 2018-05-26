@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180525154209) do
+ActiveRecord::Schema.define(version: 20180526194801) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "title"
@@ -77,14 +77,35 @@ ActiveRecord::Schema.define(version: 20180525154209) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
+    t.string   "product_id",             default: ""
+    t.string   "plan_id",                default: ""
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.index ["confirmation_token"], name: "index_instructors_on_confirmation_token", unique: true
     t.index ["email"], name: "index_instructors_on_email", unique: true
+    t.index ["plan_id"], name: "index_instructors_on_plan_id", unique: true
+    t.index ["product_id"], name: "index_instructors_on_product_id", unique: true
     t.index ["reset_password_token"], name: "index_instructors_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_instructors_on_slug", unique: true
     t.index ["unlock_token"], name: "index_instructors_on_unlock_token", unique: true
     t.index ["username"], name: "index_instructors_on_username", unique: true
+  end
+
+  create_table "merchants", force: :cascade do |t|
+    t.integer  "instructor_id"
+    t.string   "stripe_publishable_key"
+    t.string   "stripe_secret_key"
+    t.string   "stripe_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "currency"
+    t.string   "country"
+    t.integer  "month"
+    t.integer  "day"
+    t.integer  "year"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["instructor_id"], name: "index_merchants_on_instructor_id"
   end
 
   create_table "posts", force: :cascade do |t|
@@ -133,14 +154,14 @@ ActiveRecord::Schema.define(version: 20180525154209) do
   end
 
   create_table "students", force: :cascade do |t|
-    t.string   "username",               default: "", null: false
-    t.string   "slug",                   default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "username",               default: "",  null: false
+    t.string   "slug",                   default: "",  null: false
+    t.string   "email",                  default: "",  null: false
+    t.string   "encrypted_password",     default: "",  null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,   null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -149,12 +170,14 @@ ActiveRecord::Schema.define(version: 20180525154209) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "unconfirmed_email"
-    t.integer  "failed_attempts",        default: 0,  null: false
+    t.integer  "failed_attempts",        default: 0,   null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.string   "customer_id",            default: "f"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.index ["confirmation_token"], name: "index_students_on_confirmation_token", unique: true
+    t.index ["customer_id"], name: "index_students_on_customer_id", unique: true
     t.index ["email"], name: "index_students_on_email", unique: true
     t.index ["reset_password_token"], name: "index_students_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_students_on_slug", unique: true
