@@ -6,6 +6,8 @@ class Instructor < ApplicationRecord
    #:omniauthable, :confirmable, :lockable
 
   attr_accessor :login
+  attr_accessor :currency
+  attr_accessor :plan_amount
 
   validates :username, presence: true, uniqueness: true, length: { maximum: 50 }, format: { with: /\A[a-zA-Z0-9]+\Z/i }
   validate :validate_username

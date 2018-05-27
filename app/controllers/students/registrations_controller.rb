@@ -16,9 +16,9 @@ class Students::RegistrationsController < Devise::RegistrationsController
   
     Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
 
-    customer = Stripe::Customer.create({
+    customer = Stripe::Customer.create(
       email: @student.email
-    })
+    )
 
     @student.update_attributes(
       customer_id: customer.id
