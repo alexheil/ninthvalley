@@ -50,4 +50,27 @@ module ApplicationHelper
     ]
   end
 
+  def country
+    [
+      ['US | United States'],
+      ['AT'],
+      ['AU'],
+      ['BE'],
+      ['CA'],
+      ['DE'],
+      ['DK'],
+      ['ES'],
+      ['FI'],
+      ['FR'],
+      ['GB'],
+      ['IE'],
+      ['IT'],
+      ['JP'],
+      ['LU'],
+      ['NL'],
+      ['NO'],
+      ['SE']
+    ]
+  end
+
 end

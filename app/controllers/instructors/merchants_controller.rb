@@ -15,7 +15,7 @@ class Instructors::MerchantsController < ApplicationController
 
     @account = Stripe::Account.create(
       type: 'custom',
-      country: params[:merchant][:country],
+      country: (params[:merchant][:country])[0,2],
       email: @instructor.email,
       tos_acceptance: {
         ip: request.remote_ip,
@@ -44,7 +44,7 @@ class Instructors::MerchantsController < ApplicationController
         country: @account.country,
         stripe_id: @account.id
       )
-      redirect_to edit_instructor_merchants_path(@instructor, @merchant)
+      redirect_to edit_instructor_merchant_path(@instructor, @merchant)
       flash[:notice] = "Before we can transfer your payments we need more information."
     else
       redirect_to instructor_path(@instructor)
@@ -55,6 +55,10 @@ class Instructors::MerchantsController < ApplicationController
 
   def edit
     @merchant = @instructor.merchant
+
+    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+
+    @account = Stripe::Account.retrieve(@merchant.stripe_id)
   end
 
   def update
@@ -99,14 +103,14 @@ class Instructors::MerchantsController < ApplicationController
         currency: account.default_currency
       )
       if @merchant.save
-      redirect_to instructor_path(@instructor)
-      flash[:notice] = "you've updated your merchant account."
+        redirect_to instructor_path(@instructor)
+        flash[:notice] = "You've updated your merchant account."
       else
         render 'edit'
       end
     else
       redirect_to instructor_path(@instructor)
-      flash[:alert] = "your merchant account failed to update."
+      flash[:alert] = "Your merchant account failed to update."
     end
 
   end
@@ -118,10 +122,10 @@ class Instructors::MerchantsController < ApplicationController
     end
 
     def correct_instructor
-      @instructor = instructor.friendly.find(params[:instructor_id])
+      @instructor = Instructor.friendly.find(params[:instructor_id])
       if current_instructor != @instructor
         redirect_to instructor_path(@instructor)
-        flash[:alert] = "this is not you."
+        flash[:alert] = "This is not you."
       end
     end
 
