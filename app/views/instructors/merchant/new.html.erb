@@ -2,15 +2,15 @@
 
 <div class="wrapper">
   <div class="container">
+    <div class="form-container padding-vertical">
 
-    <div class="three-space medium-text">
-      Set up a merchant account
-    </div>
+      <div class="padding-bottom center mid-text border-bottom">
+        Settings
+      </div>
 
-    <div class="nameplate border-top">
-      <div class="form-container">
-        <%= form_for(@payment, url: user_payment_settings_path) do |f| %>
-          <%= f.hidden_field :user_id %>
+      <div class="padding-top">
+        <%= form_for(@merchant, url: instructor_merchant_path) do |f| %>
+          <%= f.hidden_field :instructor_id %>
           <%= render 'partials/errors/payment_setting_errors' %>
           
           <div class="flex">
@@ -43,15 +43,17 @@
             <%= f.select :country, options_for_select(country_select) %>
           </div>
 
-          <div class="three-space-bottom-padding center dark">
+          <div class="padding-bottom center dark">
             Don't forget that Stripe, our secure payment processor, takes a fee of <i>3% plus 0.30 USD</i> from <i>each transaction</i>. By registering your account, you agree to our <%= link_to 'Terms of Use', terms_path  %> and the <a href="https://stripe.com/connect/account-terms">Stripe Connected Account Agreement</a>.
           </div>
 
-          <%= f.submit "Create merchant account", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+          <div class="border-bottom padding-bottom">
+            <%= f.submit "Create merchant account", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+          </div>
         <% end %>
       </div>
+
+
     </div>
-
-
   </div>
 </div>
