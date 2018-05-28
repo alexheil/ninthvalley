@@ -38,13 +38,59 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
 
     unless @instructor.plan_id == @instructor.id.to_s
       @plan = Stripe::Plan.retrieve(@instructor.plan_id)
-      @amount = plan.amount
     end
   end
 
   # PUT /resource
   def update
     super
+    @instructor = current_instructor
+
+    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+
+    product = Stripe::Product.retrieve(@instructor.product_id)
+
+    if @instructor.plan_id == @instructor.id.to_s
+      plan = Stripe::Plan.create(
+        amount: (params[:instructor][:plan_amount].to_i * 100).to_s,
+        interval: "month",
+        product: product.id,
+        currency: params[:instructor][:currency],
+        id: @instructor.username + "_" + @instructor.id.to_s
+      )
+
+      @instructor.update_attributes(
+        plan_id: plan.id
+      )
+    else
+      plan = Stripe::Plan.retrieve(@instructor.plan_id)
+      plan.delete
+
+      plan = Stripe::Plan.create(
+        amount: (params[:instructor][:plan_amount].to_i * 100).to_s,
+        interval: "month",
+        product: product.id,
+        currency: params[:instructor][:currency],
+        id: @instructor.username + "_" + @instructor.id.to_s
+      )
+
+      @instructor.update_attributes(
+        plan_id: plan.id
+      )
+    end
+  end
+
+  def edit_plan
+    @instructor = current_instructor
+
+    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+
+    unless @instructor.plan_id == @instructor.id.to_s
+      @plan = Stripe::Plan.retrieve(@instructor.plan_id)
+    end
+  end
+
+  def update_plan
     @instructor = current_instructor
 
     Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"

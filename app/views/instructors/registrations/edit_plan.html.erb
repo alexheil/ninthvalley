@@ -1,0 +1,42 @@
+<% if @instructor.profile.first_name.present? && @instructor.profile.last_name.present? %>
+  <%= provide(:title, sanitize(@instructor.profile.first_name) + " " + sanitize(@instructor.profile.last_name) + "'s Subscription") %>
+<% else %>
+  <%= provide(:title, sanitize(@instructor.username) + "'s Subscription") %>
+<% end %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical">
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Edit your subscription
+      </div>
+
+      <div class="padding-top">
+        <%= form_for(@instructor, url: update_plan_path) do |f| %>
+          <% if @instructor.plan_id == @instructor.id.to_s %>
+            <div class="field">
+              <%= f.label :plan_amount %><span class="dark mini-text"> You currently do not have a subscription.</span>
+              <%= f.text_field :plan_amount, class: "text-field" %>
+            </div>
+            <div class="field">
+              <%= f.label :currency %>
+              <%= f.text_field :currency, class: "text-field" %>
+            </div>
+          <% elsif @instructor.plan_id == (@instructor.username. + "_" + @instructor.id.to_s) %>
+            <div class="field">
+              <%= f.label :plan_amount %><span class="dark mini-text"> Your subscription currently costs <%= @plan.amount %> <%= @plan.currency %>.</span>
+              <%= f.text_field :plan_amount, class: "text-field" %>
+            </div>
+            <div class="field">
+              <%= f.label :currency %>
+              <%= f.text_field :currency, class: "text-field" %>
+            </div>
+          <% end %>
+          <%= f.submit "Update subscription", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

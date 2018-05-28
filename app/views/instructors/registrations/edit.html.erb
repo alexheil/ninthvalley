@@ -40,7 +40,7 @@
               </div>
             <% elsif @instructor.plan_id == (@instructor.username. + "_" + @instructor.id.to_s) %>
               <div class="padding-top">
-                <%= f.label :plan_amount %><span class="dark mini-text"> Your current subscription costs <%= @plan.amount %> <%= @plan.currency %>.</span>
+                <%= f.label :plan_amount %><span class="dark mini-text"> Your subscription currently costs <%= @plan.amount %> <%= @plan.currency %>.</span>
                 <%= f.text_field :plan_amount, class: "text-field" %>
               </div>
               <div class="padding-top">
@@ -65,8 +65,6 @@
           </div>
         <% end %>
       </div>
-
-
 
 
     </div>
