@@ -25,31 +25,6 @@
             <%= f.email_field :email, autocomplete: "email", class: "text-field" %>
           </div>
 
-          <div class="padding-vertical border-bottom border-top">
-            <div class="center mid-text">
-              Your subscription:
-            </div>
-            <% if @instructor.plan_id == @instructor.id.to_s %>
-              <div class="padding-top">
-                <%= f.label :plan_amount %><span class="dark mini-text"> You currently do not have a subscription.</span>
-                <%= f.text_field :plan_amount, class: "text-field" %>
-              </div>
-              <div class="padding-top">
-                <%= f.label :currency %>
-                <%= f.text_field :currency, class: "text-field" %>
-              </div>
-            <% elsif @instructor.plan_id == (@instructor.username. + "_" + @instructor.id.to_s) %>
-              <div class="padding-top">
-                <%= f.label :plan_amount %><span class="dark mini-text"> Your subscription currently costs <%= @plan.amount %> <%= @plan.currency %>.</span>
-                <%= f.text_field :plan_amount, class: "text-field" %>
-              </div>
-              <div class="padding-top">
-                <%= f.label :currency %>
-                <%= f.text_field :currency, class: "text-field" %>
-              </div>
-            <% end %>
-          </div>
-
           <div class="field">
             <%= f.label :password %> <span class="dark mini-text"><%= @minimum_password_length.to_s + " characters minimum." if @minimum_password_length %> Leave blank if you don't want to change it</span>
             <%= f.password_field :password, autocomplete: "off", class: "text-field" %>

@@ -16,9 +16,9 @@ Rails.application.routes.draw do
   devise_for :instructors, controllers: { sessions: "instructors/sessions", passwords: "instructors/passwords", registrations: "instructors/registrations", confirmations: "instructors/confirmations",  unlocks: "instructors/unlocks"}
 
   devise_scope :instructor do
-    get 'sign_out', to: 'instructors/sessions#destroy'
-    get 'edit_plan', to: 'instructors/registrations#edit_plan', path: 'instructors/:id/edit_plan'
-    patch 'update_plan', to: 'instructors/registrations#edit_plan', path: 'instructors/:id/update_plan'
+    get 'sign_out', to: 'instructors/sessions#destroy', path: 'sign-out'
+    get 'instructor_edit_plan', to: 'instructors/registrations#edit_plan', path: 'instructors/:id/edit-plan'
+    patch 'instructor_update_plan', to: 'instructors/registrations#update_plan', path: 'instructors/:id/update-plan'
   end
 
   devise_for :students, controllers: { sessions: "students/sessions", passwords: "students/passwords", registrations: "students/registrations", confirmations: "students/confirmations",  unlocks: "students/unlocks"}

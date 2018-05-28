@@ -3,6 +3,7 @@
 class Instructors::RegistrationsController < Devise::RegistrationsController
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
+  before_action :authenticate_instructor!, only: [:edit_plan, :update_plan]
 
   # GET /resource/sign_up
   # def new
@@ -87,6 +88,7 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
 
     unless @instructor.plan_id == @instructor.id.to_s
       @plan = Stripe::Plan.retrieve(@instructor.plan_id)
+      @amount = BigDecimal(@plan.amount) / 100
     end
   end
 
@@ -124,6 +126,10 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
       @instructor.update_attributes(
         plan_id: plan.id
       )
+    end
+
+    if plan.save
+      redirect_to instructor_edit_plan_path(@instructor)
     end
   end
 

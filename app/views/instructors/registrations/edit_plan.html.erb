@@ -13,7 +13,7 @@
       </div>
 
       <div class="padding-top">
-        <%= form_for(@instructor, url: update_plan_path) do |f| %>
+        <%= form_for(@instructor, url: instructor_update_plan_path) do |f| %>
           <% if @instructor.plan_id == @instructor.id.to_s %>
             <div class="field">
               <%= f.label :plan_amount %><span class="dark mini-text"> You currently do not have a subscription.</span>
@@ -25,7 +25,7 @@
             </div>
           <% elsif @instructor.plan_id == (@instructor.username. + "_" + @instructor.id.to_s) %>
             <div class="field">
-              <%= f.label :plan_amount %><span class="dark mini-text"> Your subscription currently costs <%= @plan.amount %> <%= @plan.currency %>.</span>
+              <%= f.label :plan_amount %><span class="dark mini-text"> Your subscription currently costs <%= @amount %> <%= @plan.currency %>.</span>
               <%= f.text_field :plan_amount, class: "text-field" %>
             </div>
             <div class="field">
