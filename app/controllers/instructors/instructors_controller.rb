@@ -10,6 +10,10 @@ class Instructors::InstructorsController < ApplicationController
       @course = Course.new
       @post = Post.new
     end
+    unless @instructor.plan_id == @instructor.id.to_s
+      @plan = Stripe::Plan.retrieve(@instructor.plan_id)
+      @amount = BigDecimal(@plan.amount) / 100
+    end
   end
 
 end

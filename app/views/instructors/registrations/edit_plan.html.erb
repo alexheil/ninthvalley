@@ -1,8 +1,4 @@
-<% if @instructor.profile.first_name.present? && @instructor.profile.last_name.present? %>
-  <%= provide(:title, sanitize(@instructor.profile.first_name) + " " + sanitize(@instructor.profile.last_name) + "'s Subscription") %>
-<% else %>
-  <%= provide(:title, sanitize(@instructor.username) + "'s Subscription") %>
-<% end %>
+<%= provide(:title, "Your Subscription") %>
 
 <div class="wrapper">
   <div class="container">
@@ -16,21 +12,21 @@
         <%= form_for(@instructor, url: instructor_update_plan_path) do |f| %>
           <% if @instructor.plan_id == @instructor.id.to_s %>
             <div class="field">
-              <%= f.label :plan_amount %><span class="dark mini-text"> You currently do not have a subscription.</span>
-              <%= f.text_field :plan_amount, class: "text-field" %>
+              <%= f.label :plan_amount, "Amount" %><span class="dark mini-text"> You currently do not have a subscription.</span>
+              <%= f.number_field :plan_amount, class: "text-field" %>
             </div>
             <div class="field">
               <%= f.label :currency %>
-              <%= f.text_field :currency, class: "text-field" %>
+              <%= f.select :currency, options_for_select(currency) %>
             </div>
           <% elsif @instructor.plan_id == (@instructor.username. + "_" + @instructor.id.to_s) %>
             <div class="field">
-              <%= f.label :plan_amount %><span class="dark mini-text"> Your subscription currently costs <%= @amount %> <%= @plan.currency %>.</span>
+              <%= f.label :plan_amount, "Amount" %><span class="dark mini-text"> Your subscription currently costs <%= @amount %> <%= @plan.currency.upcase %>.</span>
               <%= f.text_field :plan_amount, class: "text-field" %>
             </div>
             <div class="field">
               <%= f.label :currency %>
-              <%= f.text_field :currency, class: "text-field" %>
+              <%= f.select :currency, options_for_select(currency) %>
             </div>
           <% end %>
           <%= f.submit "Update subscription", data: { disable_with: 'Updating...' }, class: "submit-button" %>

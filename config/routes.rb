@@ -33,6 +33,7 @@ Rails.application.routes.draw do
 
   resources :instructors, controller: 'instructors/instructors', only: :show do
     resource :profile, controller: 'profiles/profiles', only: :update
+    resource :merchant, controller: 'instructors/merchants', only: [:new, :create, :edit, :update]
     resources :posts, controller: 'instructors/posts', only: [:show, :create, :update, :destroy]
     resources :courses, controller: 'instructors/courses', only: [:show, :create, :update, :destroy] do 
       resources :reviews, controller: 'instructors/reviews', only: [:create, :update, :destroy]

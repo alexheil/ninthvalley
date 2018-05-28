@@ -13,7 +13,7 @@ class Instructor < ApplicationRecord
   validate :validate_username
 
   has_one :profile, dependent: :destroy
-  has_one :merchany, dependent: :destroy
+  has_one :merchant, dependent: :destroy
 
   has_many :posts, dependent: :destroy
   has_many :courses, dependent: :destroy

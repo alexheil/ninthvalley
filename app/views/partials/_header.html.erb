@@ -27,15 +27,19 @@
     <li><%= link_to "Discover", "#", class: "nav-links" %></li>
     <% if instructor_signed_in? %>
       <li><%= link_to "Your Page", instructor_path(current_instructor), class: "nav-links" %></li>
-      <li><%= link_to "Purchases", 'user_purchases_path(current_user)', class: "nav-links" %></li>
-      <li><%= link_to "Membership", 'edit_user_membership_path(current_user)', class: "nav-links" %></li>
+      <li><%= link_to "Subscription", instructor_edit_plan_path(current_instructor), class: "nav-links" %></li>
+      <li>
+        <% if current_instructor.merchant.present? %>
+          <%= link_to "Merchant", edit_instructor_merchant_path(current_instructor), class: "nav-links" %>
+        <% else %>
+          <%= link_to "Merchant", new_instructor_merchant_path(current_instructor), class: "nav-links" %>
+        <% end %>
+      </li>
       <li><%= link_to "Account Settings", edit_registration_path(current_instructor), class: "nav-links" %></li>
       <li><%= link_to "Sign Out", sign_out_path, class: "nav-links" %></li>
 
     <% elsif student_signed_in? %>
       <li><%= link_to "Your Page", student_path(current_student), class: "nav-links" %></li>
-      <li><%= link_to "Purchases", 'user_purchases_path(current_user)', class: "nav-links" %></li>
-      <li><%= link_to "Membership", 'edit_user_membership_path(current_user)', class: "nav-links" %></li>
       <li><%= link_to "Account Settings", edit_registration_path(current_student), class: "nav-links" %></li>
       <li><%= link_to "Sign Out", sign_out_path, class: "nav-links" %></li>
 

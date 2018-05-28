@@ -33,4 +33,21 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:student]
   end
 
+  def currency
+    [
+      ['USD'],
+      ['AUD'],
+      ['CAD'],
+      ['CHF'],
+      ['DKK'],
+      ['EUR'],
+      ['GBP'],
+      ['JPY'],
+      ['MXN'],
+      ['NOK'],
+      ['SEK'],
+      ['SGD']
+    ]
+  end
+
 end

@@ -38,16 +38,16 @@
             <% if instructor_signed_in? && @instructor == current_instructor %>
               <div class="free-card center">
                 <div class="padding-horizontal">
-                  Your subscription is $25 per month
+                  Your subscription is <%= @amount %> <%= @plan.currency.upcase %> per month
                 </div>
               </div>
             <% elsif student_signed_in? %>
               <div id="purchase-button-click">
-                Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for $25 per month
+                Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for <%= @amount %> <%= @plan.currency.upcase %> per month
               </div>
             <% else %>
               <div id="purchase-button-click">
-                Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for $25 per month
+                Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for <%= @amount %> <%= @plan.currency.upcase %> per month
               </div>
             <% end %>
           </div>
@@ -327,25 +327,32 @@
           <%= f.text_area :description, class: "text-area" %>
         </div>
 
-        <div class="field">
-          <label class="inactive-paid-tab" id="paid-tab" for="paid-inactive">Pay for course</label>
-          <span class="hidden"><%= f.check_box :paid, id: "paid-inactive" %></span>
-        </div>
+        <% if @instructor.merchant.present? %>
+          <div class="field">
+            <label class="inactive-paid-tab" id="paid-tab" for="paid-inactive">Pay for course</label>
+            <span class="hidden"><%= f.check_box :paid, id: "paid-inactive" %></span>
+          </div>
 
-        <div id="paid-container">
-          <div class="field">
-            <%= f.label :price %>
-            <%= f.text_field :price, class: "text-field" %>
+
+          <div id="paid-container">
+            <div class="field">
+              <%= f.label :price %>
+              <%= f.text_field :price, class: "text-field" %>
+            </div>
+            <div class="field">
+              <%= f.label :currency %>
+              <%= f.text_field :currency, class: "text-field" %>
+            </div>
+            <div class="field">
+              <%= f.label :refund_policy %>
+              <%= f.text_area :refund_policy, class: "text-area" %>
+            </div>
           </div>
-          <div class="field">
-            <%= f.label :currency %>
-            <%= f.text_field :currency, class: "text-field" %>
+        <% else %>
+          <div class="field center">
+            In order to sell a course you must first become a <%= link_to "Merchant", new_instructor_merchant_path(current_instructor) %>.
           </div>
-          <div class="field">
-            <%= f.label :refund_policy %>
-            <%= f.text_area :refund_policy, class: "text-area" %>
-          </div>
-        </div>
+        <% end %>
 
         <%= f.submit "Create course", data: { disable_with: 'Creating...' }, class: "submit-button" %>
       <% end %>
