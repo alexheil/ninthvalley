@@ -21,6 +21,7 @@
     <%= yield %>
     <%= render 'partials/footer' %>
     <div class="back"></div>
+    <%= render 'partials/stripe' if (params[:action] == 'checkout') || (params[:action] == 'edit_source') %>
     
   </body>
 </html>

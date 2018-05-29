@@ -25,12 +25,12 @@ Rails.application.routes.draw do
 
   devise_scope :student do
     get 'sign_out', to: 'students/sessions#destroy'
+    get 'student_edit_source', to: 'students/registrations#edit_source', path: 'students/:id/edit-source'
+    patch 'student_update_source', to: 'students/registrations#update_source', path: 'students/:id/update-source'
   end
 
   resources :students, controller: 'students/students', only: :show do
     resource :profile, controller: 'profiles/profiles', only: :update
-    get 'student_edit_source', to: 'students/registrations#edit_source', path: 'edit-source'
-    patch 'student_update_source', to: 'students/registrations#update_source', path: 'update-source'
   end
 
   resources :instructors, controller: 'instructors/instructors', only: :show do

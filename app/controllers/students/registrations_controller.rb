@@ -25,7 +25,6 @@ class Students::RegistrationsController < Devise::RegistrationsController
     )
   end
 
-
   # GET /resource/edit
   # def edit
   #   super
@@ -35,6 +34,46 @@ class Students::RegistrationsController < Devise::RegistrationsController
   # def update
   #   super
   # end
+
+  def edit_source
+    if student_signed_in?
+      @student = current_student
+
+      Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+
+      @customer = Stripe::Customer.retrieve(@student.customer_id)
+    else
+      redirect_to root_url
+    end
+  end
+
+  def update_source
+    @student = current_student
+
+    redirection = nil
+    if params[:url].present?
+      redirection = Base64.decode64(params[:url].to_s)
+    end
+
+    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+
+    customer = Stripe::Customer.retrieve(@student.customer_id)
+
+    token = params[:stripeToken]
+
+    source = customer.sources.create({source: token})
+    customer.default_source = source.id
+    customer.save
+
+    if customer.save
+      if redirection.present?
+        path = redirection
+      else
+        path = student_path(@student)
+      end
+      redirect_to path
+    end
+  end
 
   # DELETE /resource
   # def destroy

@@ -1,0 +1,44 @@
+<%= provide(:title, "Your Payment Source") %>
+
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical">
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Add a payment source
+      </div>
+
+      <div class="padding-top">
+        <% if @customer.default_source.present? %>
+          You already have a payment source on file. Only fill out this form if you'd like to update your current payment method.
+        <% else %>
+          You do not have a payment source on file.
+        <% end %>
+      </div>
+
+      <div class="padding-top">
+
+        <%= form_for(@student, url: student_update_source_path(@student), :html => {:id => "payment-form"}) do |f| %>
+          <%= hidden_field_tag :url, params[:url].to_s %>
+          <span class="payment-errors"></span>
+
+          <label for="card-element">
+            Credit or debit card
+          </label>
+          <div id="card-element" class="field">
+            <!-- A Stripe Element will be inserted here. -->
+          </div>
+
+          <!-- Used to display form errors. -->
+          <div id="card-errors" role="alert"></div>
+
+          <button type="submit" class="submit-button">Submit payment</button>
+        <% end %>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>

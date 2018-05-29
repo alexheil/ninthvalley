@@ -512,6 +512,12 @@ label {
   letter-spacing: .5px;
 }
 
+.StripeElement {
+  @include fields;
+  padding: 1vh 1vw;
+  background: $grey;
+}
+
 .search-field {
   @include fields;
   padding: .5vh 1vw;
