@@ -11,7 +11,7 @@
 
       <div class="padding-top">
         <% if @customer.default_source.present? %>
-          You already have a payment source on file. Only fill out this form if you'd like to update your current payment method.
+          You already have a payment source on file. Only fill out this form if you'd like to update your current payment method. Your current card ends in <span class="bold"><%= @card.last4 %></span>.
         <% else %>
           You do not have a payment source on file.
         <% end %>

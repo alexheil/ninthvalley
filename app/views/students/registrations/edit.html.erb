@@ -37,20 +37,18 @@
         <% end %>
       </div>
 
-      <div class="padding-vertical center mid-text border-bottom border-top">
-        Want to delete your account?
+      <div class="padding-vertical center mid-text border-bottom">
+        Add a payment source?
       </div>
 
       <div class="padding-vertical">
-        <% if @customer.default_source.present? %>
-          You currently have a payment source on file. You can make purchases and subscribbe to instructors on Ninth Valley using this card. You can change your default source by adding a different card on file.
-        <% else %>
-          You currently do not have a payment source on file. You will not be able to subscribe to any instructors until you add a card on file. However, you can purchase courses using a one-time checkout. You can create a default source by adding a card on file.
-        <% end %>
+        You can update your default payment method by adding a card.
       </div>
 
       <div class="border-bottom padding-bottom">
-        <%= link_to "Add payment source", student_edit_source_path(@student), class: "submit-button" %>
+        <div class="link-color">
+          <%= link_to "Add payment source", student_edit_source_path(@student), class: "fake-button" %>
+        </div>
       </div>
 
 

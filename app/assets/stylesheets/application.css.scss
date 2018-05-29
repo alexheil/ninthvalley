@@ -111,6 +111,15 @@ video {
 
 /* ***************** UNIVERSAL ************* */
 
+.link-color {
+  a {
+    color: $white;
+    &:hover {
+      color: $white;
+    }
+  }
+}
+
 .hidden {
   display: none;
 }
@@ -220,6 +229,14 @@ video {
     color: $light;
     &:hover {
       color: $dark;
+    }
+  }
+  .link-color {
+    a {
+      color: $white;
+      &:hover {
+        color: $white;
+      }
     }
   }
 }
@@ -488,6 +505,17 @@ video {
   @include buttons;
   background: $red;
   border: 1px solid $red;
+}
+
+.fake-button {
+  @include buttons;
+  padding: .51vh .51vw;
+  a {
+    color: $white;
+    &:hover {
+      color: $white;
+    }
+  }
 }
 
 .image-button {
