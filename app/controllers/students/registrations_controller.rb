@@ -26,9 +26,14 @@ class Students::RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    super
+    @student = current_student
+
+    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+
+    @customer = Stripe::Customer.retrieve(@student.customer_id)
+  end
 
   # PUT /resource
   # def update
