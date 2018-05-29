@@ -265,6 +265,10 @@ video {
   vertical-align: top;
 }
 
+.margin-top-huge {
+  margin-top: 50vh;
+}
+
 .margin-bottom {
   margin-bottom: 2vh;
 }
@@ -478,6 +482,12 @@ video {
 
 .submit-button {
   @include buttons;
+}
+
+.removal-button {
+  @include buttons;
+  background: $red;
+  border: 1px solid $red;
 }
 
 .image-button {

@@ -1,43 +1,56 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%= provide(:title, "Your Settings") %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical">
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <div class="padding-bottom center mid-text border-bottom">
+        Settings
+      </div>
+
+      <div class="padding-top">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+          <%= devise_error_messages! %>
+
+          <div class="field">
+            <%= f.label :username %><span class="dark mini-text"> This will also change your URL.</span>
+            <%= f.text_field :username, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :email %>
+            <%= f.email_field :email, autocomplete: "email", class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :password %> <span class="dark mini-text"><%= @minimum_password_length.to_s + " characters minimum." if @minimum_password_length %> Leave blank if you don't want to change it</span>
+            <%= f.password_field :password, autocomplete: "off", class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :current_password %> <span class="dark mini-text">Your current password confirms your changes.</span>
+            <%= f.password_field :current_password, autocomplete: "off", class: "text-field" %>
+          </div>
+
+          <div class="border-bottom padding-bottom">
+            <%= f.submit "Update", class: "submit-button" %>
+          </div>
+        <% end %>
+      </div>
+
+
+      <div class="margin-top-huge padding-vertical center mid-text border-bottom border-top">
+        Want to delete your account?
+      </div>
+
+      <div class="padding-vertical">
+        You will not be able to get your account back. You will not be able to access your courses or subscriptions. You will not be able to refund any courses or subscriptions. All course purchases and subscriptions will be terminated upon deleting your account.
+      </div>
+
+      <div class="border-bottom padding-bottom">
+        <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "removal-button" %>
+      </div>
+
+
+    </div>
   </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<p>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>
-
-<%= link_to "Back", :back %>
+</div>
