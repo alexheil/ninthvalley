@@ -11,8 +11,13 @@ class Instructors::InstructorsController < ApplicationController
       @post = Post.new
     end
     unless @instructor.plan_id == @instructor.id.to_s
-      @plan = Stripe::Plan.retrieve(@instructor.plan_id)
+      @plan = Stripe::Plan.retrieve(@instructor.plan_id, stripe_account: @instructor.merchant.stripe_id)
       @amount = BigDecimal(@plan.amount) / 100
+    end
+    if student_signed_in?
+      @subscription = Subscription.new
+      Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+      @customer = Stripe::Customer.retrieve(current_student.customer_id)
     end
   end
 

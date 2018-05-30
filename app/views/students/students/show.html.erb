@@ -15,9 +15,7 @@
           <%= @student.profile.first_name if @student.profile.first_name.present? %> <%= @student.profile.last_name if @student.profile.last_name.present? %>
         <% end %>
 
-
-
-        <span class="hard-text"> | Student | <%= @student.purchases.count %> Courses | 3 Subscriptions | 5 Reviews</span>
+        <span class="hard-text"> | Student | <%= pluralize(@student.purchases.count, "Course") %> | <%= pluralize(@student.subscriptions.count, "Subscription") %> | <%= pluralize(@student.reviews.count, "Review") %></span>
       </div>
 
       <div class="flex padding-vertical border-bottom">

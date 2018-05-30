@@ -68,7 +68,7 @@
             <% end %>
           </div>
           <div class="padding-bottom">
-            Instructor | <%= pluralize(@instructor.courses.count, "Course") %> | 3 Students | <%= pluralize(@instructor.reviews.count, "Review") %>
+            Instructor | <%= pluralize(@instructor.courses.count, "Course") %> | <%= pluralize(@instructor.subscriptions.count, "Subscription") %> | 3 Students | <%= pluralize(@instructor.reviews.count, "Review") %>
           </div>
           <div class="padding-bottom">
             <%= @instructor.profile.city if @instructor.profile.city.present? %><%= ", " if @instructor.profile.city.present? && (@instructor.profile.state.present? || @instructor.profile.country.present?) %><%= @instructor.profile.state if @instructor.profile.state.present? %><%= ", " if @instructor.profile.state.present? && @instructor.profile.country.present? %><%= @instructor.profile.country if @instructor.profile.country.present? %> 
@@ -384,7 +384,7 @@
       <div class="close"></div>
 
       <div class="padding-bottom center mid-text border-bottom">
-        Create your course
+        Create a post
       </div>
 
       <%= form_for(@post, url: instructor_posts_path(@instructor)) do |f| %>
@@ -420,6 +420,11 @@
       <div class="padding-bottom center mid-text border-bottom">
         Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> 
       </div>
+
+      <%= form_for(@subscription, url: instructor_subscriptions_path(@instructor)) do |f| %>
+
+        <%= f.submit "Subscribe", data: { disable_with: 'Subscribing...' }, class: "submit-button" %>
+      <% end %>
 
       
     </div>

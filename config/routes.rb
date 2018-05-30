@@ -51,6 +51,7 @@ Rails.application.routes.draw do
         end
       end
     end
+    resources :subscriptions, controller: 'instructors/subscriptions', only: [:create, :destroy]
   end
 
   resources :categories, controller: 'categories/categories'

@@ -14,18 +14,8 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
   def create
     super
     @instructor.create_profile(profile_params)
-  
-    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
-
-    product = Stripe::Product.create(
-      id: @instructor.username + "_" + @instructor.id.to_s,
-      name: @instructor.username + "_" + @instructor.id.to_s,
-      type: 'service',
-      statement_descriptor: "NINVAL | " + @instructor.username[0...13].upcase,
-    )
 
     @instructor.update_attributes(
-      product_id: product.id,
       plan_id: @instructor.id
     )
   end
@@ -47,7 +37,8 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
       Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
 
       unless @instructor.plan_id == @instructor.id.to_s
-        @plan = Stripe::Plan.retrieve(@instructor.plan_id)
+        account = Stripe::Account.retrieve(@instructor.merchant.stripe_id)
+        @plan = Stripe::Plan.retrieve(@instructor.plan_id, stripe_account: @instructor.merchant.stripe_id)
         @amount = BigDecimal(@plan.amount) / 100
       end
     else
@@ -60,31 +51,38 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
 
     Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
 
-    product = Stripe::Product.retrieve(@instructor.product_id)
-
     if @instructor.plan_id == @instructor.id.to_s
-      plan = Stripe::Plan.create(
+      plan = Stripe::Plan.create({
         amount: (params[:instructor][:plan_amount].to_i * 100).to_s,
         interval: "month",
-        product: product.id,
+        product:
+        {
+          id: @instructor.username + "_" + @instructor.id.to_s,
+          name: @instructor.username + "_" + @instructor.id.to_s,
+          statement_descriptor: "NINVAL | " + @instructor.username[0...13].upcase
+        },
         currency: params[:instructor][:currency],
         id: @instructor.username + "_" + @instructor.id.to_s
-      )
+      }, stripe_account: @instructor.merchant.stripe_id)
 
       @instructor.update_attributes(
         plan_id: plan.id
       )
     else
-      plan = Stripe::Plan.retrieve(@instructor.plan_id)
+      plan = Stripe::Plan.retrieve(@instructor.plan_id, stripe_account: @instructor.merchant.stripe_id)
       plan.delete
 
-      plan = Stripe::Plan.create(
-        amount: (params[:instructor][:plan_amount].to_i * 100).to_s,
+      amount: (params[:instructor][:plan_amount].to_i * 100).to_s,
         interval: "month",
-        product: product.id,
+        product:
+        {
+          id: @instructor.username + "_" + @instructor.id.to_s,
+          name: @instructor.username + "_" + @instructor.id.to_s,
+          statement_descriptor: "NINVAL | " + @instructor.username[0...13].upcase
+        },
         currency: params[:instructor][:currency],
         id: @instructor.username + "_" + @instructor.id.to_s
-      )
+      }, stripe_account: @instructor.merchant.stripe_id)
 
       @instructor.update_attributes(
         plan_id: plan.id

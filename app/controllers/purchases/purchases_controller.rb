@@ -82,14 +82,6 @@ class Purchases::PurchasesController < ApplicationController
           flash.now[:alert] = "Your card has been declined."
         end
 
-
-
-
-
-
-
-        #redirect_to checkout_instructor_course_purchase_path(@instructor, @course, @purchase)
-        #flash[:notice] = "How will you pay for this?"
       end
     else
       redirect_to instructor_course_path(@instructor, @course)

@@ -19,8 +19,9 @@ class Student < ApplicationRecord
   has_many :purchases
   has_many :courses, through: :purchases
   belongs_to :course
-  #has_many :instructors, through: :subscriptions
-  #has_many :subscriptions, dependent: :destroy
+  belongs_to :instructor
+  has_many :instructors, through: :subscriptions
+  has_many :subscriptions, dependent: :destroy
 
   before_save :should_generate_new_friendly_id?, if: :username_changed?
   before_save :downcase_username
@@ -38,6 +39,18 @@ class Student < ApplicationRecord
     elsif conditions.has_key?(:username) || conditions.has_key?(:email)
       where(conditions.to_h).first
     end
+  end
+
+  def subscribed?(instructor)
+    Subscription.exists? student_id: id, instructor_id: instructor.id
+  end
+
+  def unsubscribe(instructor)
+    Subscription.find_by(student_id: id, instructor_id: instructor.id).destroy
+  end
+
+  def subscription_id(instructor)
+    Subscription.find_by(student_id: id, instructor_id: instructor.id).id
   end
 
   private

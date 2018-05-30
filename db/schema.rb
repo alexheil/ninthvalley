@@ -77,14 +77,12 @@ ActiveRecord::Schema.define(version: 20180530180142) do
     t.integer  "failed_attempts",        default: 0,  null: false
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.string   "product_id",             default: ""
     t.string   "plan_id",                default: ""
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.index ["confirmation_token"], name: "index_instructors_on_confirmation_token", unique: true
     t.index ["email"], name: "index_instructors_on_email", unique: true
     t.index ["plan_id"], name: "index_instructors_on_plan_id", unique: true
-    t.index ["product_id"], name: "index_instructors_on_product_id", unique: true
     t.index ["reset_password_token"], name: "index_instructors_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_instructors_on_slug", unique: true
     t.index ["unlock_token"], name: "index_instructors_on_unlock_token", unique: true

@@ -34,7 +34,6 @@ class DeviseCreateInstructors < ActiveRecord::Migration[5.0]
       t.string   :unlock_token # Only if unlock strategy is :email or :both
       t.datetime :locked_at
 
-      t.string :product_id, default: ""
       t.string :plan_id, default: ""
 
       t.timestamps null: false
@@ -42,7 +41,6 @@ class DeviseCreateInstructors < ActiveRecord::Migration[5.0]
 
     add_index :instructors, :username,                unique: true
     add_index :instructors, :slug, unique: true
-    add_index :instructors, :product_id, unique: true
     add_index :instructors, :plan_id, unique: true
     add_index :instructors, :email,                unique: true
     add_index :instructors, :reset_password_token, unique: true
