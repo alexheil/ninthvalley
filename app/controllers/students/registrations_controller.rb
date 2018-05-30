@@ -69,6 +69,10 @@ class Students::RegistrationsController < Devise::RegistrationsController
     customer.default_source = source.id
     customer.save
 
+    card = customer.sources.retrieve(customer.default_source)
+    card.name = params[:student][:cardholder]
+    card.save
+
     if customer.save
       if redirection.present?
         path = redirection

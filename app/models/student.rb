@@ -6,6 +6,7 @@ class Student < ApplicationRecord
    #:omniauthable, :confirmable, :lockable
 
   attr_accessor :login
+  attr_accessor :cardholder
 
   validates :username, presence: true, uniqueness: true, length: { maximum: 50 }, format: { with: /\A[a-zA-Z0-9]+\Z/i }
   validate :validate_username
@@ -15,7 +16,9 @@ class Student < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  #has_many :courses, through: :purchases
+  has_many :purchases
+  has_many :courses, through: :purchases
+  belongs_to :course
   #has_many :instructors, through: :subscriptions
   #has_many :subscriptions, dependent: :destroy
 

@@ -35,20 +35,36 @@
 
         <div class="profile-info-container">
           <div class="padding-bottom">
-            <% if instructor_signed_in? && @instructor == current_instructor %>
-              <div class="free-card center">
-                <div class="padding-horizontal">
-                  Your subscription is <%= @amount %> <%= @plan.currency.upcase %> per month
+            <% if @plan.present? %>
+              <% if instructor_signed_in? && @instructor == current_instructor %>
+                <div class="free-card center">
+                  <div class="padding-horizontal">
+                    Your subscription is <%= @amount %> <%= @plan.currency.upcase %> per month.
+                  </div>
                 </div>
-              </div>
-            <% elsif student_signed_in? %>
-              <div id="purchase-button-click">
-                Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for <%= @amount %> <%= @plan.currency.upcase %> per month
-              </div>
+              <% elsif student_signed_in? %>
+                <div id="purchase-button-click">
+                  Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for <%= @amount %> <%= @plan.currency.upcase %> per month.
+                </div>
+              <% else %>
+                <div id="purchase-button-click">
+                  Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for <%= @amount %> <%= @plan.currency.upcase %> per month.
+                </div>
+              <% end %>
             <% else %>
-              <div id="purchase-button-click">
-                Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> for <%= @amount %> <%= @plan.currency.upcase %> per month
-              </div>
+              <% if instructor_signed_in? && @instructor == current_instructor %>
+                <div class="free-card center">
+                  <div class="padding-horizontal">
+                    You do not have a subscription plan.
+                  </div>
+                </div>
+              <% else %>
+                <div class="free-card center">
+                  <div class="padding-horizontal">
+                    You cannot subscribe to this instructor.
+                  </div>
+                </div>
+              <% end %>
             <% end %>
           </div>
           <div class="padding-bottom">
@@ -335,13 +351,15 @@
 
 
           <div id="paid-container">
-            <div class="field">
-              <%= f.label :price %>
-              <%= f.text_field :price, class: "text-field" %>
-            </div>
-            <div class="field">
-              <%= f.label :currency %>
-              <%= f.text_field :currency, class: "text-field" %>
+            <div class="flex">
+              <div class="field-two-column">
+                <%= f.label :price %>
+                <%= f.text_field :price, class: "text-field" %>
+              </div>
+              <div class="field-two-column">
+                <%= f.label :currency %>
+                  <%= f.select :currency, options_for_select(currency) %>
+              </div>
             </div>
             <div class="field">
               <%= f.label :refund_policy %>

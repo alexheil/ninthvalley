@@ -33,12 +33,12 @@
               <% if instructor_signed_in? && @instructor == current_instructor %>
                 <div class="free-card center">
                   <div class="padding-horizontal">
-                    Your course is <%= @course.price %> <%= @course.currency %>
+                    Your course is <%= @course.price %> <%= @course.currency %>.
                   </div>
                 </div>
               <% else %>
                 <div id="purchase-button-click">
-                  Purchase this course for <%= @course.price %> <%= @course.currency %>
+                  Purchase this course for <%= @course.price %> <%= @course.currency %>.
                 </div>
               <% end %>
             <% else %>
@@ -57,9 +57,9 @@
          | <%= link_to @course.category.title, category_path(@course.category) %> | <%= @course.created_at.strftime("Created on %m.%d.%Y") %> | <%= @course.updated_at.strftime("Last updated on %m.%d.%Y") %> | <%= @course.language %>
           </div>
           <div class="padding-bottom">
-            <%= pluralize(@course.tracks.count, "Track") %> | <%= pluralize(@course.videos.count, "Video") %> | 3 Students | <%= pluralize(@course.reviews.count, "Review") %>
+            <%= pluralize(@course.tracks.count, "Track") %> | <%= pluralize(@course.videos.count, "Video") %> | <%= pluralize(@course.purchases.count, "Student") %> | <%= pluralize(@course.reviews.count, "Review") %>
           </div>
-          <div class="padding-bottom">
+          <div>
             <%= @course.tagline %>
           </div>
         </div>
@@ -435,13 +435,15 @@
           </div>
 
           <div id="paid-container">
-            <div class="field">
-              <%= f.label :price %>
-              <%= f.text_field :price, class: "text-field" %>
-            </div>
-            <div class="field">
-              <%= f.label :currency %>
-              <%= f.text_field :currency, class: "text-field" %>
+            <div class="flex">
+              <div class="field-two-column">
+                <%= f.label :price %>
+                <%= f.text_field :price, class: "text-field" %>
+              </div>
+              <div class="field-two-column">
+                <%= f.label :currency %>
+                  <%= f.select :currency, options_for_select(currency) %>
+              </div>
             </div>
             <div class="field">
               <%= f.label :refund_policy %>
@@ -486,12 +488,53 @@
       <div class="close"></div>
 
       <div class="padding-bottom center mid-text border-bottom">
-        Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> 
+        Purchase <%= @course.title %>
       </div>
 
-      
+      <%= form_for(@purchase, url: instructor_course_purchases_path(@instructor, @course), :html => {:id => "payment-form"}) do |f| %>
+        <span class="purchase_errors"><%= render 'partials/errors/purchase_errors' %></span>
+
+        <div class="padding-vertical center mid-text border-bottom">
+          <%= @course.price %> <%= @course.currency %>
+        </div>
+
+        <% if @customer.default_source.present? %>
+          <div class="padding-top">
+            <label class="inactive-paid-tab" id="use-card-tab" for="use-card-inactive">Use your card</label>
+            <span class="hidden"><%= f.check_box :use_your_card, data: { disable_with: 'Loading...' }, id: "use-card-inactive" %></span>
+          </div>
+          <div id="use-card-container" class="padding-vertical">
+            Pressing "Purchase course" will automatically finish this process, including charging your card. If you'd like to change your card, <%= link_to "please do so before continuing", student_edit_source_path(current_student) %>.
+          </div>
+
+          <span id="use-card-button"><%= f.submit "Purchase button", data: { disable_with: '...' }, id:"fatty", class: "submit-button" %></span>
+
+        <% end %>
+
+        <div id="checkout-container" class="padding-top">
+          
+          <div class="field">
+            <label for="card-element">
+              Credit or debit card
+            </label>
+            <div id="card-element">
+              <!-- A Stripe Element will be inserted here. -->
+            </div>
+          </div>
+
+          <!-- Used to display form errors. -->
+          <div id="card-errors" role="alert"></div>
+        </div>
+
+        <span id="checkout-button" class="fake-button margin-top">checkout button</span>
+        <span id="purchase-button"><%= f.submit "Purchase button", data: { disable_with: 'Loading...' }, class: "submit-button" %></span>
+
+      <% end %>
+
     </div>
   </div>
+
+  <%= render 'partials/stripe' %>
 
 <% else %>
 

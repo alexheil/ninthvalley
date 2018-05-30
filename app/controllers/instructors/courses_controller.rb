@@ -12,6 +12,11 @@ class Instructors::CoursesController < ApplicationController
       @track = Track.new
       @video = Video.new
     end
+    if student_signed_in?
+      @purchase = Purchase.new
+      Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+      @customer = Stripe::Customer.retrieve(current_student.customer_id)
+    end
   end
 
   def create
@@ -39,7 +44,7 @@ class Instructors::CoursesController < ApplicationController
   def destroy
     @course = Course.friendly.find(params[:id]).destroy
     redirect_to instructor_path(@instructor)
-    flash[:notice] = "You deleted your course. "
+    flash[:notice] = "You deleted your course."
   end
 
   private

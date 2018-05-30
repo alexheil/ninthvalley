@@ -8,7 +8,9 @@ class Course < ApplicationRecord
   belongs_to :category
   belongs_to :subcategory
 
-  #belongs_to :students
+  belongs_to :student
+  has_many :students, through: :purchases
+  has_many :purchases
 
   has_many :reviews, dependent: :destroy
   has_many :tracks, dependent: :destroy

@@ -286,6 +286,10 @@ video {
   margin-top: 50vh;
 }
 
+.margin-top {
+  margin-top: 2vh;
+}
+
 .margin-bottom {
   margin-bottom: 2vh;
 }
@@ -554,6 +558,7 @@ label {
   @include fields;
   padding: 1vh 1vw;
   background: $grey;
+  display: block;
 }
 
 .search-field {
@@ -1116,6 +1121,22 @@ svg.search {
 }
 
 #paid-container {
+  display: none;
+}
+
+#use-card-container {
+  display: none;
+}
+
+#use-card-button {
+  display: none;
+}
+
+#purchase-button {
+  display: none;
+}
+
+#checkout-container {
   display: none;
 }
 

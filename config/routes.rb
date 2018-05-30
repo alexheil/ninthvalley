@@ -44,6 +44,12 @@ Rails.application.routes.draw do
           resources :comments, controller: 'instructors/comments', only: [:create, :update, :destroy]
         end
       end
+      resources :purchases, path: 'purchases', controller: 'purchases/purchases', only: [:create, :destroy] do
+        member do
+          get 'checkout'
+          patch 'charge'
+        end
+      end
     end
   end
 

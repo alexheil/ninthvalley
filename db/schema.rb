@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180526194801) do
+ActiveRecord::Schema.define(version: 20180529203120) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "title"
@@ -138,6 +138,19 @@ ActiveRecord::Schema.define(version: 20180526194801) do
     t.datetime "updated_at",                  null: false
     t.index ["instructor_id"], name: "index_profiles_on_instructor_id"
     t.index ["student_id"], name: "index_profiles_on_student_id"
+  end
+
+  create_table "purchases", force: :cascade do |t|
+    t.integer  "course_id"
+    t.integer  "instructor_id"
+    t.integer  "student_id"
+    t.string   "stripe_charge_id"
+    t.boolean  "use_your_card",    default: false
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.index ["course_id"], name: "index_purchases_on_course_id"
+    t.index ["instructor_id"], name: "index_purchases_on_instructor_id"
+    t.index ["student_id"], name: "index_purchases_on_student_id"
   end
 
   create_table "reviews", force: :cascade do |t|

@@ -275,6 +275,14 @@ var editProfile = function() {
     }
   });
 
+};
+
+$(document).ready(editProfile);
+$(document).on('turbolinks:load', editProfile);
+
+
+var purchaseForms = function() {
+
   $('#paid-inactive').change(function(){
     if($(this).is(":checked")) {
       $('#paid-container').slideDown(300);
@@ -293,10 +301,44 @@ var editProfile = function() {
     $('#paid-container').show();
   };
 
+  $('#use-card-inactive').change(function(){
+    if($(this).is(":checked")) {
+      $('#use-card-container').slideDown(300);
+      $('#use-card-button').show();
+      $('#checkout-button').hide();
+      $('#checkout-container').hide(300);
+      $('#purchase-button').hide();
+      $('#use-card-tab').addClass("active-paid-tab");
+      $('#use-card-tab').removeClass("inactive-paid-tab");
+    } else {
+      $('#use-card-container').slideUp(300);
+      $('#use-card-button').hide();
+      $('#checkout-button').show();
+      $('#use-card-tab').removeClass("active-paid-tab");
+      $('#use-card-tab').addClass("inactive-paid-tab");
+    }
+  });
+
+  $('#use-card-inactive').change(function(){
+    if($(this).is(":checked")) {
+      $('#fatty').click(function() {
+        $('#checkout-container').remove();
+        var form = document.getElementById('payment-form');
+        form.submit();
+      });
+    }
+  });
+
+  $('#checkout-button').click(function() {
+    $('#checkout-container').fadeIn(300);
+    $('#checkout-button').hide();
+    $('#purchase-button').show();
+  });
+
 };
 
-$(document).ready(editProfile);
-$(document).on('turbolinks:load', editProfile);
+$(document).ready(purchaseForms);
+$(document).on('turbolinks:load', purchaseForms);
 
 
 var sidebarTabs = function() {
