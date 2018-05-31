@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(version: 20180530180142) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.string   "plan_id",                default: ""
+    t.string   "product_id",             default: ""
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
     t.index ["confirmation_token"], name: "index_instructors_on_confirmation_token", unique: true

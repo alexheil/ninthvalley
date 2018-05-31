@@ -142,7 +142,7 @@ class Purchases::PurchasesController < ApplicationController
   private 
 
     def purchase_params
-      params.require(:purchase).permit(:course_id, :student_id, :instructor_id, :stripe_charge_id, :use_your_card)
+      params.permit(:course_id, :student_id, :instructor_id, :stripe_charge_id, :use_your_card)
     end
 
 end

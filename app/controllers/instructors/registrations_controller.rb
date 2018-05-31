@@ -16,7 +16,8 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
     @instructor.create_profile(profile_params)
 
     @instructor.update_attributes(
-      plan_id: @instructor.id
+      plan_id: @instructor.id,
+      product_id: @instructor.id
     )
   end
 
@@ -31,7 +32,7 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
   # end
 
   def edit_plan
-    if instructor_signed_in?
+    if instructor_signed_in? && current_instructor.merchant.present?
       @instructor = current_instructor
 
       Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
@@ -41,6 +42,9 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
         @plan = Stripe::Plan.retrieve(@instructor.plan_id, stripe_account: @instructor.merchant.stripe_id)
         @amount = BigDecimal(@plan.amount) / 100
       end
+    elsif instructor_signed_in? && current_instructor.merchant.nil?
+      redirect_to new_instructor_merchant_path(current_instructor)
+      flash[:alert] = "You need to set up a merchant account first."
     else
       redirect_to root_url
     end
@@ -64,15 +68,14 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
         currency: params[:instructor][:currency],
         id: @instructor.username + "_" + @instructor.id.to_s
       }, stripe_account: @instructor.merchant.stripe_id)
-
-      @instructor.update_attributes(
-        plan_id: plan.id
-      )
     else
       plan = Stripe::Plan.retrieve(@instructor.plan_id, stripe_account: @instructor.merchant.stripe_id)
       plan.delete
+      product = Stripe::Product.retrieve(@instructor.product_id, stripe_account: @instructor.merchant.stripe_id)
+      product.delete
 
-      amount: (params[:instructor][:plan_amount].to_i * 100).to_s,
+      plan = Stripe::Plan.create({
+        amount: (params[:instructor][:plan_amount].to_i * 100).to_s,
         interval: "month",
         product:
         {
@@ -83,14 +86,18 @@ class Instructors::RegistrationsController < Devise::RegistrationsController
         currency: params[:instructor][:currency],
         id: @instructor.username + "_" + @instructor.id.to_s
       }, stripe_account: @instructor.merchant.stripe_id)
-
-      @instructor.update_attributes(
-        plan_id: plan.id
-      )
     end
 
     if plan.save
-      redirect_to instructor_edit_plan_path(@instructor)
+      @instructor.update_attributes(
+        plan_id: plan.id,
+        product_id: plan.product
+      )
+      redirect_to instructor_path(@instructor)
+      flash[:notice] = "You have successfully created a subscription!"
+    else
+      redirect_to instructor_path(@instructor)
+      flash[:alert] = "You failed to create a subscription."
     end
   end
 

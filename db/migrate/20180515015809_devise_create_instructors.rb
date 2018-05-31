@@ -35,6 +35,7 @@ class DeviseCreateInstructors < ActiveRecord::Migration[5.0]
       t.datetime :locked_at
 
       t.string :plan_id, default: ""
+      t.string :product_id, default: ""
 
       t.timestamps null: false
     end

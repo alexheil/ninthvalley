@@ -239,6 +239,12 @@ var editProfile = function() {
     $('.wrapper').addClass("blur", 300);
   });
 
+  $('#review-button-click').click(function() {
+    $('#review-form').fadeIn(300);
+    $('.back').fadeIn(300);
+    $('.wrapper').addClass("blur", 300);
+  });
+
   $('.back').click(function() {
     $('#profile-form').fadeOut(300);
     $('#post-form').fadeOut(300);

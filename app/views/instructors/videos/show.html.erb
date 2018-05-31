@@ -19,7 +19,7 @@
           <% end %>
 
           <% if @course.paid? %>
-            <% if (instructor_signed_in? && @instructor == current_instructor) || (student_signed_in? && current_student.courses.exists?(@course.id)) %>
+            <% if (instructor_signed_in? && @instructor == current_instructor) || (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.courses.exists?(@course.id)) %>
               <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
                 <source src="<%= @video.video_url %>">
               Your browser does not support this video.

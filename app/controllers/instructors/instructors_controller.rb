@@ -11,6 +11,7 @@ class Instructors::InstructorsController < ApplicationController
       @post = Post.new
     end
     unless @instructor.plan_id == @instructor.id.to_s
+      Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
       @plan = Stripe::Plan.retrieve(@instructor.plan_id, stripe_account: @instructor.merchant.stripe_id)
       @amount = BigDecimal(@plan.amount) / 100
     end

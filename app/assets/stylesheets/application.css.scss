@@ -1176,6 +1176,15 @@ svg.search {
   @include javaScriptForms;
 }
 
+#review-button-click {
+  @include buttons;
+  padding: .51vh .51vw;
+}
+
+#review-form {
+  @include javaScriptForms;
+}
+
 .video-list {
   display: none;
 }
