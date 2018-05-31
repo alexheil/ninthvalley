@@ -554,6 +554,16 @@
         You must <%= link_to "Register", new_student_registration_path %> or <%= link_to "Sign in", student_session_path %> as a student to purchase this course.
       </div>
 
+      <%= form_for(@review, url: instructor_course_reviews_path(@instructor, @course)) do |f| %>
+        <span class="review_errors"><%= render 'partials/errors/review_errors' %></span>
+        
+        <div class="field padding-top">
+          <%= f.label :content %>
+          <%= f.text_field :content, class: "text-field" %>
+        </div>
+
+        <%= f.submit "Create track", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+      <% end %>
       
     </div>
   </div>
