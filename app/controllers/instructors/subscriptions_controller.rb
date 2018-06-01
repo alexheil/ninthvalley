@@ -47,9 +47,9 @@ class Instructors::SubscriptionsController < ApplicationController
   end
 
   def destroy
-    current_fan.unfollow_artist(Artist.friendly.find(params[:artist_id]))
-    @artist = Artist.friendly.find(params[:artist_id])
-    flash.now[:notice] = "you unfollowed #{@artist.artist_name}!"
+    current_student.unsubscribe(Instructor.friendly.find(params[:instructor_id]))
+    @instructor = Instructor.friendly.find(params[:instructor_id])
+    flash.now[:notice] = "You unsubscribed from #{@instrc.artist_name}!"
     respond_to do |format|
       format.html { redirect_to (:back) }
       format.js { render :action => "follow_button" }
