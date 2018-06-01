@@ -221,6 +221,12 @@ var editProfile = function() {
     $('.wrapper').addClass("blur", 300);
   });
 
+  $('#unsubscribe-button-click').click(function() {
+    $('#unsubscribe-form').fadeIn(300);
+    $('.back').fadeIn(300);
+    $('.wrapper').addClass("blur", 300);
+  });
+
   $('.edit-track-button-click').click(function() {
     $('.edit-track-form').hide();
     $(this).parent().parent().parent().next().fadeIn(100);
@@ -276,6 +282,7 @@ var editProfile = function() {
     $('.edit-review-form').fadeOut(300);
     $('.edit-comment-form').fadeOut(300);
     $('#purchase-form').fadeOut(300);
+    $('#unsubscribe-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });
@@ -293,6 +300,7 @@ var editProfile = function() {
     $('.edit-review-form').fadeOut(300);
     $('.edit-comment-form').fadeOut(300);
     $('#purchase-form').fadeOut(300);
+    $('#unsubscribe-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
   });

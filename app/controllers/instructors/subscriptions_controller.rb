@@ -40,19 +40,27 @@ class Instructors::SubscriptionsController < ApplicationController
         stripe_subscription_id: subscription.id,
       )
       redirect_to instructor_path(@instructor)
-      flash.now[:notice] = "You subscribed to #{@instructor.username}!"
+      flash[:notice] = "You subscribed to #{@instructor.profile.first_name.presence || @instructor.username}!"
     else 
       redirect_to root_url
     end
   end
 
   def destroy
-    current_student.unsubscribe(Instructor.friendly.find(params[:instructor_id]))
     @instructor = Instructor.friendly.find(params[:instructor_id])
-    flash.now[:notice] = "You unsubscribed from #{@instrc.artist_name}!"
-    respond_to do |format|
-      format.html { redirect_to (:back) }
-      format.js { render :action => "follow_button" }
+    @subscription = Subscription.find(current_student.subscription_id(@instructor))
+
+    Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
+
+    subscription = Stripe::Subscription.retrieve(@subscription.stripe_subscription_id, stripe_account: @instructor.merchant.stripe_id)
+
+    if subscription.delete
+      current_student.unsubscribe(@instructor)
+      redirect_to instructor_path(@instructor)
+      flash[:notice] = "You unsubscribed from #{@instructor.profile.first_name.presence || @instructor.username}."
+    else
+      redirect_to instructor_path(@instructor)
+      flash[:alert] = "You did not unsubscribe from #{@instructor.profile.first_name.presence || @instructor.username}."
     end
   end
 

@@ -45,7 +45,7 @@
               <% elsif student_signed_in? && current_student.subscribed?(@instructor) %>
                 <div class="free-card center">
                   <div class="padding-horizontal">
-                    You are already subscribed!
+                    You are already subscribed! <span id="unsubscribe-button-click">Unsubscribe?</span>
                   </div>
                 </div>
               <% elsif student_signed_in? %>
@@ -527,7 +527,7 @@
     </div>
   </div>
 
-<% elsif student_signed_in? %>
+<% elsif student_signed_in? && !current_student.subscribed?(@instructor) %>
 
   <div id="purchase-form">
     <div class="popup-form-inside">
@@ -537,12 +537,22 @@
         Subscribe to <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> 
       </div>
 
-      <%= form_for(@subscription, url: instructor_subscriptions_path(@instructor)) do |f| %>
+      <% if @customer.default_source.blank? %>
+        <div class="padding-vertical">
+          You do not have a card on file. In order to subscribe to instructors you need to place a card on file that can be charged monthly. You can cancel any subscription at any time.
+        </div>
+        <%= link_to "Place card on file", student_edit_source_path(current_student), class: "fake-button" %>
+      <% else %>
+        <div class="padding-vertical">
+          You have a card on file. Pressing "Subscribe" will automatically finish this process, including charging your card. If you'd like to change your card, <%= link_to "please do so before continuing", student_edit_source_path(current_student) %>.
+        </div>
 
-        <%= f.submit "Subscribe", data: { disable_with: 'Subscribing...' }, class: "submit-button" %>
+        <%= form_for(@subscription, url: instructor_subscriptions_path(@instructor)) do |f| %>
+
+          <%= f.submit "Subscribe", data: { disable_with: 'Subscribing...' }, class: "submit-button" %>
+        <% end %>
       <% end %>
 
-      
     </div>
   </div>
 
@@ -557,6 +567,27 @@
       </div>
 
       
+    </div>
+  </div>
+
+<% end %>
+
+<% if student_signed_in? && current_student.subscribed?(@instructor) %>
+  
+  <div id="unsubscribe-form">
+    <div class="popup-form-inside">
+      <div class="close"></div>
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Unsubscribe from <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> 
+      </div>
+
+      <div class="padding-vertical">
+        Unsubscribing from <%= @instructor.username unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %> <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %> will mean that you are no longer able to view any purchasable course by this instructor unless already purchased, purchased in the future, or subscribed again. You will not be able to get a refund on any purchased time spent subscribed and your subscription will be deleted immediately. 
+      </div>
+
+      <%= link_to "Unsubscribe", instructor_subscription_path(@instructor, current_student.subscription_id(@instructor)), data: { confirm: "Are you sure?" }, method: :delete, class: "delete-button" %>
+
     </div>
   </div>
 

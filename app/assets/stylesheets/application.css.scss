@@ -1231,6 +1231,31 @@ svg.search {
 
 #purchase-form {
   @include javaScriptForms;
+  .fake-button {
+    color: white;
+    &:hover {
+      color: $white;
+    }
+  }
+}
+
+#unsubscribe-button-click {
+  @include transition;
+  color: $red;
+  cursor: pointer;
+  &:hover {
+    color: $dark;
+  }
+}
+
+#unsubscribe-form {
+  @include javaScriptForms;
+  .delete-button {
+    color: white;
+    &:hover {
+      color: $white;
+    }
+  }
 }
 
 #profile-button-click {
