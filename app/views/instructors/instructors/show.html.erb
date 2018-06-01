@@ -119,9 +119,8 @@
             </div>
           <% end %>
 
-
-
           <div id="first-tab">
+
             <div class="padding-bottom mid-text">
               Popular courses 
             </div>
@@ -133,19 +132,86 @@
                     <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
                   <% end %>
                   <div class="padding-horizontal">
-                    <div class="padding-vertical border-bottom">
-                      <%= link_to course.title, instructor_course_path(@instructor, course) %>
+                    <div class="padding-vertical-mini border-bottom">
+                      <%= link_to truncate(course.title,length: 50), instructor_course_path(@instructor, course) %>
                     </div>
                   </div>
-                  <div class="padding-vertical padding-horizontal mini-text">
+                  <div class="padding-horizontal">
+                    <div class="padding-vertical-mini border-bottom mini-text">
+                      <% if course.paid? %>
+                        <%= course.price %> <%= course.currency %>
+                      <% else %>
+                        Free!
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <% if course.reviews.any? %>
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical-mini border-bottom mini-text">
+                        <span class="review-container">
+                          <ul>
+                            <% if course.average_rating == 5 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 4 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 3 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 2 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 1 %>
+                              <li class="star-five"></li>
+                            <% end %><%= " - (" + course.reviews.count.to_s + ")" %>
+                          </ul>
+                        </span>
+                      </div>
+                    </div>
+                  <% end %>
+
+                  <div class="padding-vertical-mini padding-horizontal mini-text">
                     <%= truncate(course.tagline, length: 140) %>
                   </div>
                 </div>
               <% end %>
             </div>
+
+            <% if @posts.any? %>
+
+              <div class="padding-bottom mid-text">
+                Recent posts
+              </div>
+
+              <% @posts.take(2).each do |post| %>
+                <div class="flex padding-vertical border-bottom">
+                  <div class="four-column">
+                    <img class="short-thumbnail-image" src="<%= post.image_url(:thumb) %>">
+                  </div>
+                  <div class="seventy-column">
+                    <div class="mid-text">
+                      <%= link_to post.title, instructor_post_path(@instructor, post) %> 
+                    </div>
+                    <div class="mini-text padding-bottom">
+                      <%= post.created_at.strftime("Posted on %m.%d.%Y") %>
+                    </div>
+                    <div class="post-content">
+                      <%= sanitize(truncate(post.content, length: 300)) %>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            <% end %>
+
           </div>
-
-
 
           <div id="second-tab">
             <div class="padding-bottom mid-text">
@@ -159,12 +225,54 @@
                     <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
                   <% end %>
                   <div class="padding-horizontal">
-                    <div class="padding-vertical border-bottom">
-                      <%= link_to course.title, instructor_course_path(@instructor, course) %>
+                    <div class="padding-vertical-mini border-bottom">
+                      <%= link_to truncate(course.title,length: 50), instructor_course_path(@instructor, course) %>
                     </div>
                   </div>
-                  <div class="padding-vertical padding-horizontal mini-text">
-                    <%= course.tagline %>
+                  <div class="padding-horizontal">
+                    <div class="padding-vertical-mini border-bottom mini-text">
+                      <% if course.paid? %>
+                        <%= course.price %> <%= course.currency %>
+                      <% else %>
+                        Free!
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <% if course.reviews.any? %>
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical-mini border-bottom mini-text">
+                        <span class="review-container">
+                          <ul>
+                            <% if course.average_rating == 5 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 4 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 3 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 2 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 1 %>
+                              <li class="star-five"></li>
+                            <% end %><%= " - (" + course.reviews.count.to_s + ")" %>
+                          </ul>
+                        </span>
+                      </div>
+                    </div>
+                  <% end %>
+
+                  <div class="padding-vertical-mini padding-horizontal mini-text">
+                    <%= truncate(course.tagline, length: 140) %>
                   </div>
                 </div>
               <% end %>
@@ -198,7 +306,9 @@
                 </div>
               <% end %>
             <% else %>
-
+              <div class="padding-vertical">
+                There are no posts.
+              </div>
             <% end %>
 
           </div>

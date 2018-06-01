@@ -41,17 +41,67 @@
               Popular
             </div>
             <div class="flex">
-              <% @subcategory.courses.take(8).each do |course| %>
+              <% category.courses.each do |course| %>
                 <div class="four-column-course border margin-bottom">
                   <%= link_to(instructor_course_path(course.instructor, course)) do %>
                     <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
                   <% end %>
                   <div class="padding-horizontal">
-                    <div class="padding-vertical border-bottom">
-                      <%= link_to course.title, instructor_course_path(course.instructor, course) %>
+                    <div class="padding-vertical-mini border-bottom">
+                      <%= link_to truncate(course.title,length: 50), instructor_course_path(course.instructor, course) %>
                     </div>
                   </div>
-                  <div class="padding-vertical padding-horizontal mini-text">
+                  <div class="padding-horizontal">
+                    <div class="padding-vertical-mini border-bottom mini-text">
+                      <%= link_to course.instructor.username, instructor_path(course.instructor) unless course.instructor.profile.first_name.present? || course.instructor.profile.last_name.present? %> 
+                      <%= link_to(instructor_path(course.instructor)) do %>
+                        <%= course.instructor.profile.first_name if course.instructor.profile.first_name.present? %> <%= course.instructor.profile.last_name if course.instructor.profile.last_name.present? %>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="padding-horizontal">
+                    <div class="padding-vertical-mini border-bottom mini-text">
+                      <% if course.paid? %>
+                        <%= course.price %> <%= course.currency %>
+                      <% else %>
+                        Free!
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <% if course.reviews.any? %>
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical-mini border-bottom mini-text">
+                        <span class="review-container">
+                          <ul>
+                            <% if course.average_rating == 5 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 4 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 3 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 2 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 1 %>
+                              <li class="star-five"></li>
+                            <% end %><%= " - (" + course.reviews.count.to_s + ")" %>
+                          </ul>
+                        </span>
+                      </div>
+                    </div>
+                  <% end %>
+
+                  <div class="padding-vertical-mini padding-horizontal mini-text">
                     <%= truncate(course.tagline, length: 140) %>
                   </div>
                 </div>
@@ -64,17 +114,67 @@
               Recent
             </div>
             <div class="flex">
-              <% @subcategory.courses.take(8).each do |course| %>
+              <% category.courses.each do |course| %>
                 <div class="four-column-course border margin-bottom">
                   <%= link_to(instructor_course_path(course.instructor, course)) do %>
                     <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
                   <% end %>
                   <div class="padding-horizontal">
-                    <div class="padding-vertical border-bottom">
-                      <%= link_to course.title, instructor_course_path(course.instructor, course) %>
+                    <div class="padding-vertical-mini border-bottom">
+                      <%= link_to truncate(course.title,length: 50), instructor_course_path(course.instructor, course) %>
                     </div>
                   </div>
-                  <div class="padding-vertical padding-horizontal mini-text">
+                  <div class="padding-horizontal">
+                    <div class="padding-vertical-mini border-bottom mini-text">
+                      <%= link_to course.instructor.username, instructor_path(course.instructor) unless course.instructor.profile.first_name.present? || course.instructor.profile.last_name.present? %> 
+                      <%= link_to(instructor_path(course.instructor)) do %>
+                        <%= course.instructor.profile.first_name if course.instructor.profile.first_name.present? %> <%= course.instructor.profile.last_name if course.instructor.profile.last_name.present? %>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="padding-horizontal">
+                    <div class="padding-vertical-mini border-bottom mini-text">
+                      <% if course.paid? %>
+                        <%= course.price %> <%= course.currency %>
+                      <% else %>
+                        Free!
+                      <% end %>
+                    </div>
+                  </div>
+
+                  <% if course.reviews.any? %>
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical-mini border-bottom mini-text">
+                        <span class="review-container">
+                          <ul>
+                            <% if course.average_rating == 5 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 4 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 3 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 2 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif course.average_rating == 1 %>
+                              <li class="star-five"></li>
+                            <% end %><%= " - (" + course.reviews.count.to_s + ")" %>
+                          </ul>
+                        </span>
+                      </div>
+                    </div>
+                  <% end %>
+
+                  <div class="padding-vertical-mini padding-horizontal mini-text">
                     <%= truncate(course.tagline, length: 140) %>
                   </div>
                 </div>

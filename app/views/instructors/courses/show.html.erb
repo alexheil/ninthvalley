@@ -36,6 +36,12 @@
                     Your course is <%= @course.price %> <%= @course.currency %>.
                   </div>
                 </div>
+              <% elsif student_signed_in? && current_student.courses.exists?(@course.id) %>
+                <div class="free-card center">
+                  <div class="padding-horizontal">
+                    You own this course!
+                  </div>
+                </div>
               <% else %>
                 <div id="purchase-button-click">
                   Purchase this course for <%= @course.price %> <%= @course.currency %>.
@@ -387,7 +393,7 @@
           </div>
 
           <div id="third-tab">
-            div class="padding-bottom mid-text">
+            <div class="padding-bottom mid-text">
               Highlights
             </div><
             <div class="post-content padding-bottom">

@@ -295,6 +295,11 @@ video {
   margin-bottom: 2vh;
 }
 
+.padding-vertical-mini {
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+}
+
 .padding-vertical {
   padding-top: 2vh;
   padding-bottom: 2vh;
@@ -348,10 +353,10 @@ video {
   object-fit: cover;
   vertical-align: top;
   display: inline-block;
-  border-top-left-radius: $radius - 1;
-  border-top-right-radius: $radius - 1;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
+  border-top-left-radius: $radius;
+  border-top-right-radius: $radius;
+  border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
   -webkit-backface-visibility: hidden;
   -webkit-transition: .3s ease-in-out;
   -moz-transition: .3s ease-in-out;
@@ -877,7 +882,7 @@ select {
     }
   }
   .star-five {
-   margin: 3px 0;
+   margin: 2px 0;
    position: relative;
    display: inline-block;
    color: $yellow;
@@ -1484,6 +1489,14 @@ svg.search {
     height: 22vh;
   }
 
+  .thumbnail-image-feed-five {
+    height: 18vh;
+  }
+
+  .four-column-course {
+    width: 48%;
+  }
+
   @mixin javaScriptForms {
     min-width: 60%;
     max-width: 60%;
@@ -1565,6 +1578,10 @@ svg.search {
 
 @media screen and (max-width: 650px) {
 
+  .body-container {
+    width: 100%;
+  }
+
   .two-column {
     width: 100%;
   }
@@ -1598,6 +1615,10 @@ svg.search {
 
   .thumbnail-image {
     padding-bottom: 2vh;
+  }
+
+  .thumbnail-image-feed-five {
+    height: 22vh;
   }
 
   .short-thumbnail-image {
