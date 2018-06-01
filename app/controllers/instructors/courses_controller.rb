@@ -13,6 +13,7 @@ class Instructors::CoursesController < ApplicationController
       @video = Video.new
     end
     if student_signed_in?
+      @review = Review.new
       @purchase = Purchase.new
       Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
       @customer = Stripe::Customer.retrieve(current_student.customer_id)
@@ -50,7 +51,7 @@ class Instructors::CoursesController < ApplicationController
   private
 
     def course_params
-      params.require(:course).permit(:category_id, :title, :tagline, :language, :requirements, :description, :highlights, :target, :paid, :price, :refund_policy, :currency, :image, :remove_image)
+      params.require(:course).permit(:subcategory_id, :category_id, :title, :tagline, :language, :requirements, :description, :highlights, :target, :paid, :price, :refund_policy, :currency, :image, :remove_image)
     end
 
     def set_instructor

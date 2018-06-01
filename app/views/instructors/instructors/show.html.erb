@@ -74,7 +74,7 @@
             <% end %>
           </div>
           <div class="padding-bottom">
-            Instructor | <%= pluralize(@instructor.courses.count, "Course") %> | <%= pluralize(@instructor.subscriptions.count, "Subscription") %> | 3 Students | <%= pluralize(@instructor.reviews.count, "Review") %>
+            Instructor | <%= pluralize(@instructor.courses.count, "Course") %> | <%= pluralize(@instructor.subscriptions.count, "Subscription") %> | <%= pluralize(@instructor.subscriptions.count + @instructor.purchases.count, "Student") %> | <%= pluralize(@instructor.reviews.count, "Review") %>
           </div>
           <div class="padding-bottom">
             <%= @instructor.profile.city if @instructor.profile.city.present? %><%= ", " if @instructor.profile.city.present? && (@instructor.profile.state.present? || @instructor.profile.country.present?) %><%= @instructor.profile.state if @instructor.profile.state.present? %><%= ", " if @instructor.profile.state.present? && @instructor.profile.country.present? %><%= @instructor.profile.country if @instructor.profile.country.present? %> 

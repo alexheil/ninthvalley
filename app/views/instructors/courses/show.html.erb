@@ -57,7 +57,7 @@
          | <%= link_to @course.category.title, category_path(@course.category) %> | <%= @course.created_at.strftime("Created on %m.%d.%Y") %> | <%= @course.updated_at.strftime("Last updated on %m.%d.%Y") %> | <%= @course.language %>
           </div>
           <div class="padding-bottom">
-            <%= pluralize(@course.tracks.count, "Track") %> | <%= pluralize(@course.videos.count, "Video") %> | <%= pluralize(@course.purchases.count, "Student") %> | <%= pluralize(@course.reviews.count, "Review") %>
+            <%= pluralize(@course.tracks.count, "Track") %> | <%= pluralize(@course.videos.count, "Video") %> | <%= pluralize(@instructor.subscriptions.count + @course.purchases.count, "Student") %> | <%= pluralize(@course.reviews.count, "Review") %>
           </div>
           <div>
             <%= @course.tagline %>
@@ -95,11 +95,13 @@
           <% end %>
 
           <% if (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.courses.exists?(@course.id)) %>
-            <div class="padding-bottom">
-              <div id="review-button-click">
-                Create a review
+            <% unless (student_signed_in? && current_student.reviews.exists?(@course.id)) %>
+              <div class="padding-bottom">
+                <div id="review-button-click">
+                  Create a review
+                </div>
               </div>
-            </div>
+            <% end %>
           <% end %>
 
           <div id="first-tab">
@@ -184,6 +186,82 @@
             <div class="post-content padding-bottom">
               <%= sanitize(truncate(@course.description, length: 280)) %>
             </div>
+            
+            
+            <div class="mid-text">
+              Reviews <%= "-" if @course.reviews.any? %>
+              <span class="review-container">
+                <ul>
+                  <% if @course.average_rating == 5 %>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                  <% elsif @course.average_rating == 4 %>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                  <% elsif @course.average_rating == 3 %>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                  <% elsif @course.average_rating == 2 %>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                  <% elsif @course.average_rating == 1 %>
+                    <li class="big-star-five"></li>
+                  <% end %><%= " - (" + @course.reviews.count.to_s + ")" if @course.reviews.any? %>
+                </ul>
+              </span>
+            </div>
+            <div class="padding-bottom">
+              <% @course.reviews.take(5).each do |review| %>
+                <div class="padding-vertical border-bottom">
+                  <div class="padding-bottom">
+                    <% if review.student.profile.image.present? %>
+                      <img class="baby-thumbnail-image" src="<%= review.student.profile.image_url(:thumb) %>">
+                    <% end %>
+                    <%= link_to review.student.username, student_path(review.student) unless review.student.profile.first_name.present? || review.student.profile.last_name.present? %>
+                    <%= link_to(student_path(review.student)) do %>
+                      <%= review.student.profile.first_name if review.student.profile.first_name.present? %> <%= review.student.profile.last_name if review.student.profile.last_name.present? %>
+                    <% end %>
+                    - <span class="review-container">
+                        <ul>
+                          <% if review.rating == 5 %>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                          <% elsif review.rating == 4 %>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                          <% elsif review.rating == 3 %>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                          <% elsif review.rating == 2 %>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                          <% elsif review.rating == 1 %>
+                            <li class="star-five"></li>
+                          <% end %>
+                        </ul>
+                      </span>
+                    - <%= review.created_at.strftime("posted on %m.%d.%Y") %>
+                  </div>
+                  <div>
+                    <%= truncate(review.content, length: 280) %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+
           </div>
 
           <div id="second-tab">
@@ -266,7 +344,6 @@
                     </div>
                   </div>
 
-
                   <div class="video-form">
                     <div class="popup-form-inside">
                       <div class="close"></div>
@@ -310,9 +387,9 @@
           </div>
 
           <div id="third-tab">
-            <div class="padding-bottom mid-text">
+            div class="padding-bottom mid-text">
               Highlights
-            </div>
+            </div><
             <div class="post-content padding-bottom">
               <%= sanitize(@course.highlights) %>
             </div>
@@ -346,11 +423,120 @@
           </div>
 
           <div id="seventh-tab">
-            <div class="padding-bottom mid-text">
-              Reviews
+            <div class="mid-text">
+              Reviews <%= "-" if @course.reviews.any? %>
+              <span class="review-container">
+                <ul>
+                  <% if @course.average_rating == 5 %>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                  <% elsif @course.average_rating == 4 %>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                  <% elsif @course.average_rating == 3 %>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                  <% elsif @course.average_rating == 2 %>
+                    <li class="big-star-five"></li>
+                    <li class="big-star-five"></li>
+                  <% elsif @course.average_rating == 1 %>
+                    <li class="big-star-five"></li>
+                  <% end %>
+                </ul>
+              </span><%= " - (" + @course.reviews.count.to_s + ")" if @course.reviews.any? %>
             </div>
-            <div class="post-content padding-bottom">
-              Buncha reviews here
+            <div class="padding-bottom">
+              <% @course.reviews.each do |review| %>
+                <div class="padding-vertical border-bottom">
+                  <div class="padding-bottom">
+                    <% if review.student.profile.image.present? %>
+                      <img class="baby-thumbnail-image" src="<%= review.student.profile.image_url(:thumb) %>">
+                    <% end %>
+                    <%= link_to review.student.username, student_path(review.student) unless review.student.profile.first_name.present? || review.student.profile.last_name.present? %>
+                    <%= link_to(student_path(review.student)) do %>
+                      <%= review.student.profile.first_name if review.student.profile.first_name.present? %> <%= review.student.profile.last_name if review.student.profile.last_name.present? %>
+                    <% end %>
+                    - <span class="review-container">
+                        <ul>
+                          <% if review.rating == 5 %>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                          <% elsif review.rating == 4 %>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                          <% elsif review.rating == 3 %>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                          <% elsif review.rating == 2 %>
+                            <li class="star-five"></li>
+                            <li class="star-five"></li>
+                          <% elsif review.rating == 1 %>
+                            <li class="star-five"></li>
+                          <% end %>
+                        </ul>
+                      </span>
+                    - <%= review.created_at.strftime("posted on %m.%d.%Y") %>
+                  </div>
+                  <% if student_signed_in? && current_student.id == review.student_id %>
+                    <div class="flex padding-bottom">
+                      <div class="two-column">
+                        <div class="edit-review-button-click">
+                          Edit review
+                        </div>
+                      </div>
+                      <div class="two-column link-color">
+                        <%= link_to "Delete review", instructor_course_review_path(@instructor, @course, review), data: { confirm: "Are you sure?" }, method: :delete, class: "delete-button" %>
+                      </div>
+                    </div>
+                  <% end %>
+                  <div>
+                    <%= review.content %>
+                  </div>
+                </div>
+
+                <% if (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.courses.exists?(@course.id)) %>
+
+                  <div class="edit-review-form">
+                    <div class="popup-form-inside">
+                      <div class="close"></div>
+
+                      <div class="padding-bottom center mid-text border-bottom">
+                        Edit your review
+                      </div>
+
+                      <%= form_for(review, url: instructor_course_review_path(@instructor, @course, review)) do |f| %>
+                        <span class="review_errors"><%= render 'partials/errors/review_errors' %></span>
+                        
+                        <div class="field padding-top">
+                          <%= f.label :rating %>
+                          <%= f.select :rating, options_for_select(rating) %>
+                        </div>
+                        
+                        <div class="field">
+                          <%= f.label :content %> <span class="mini-text">In 1000 characters or less.</span>
+                          <%= f.text_area :content, class: "text-area" %>
+                        </div>
+
+                        <%= f.submit "Update review", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+                      <% end %>
+                    </div>
+                  </div>
+
+                <% end %>
+
+              <% end %>
             </div>
           </div>
 
@@ -386,6 +572,12 @@
           <%= f.label :category_id %>
           <%= f.hidden_field :category_id %>
           <%= f.collection_select(:category_id, Category.all, :id, :title) %>
+        </div>
+
+        <div class="field">
+          <%= f.label :subcategory_id %>
+          <%= f.hidden_field :subcategory_id %>
+          <%= f.collection_select(:subcategory_id, @course.category.subcategories, :id, :title) %>
         </div>
 
         <% if @course.image_data? %>
@@ -554,16 +746,6 @@
         You must <%= link_to "Register", new_student_registration_path %> or <%= link_to "Sign in", student_session_path %> as a student to purchase this course.
       </div>
 
-      <%= form_for(@review, url: instructor_course_reviews_path(@instructor, @course)) do |f| %>
-        <span class="review_errors"><%= render 'partials/errors/review_errors' %></span>
-        
-        <div class="field padding-top">
-          <%= f.label :content %>
-          <%= f.text_field :content, class: "text-field" %>
-        </div>
-
-        <%= f.submit "Create track", data: { disable_with: 'Creating...' }, class: "submit-button" %>
-      <% end %>
       
     </div>
   </div>
@@ -580,7 +762,22 @@
         Review <%= @course.title %>
       </div>
 
-      
+      <%= form_for(@review, url: instructor_course_reviews_path(@instructor, @course)) do |f| %>
+        <span class="review_errors"><%= render 'partials/errors/review_errors' %></span>
+
+        <div class="field padding-top">
+          <%= f.label :rating %>
+          <%= f.select :rating, options_for_select(rating) %>
+        </div>
+        
+        <div class="field">
+          <%= f.label :content %> <span class="mini-text">In 1000 characters or less.</span>
+          <%= f.text_area :content, class: "text-area" %>
+        </div>
+
+        <%= f.submit "Create review", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+      <% end %>
+
     </div>
   </div>
 

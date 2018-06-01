@@ -8,7 +8,7 @@
 
         <%= @subcategory.title %>
 
-        <span class="hard-text"> | 18 Courses</span>
+        <span class="hard-text"> | <%= pluralize(@subcategory.courses.count, "Course") %></span>
       </div>
 
       <div class="padding-vertical border-bottom">
@@ -26,15 +26,63 @@
     <div class="body-container padding-vertical">
       <div class="flex">
 
-        <div class="sidebar">
-          <%= @subcategory.category_id %>
-        </div>
+        <aside class="sidebar">
+          <ul>
+            <li><span id="first-tab-click" class="active-sidebar-tab">Popular</span></li>
+            <li><span id="second-tab-click" class="inactive-sidebar-tab">Recent</span></li>
+          </ul>
+        </aside>
 
-        <div class="content">
-          <% @subcategory.courses.each do |course| %>
-            <li><%= link_to course.title, instructor_course_path(course.instructor, course) %></li>
-          <% end %>
-        </div>
+
+        <main class="content">
+
+          <div id="first-tab">
+            <div class="padding-bottom mid-text">
+              Popular
+            </div>
+            <div class="flex">
+              <% @subcategory.courses.take(8).each do |course| %>
+                <div class="four-column-course border margin-bottom">
+                  <%= link_to(instructor_course_path(course.instructor, course)) do %>
+                    <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
+                  <% end %>
+                  <div class="padding-horizontal">
+                    <div class="padding-vertical border-bottom">
+                      <%= link_to course.title, instructor_course_path(course.instructor, course) %>
+                    </div>
+                  </div>
+                  <div class="padding-vertical padding-horizontal mini-text">
+                    <%= truncate(course.tagline, length: 140) %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+          <div id="second-tab">
+            <div class="padding-bottom mid-text">
+              Recent
+            </div>
+            <div class="flex">
+              <% @subcategory.courses.take(8).each do |course| %>
+                <div class="four-column-course border margin-bottom">
+                  <%= link_to(instructor_course_path(course.instructor, course)) do %>
+                    <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
+                  <% end %>
+                  <div class="padding-horizontal">
+                    <div class="padding-vertical border-bottom">
+                      <%= link_to course.title, instructor_course_path(course.instructor, course) %>
+                    </div>
+                  </div>
+                  <div class="padding-vertical padding-horizontal mini-text">
+                    <%= truncate(course.tagline, length: 140) %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+
+        </main>
 
       </div>
     </div>

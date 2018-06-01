@@ -54,6 +54,8 @@ Rails.application.routes.draw do
     resources :subscriptions, controller: 'instructors/subscriptions', only: [:create, :destroy]
   end
 
-  resources :categories, controller: 'categories/categories'
+  resources :categories, controller: 'categories/categories' do
+    resources :subcategories, controller: 'categories/subcategories', except: :index
+  end
 
 end

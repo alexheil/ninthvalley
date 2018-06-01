@@ -245,6 +245,24 @@ var editProfile = function() {
     $('.wrapper').addClass("blur", 300);
   });
 
+  $('.edit-review-button-click').click(function() {
+    $('.edit-review-form').hide();
+    $(this).parent().parent().parent().next().fadeIn(100);
+    $('.back').fadeIn(300);
+  });
+
+  $('#comment-button-click').click(function() {
+    $('#comment-form').fadeIn(300);
+    $('.back').fadeIn(300);
+    $('.wrapper').addClass("blur", 300);
+  });
+
+  $('.edit-comment-button-click').click(function() {
+    $('.edit-comment-form').hide();
+    $(this).parent().parent().parent().next().fadeIn(100);
+    $('.back').fadeIn(300);
+  });
+
   $('.back').click(function() {
     $('#profile-form').fadeOut(300);
     $('#post-form').fadeOut(300);
@@ -253,6 +271,10 @@ var editProfile = function() {
     $('.edit-track-form').fadeOut(300);
     $('.video-form').fadeOut(300);
     $('#video-form').fadeOut(300);
+    $('#review-form').fadeOut(300);
+    $('#comment-form').fadeOut(300);
+    $('.edit-review-form').fadeOut(300);
+    $('.edit-comment-form').fadeOut(300);
     $('#purchase-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
@@ -266,6 +288,10 @@ var editProfile = function() {
     $('.edit-track-form').fadeOut(300);
     $('.video-form').fadeOut(300);
     $('#video-form').fadeOut(300);
+    $('#review-form').fadeOut(300);
+    $('#comment-form').fadeOut(300);
+    $('.edit-review-form').fadeOut(300);
+    $('.edit-comment-form').fadeOut(300);
     $('#purchase-form').fadeOut(300);
     $('.back').fadeOut(300);
     $('.wrapper').removeClass("blur", 300);
@@ -273,11 +299,11 @@ var editProfile = function() {
 
   $('#remove-image-inactive').change(function(){
     if($(this).is(":checked")) {
-        $('#remove-image-tab').addClass("active-removal-tab");
-        $('#remove-image-tab').removeClass("inactive-removal-tab");
+      $('#remove-image-tab').addClass("active-removal-tab");
+      $('#remove-image-tab').removeClass("inactive-removal-tab");
     } else {
-        $('#remove-image-tab').removeClass("active-removal-tab");
-        $('#remove-image-tab').addClass("inactive-removal-tab");
+      $('#remove-image-tab').removeClass("active-removal-tab");
+      $('#remove-image-tab').addClass("inactive-removal-tab");
     }
   });
 

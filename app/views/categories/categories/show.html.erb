@@ -8,7 +8,7 @@
 
         <%= @category.title %>
 
-        <span class="hard-text"> | 18 Courses</span>
+        <span class="hard-text"> | <%= pluralize(@category.courses.count, "Course") %></span>
       </div>
 
       <div class="padding-vertical border-bottom">
@@ -28,15 +28,53 @@
 
         <div class="sidebar">
           <ul>
-            <% @category.courses.each do |course| %>
-              <li><%= link_to course.title, instructor_course_path(course.instructor, course) %></li>
+            <% @subcategories.each do |subcategory| %>
+              <li><%= link_to subcategory.title, category_subcategory_path(@category, subcategory) %></li>
             <% end %>
           </ul>
         </div>
 
-        <div class="content">
-          <%= @category.description %>
-        </div>
+        <main class="content">
+          <div class="padding-bottom border-bottom">
+            <div class="mid-text padding-bottom">
+              Popular
+            </div>
+            <div class="">
+              <div class="flex">
+                <div class="five-column">
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <% @subcategories.each do |subcategory| %>
+            <div class="padding-vertical border-bottom">
+              <div class="mid-text padding-bottom">
+                <%= link_to subcategory.title, category_subcategory_path(@category, subcategory) %>
+              </div>
+
+              <div class="flex">
+                <% subcategory.courses.take(8).each do |course| %>
+                  <div class="four-column-course border margin-bottom">
+                    <%= link_to(instructor_course_path(course.instructor, course)) do %>
+                      <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
+                    <% end %>
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical border-bottom">
+                        <%= link_to course.title, instructor_course_path(course.instructor, course) %>
+                      </div>
+                    </div>
+                    <div class="padding-vertical padding-horizontal mini-text">
+                      <%= truncate(course.tagline, length: 140) %>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+
+            </div>
+          <% end %>
+        </main>
 
       </div>
     </div>

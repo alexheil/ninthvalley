@@ -9,6 +9,7 @@ $dark: #C8A223; /* HOKEY POKEY */
 $green: #47B975; /* OCEAN GREEN */
 $border: #BEC8CE; /* LOBLOLLY */
 $red: #F44336; /* POMEGRANATE */
+$yellow: #ff9800;
 $black: #0C1F14; /* GREEN KELP */
 $white: #FAFAFA; /* DESERT STORM */
 $grey: #EEEEEE; /* GALLERY */
@@ -341,6 +342,22 @@ video {
   }
 }
 
+.baby-thumbnail-image {
+  height: 28px;
+  width: 28px;
+  object-fit: cover;
+  vertical-align: top;
+  display: inline-block;
+  border-top-left-radius: $radius - 1;
+  border-top-right-radius: $radius - 1;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  -webkit-backface-visibility: hidden;
+  -webkit-transition: .3s ease-in-out;
+  -moz-transition: .3s ease-in-out;
+  -o-transition: .3s ease-in-out;
+}
+
 /* ****************** TABS AND BUTTONS **************** */
 
 .active-tab {
@@ -507,6 +524,13 @@ video {
 
 .removal-button {
   @include buttons;
+  background: $red;
+  border: 1px solid $red;
+}
+
+.delete-button {
+  @include buttons;
+  padding: .51vh .51vw;
   background: $red;
   border: 1px solid $red;
 }
@@ -839,6 +863,117 @@ select {
   background: $black;
   height: 105px;
   color: $white;
+}
+
+.review-container {
+  display: inline-block;
+  ul {
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    li {
+      list-style: none;
+      display: inline-block;
+    }
+  }
+  .star-five {
+   margin: 3px 0;
+   position: relative;
+   display: inline-block;
+   color: $yellow;
+   width: 0px;
+   height: 0px;
+   border-right: 10px solid transparent;
+   border-bottom: 7px  solid $yellow;
+   border-left: 10px solid transparent;
+   -moz-transform: rotate(35deg);
+   -webkit-transform: rotate(35deg);
+   -ms-transform: rotate(35deg);
+   -o-transform: rotate(35deg);
+  }
+  .star-five:before {
+     border-bottom: 8px solid $yellow;
+     border-left: 3px solid transparent;
+     border-right: 3px solid transparent;
+     position: absolute;
+     height: 0;
+     width: 0;
+     top: -5.5px;
+     left: -6.5px;
+     display: block;
+     content: '';
+     -webkit-transform: rotate(-35deg);
+     -moz-transform: rotate(-35deg);
+     -ms-transform: rotate(-35deg);
+     -o-transform: rotate(-35deg);
+
+  }
+  .star-five:after {
+     position: absolute;
+     display: block;
+     color: $yellow;
+     top: .3px;
+     left: -10.5px;
+     width: 0px;
+     height: 0px;
+     border-right: 10px solid transparent;
+     border-bottom: 7px solid $yellow;
+     border-left: 10px solid transparent;
+     -webkit-transform: rotate(-70deg);
+     -moz-transform: rotate(-70deg);
+     -ms-transform: rotate(-70deg);
+     -o-transform: rotate(-70deg);
+     content: '';
+  }
+  .big-star-five {
+   margin: 3px 0;
+   position: relative;
+   display: inline-block;
+   color: $yellow;
+   width: 0px;
+   height: 0px;
+   border-right: 15px solid transparent;
+   border-bottom: 10.5px  solid $yellow;
+   border-left: 15px solid transparent;
+   -moz-transform: rotate(35deg);
+   -webkit-transform: rotate(35deg);
+   -ms-transform: rotate(35deg);
+   -o-transform: rotate(35deg);
+  }
+  .big-star-five:before {
+     border-bottom: 12px solid $yellow;
+     border-left: 4px solid transparent;
+     border-right: 4px solid transparent;
+     position: absolute;
+     height: 0;
+     width: 0;
+     top: -8.25px;
+     left: -9.75px;
+     display: block;
+     content: '';
+     -webkit-transform: rotate(-35deg);
+     -moz-transform: rotate(-35deg);
+     -ms-transform: rotate(-35deg);
+     -o-transform: rotate(-35deg);
+
+  }
+  .big-star-five:after {
+     position: absolute;
+     display: block;
+     color: $yellow;
+     top: .45px;
+     left: -15.75px;
+     width: 0px;
+     height: 0px;
+     border-right: 15px solid transparent;
+     border-bottom: 10.5px solid $yellow;
+     border-left: 15px solid transparent;
+     -webkit-transform: rotate(-70deg);
+     -moz-transform: rotate(-70deg);
+     -ms-transform: rotate(-70deg);
+     -o-transform: rotate(-70deg);
+     content: '';
+  }
 }
 
 /* ******************* JAVASCRIPT ************** */
@@ -1182,6 +1317,33 @@ svg.search {
 }
 
 #review-form {
+  @include javaScriptForms;
+}
+
+.edit-review-button-click {
+  @include buttons;
+  padding: .51vh .51vw;
+}
+
+.edit-review-form {
+  @include javaScriptForms;
+}
+
+#comment-button-click {
+  @include buttons;
+  padding: .51vh .51vw;
+}
+
+#comment-form {
+  @include javaScriptForms;
+}
+
+.edit-comment-button-click {
+  @include buttons;
+  padding: .51vh .51vw;
+}
+
+.edit-comment-form {
   @include javaScriptForms;
 }
 

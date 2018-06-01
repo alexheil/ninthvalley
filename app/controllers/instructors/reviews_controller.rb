@@ -39,20 +39,20 @@ class Instructors::ReviewsController < ApplicationController
     @course = Course.friendly.find(params[:course_id])
     @review = Review.find(params[:id]).destroy
     redirect_to instructor_course_path(@instructor, @course)
+    flash[:notice] = "You have succesfully deleted your review!"
   end
 
   private
 
     def review_params
-      params.require(:review).permit(:content)
+      params.require(:review).permit(:rating, :content)
     end
 
     def correct_student_review
       @instructor = Instructor.friendly.find(params[:instructor_id])
       @course = Course.friendly.find(params[:course_id])
-      @review = Review.friendly.find(params[:id])
-      redirect_to instructor_course_path(@instructor, @course) if @review.student_id != current_student.id
-      flash[:alert] = "This is not your review."
+      @review = Review.find(params[:id])
+      redirect_to instructor_path(@instructor) if @review.student_id != current_student.id
     end
 
 end

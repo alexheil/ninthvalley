@@ -1,11 +1,6 @@
 class Categories::SubcategoriesController < ApplicationController
 
-  before_action :authenticate_admin!, except: [:index, :show]
-
-  def index
-    @categories = Category.all
-    @recent_posts = Post.reorder("created_at desc").limit(5)
-  end
+  before_action :authenticate_admin!, except: :show
 
   def show
     @category = Category.friendly.find(params[:category_id])

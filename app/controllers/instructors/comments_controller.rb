@@ -7,7 +7,7 @@ class Instructors::CommentsController < ApplicationController
     @instructor = Instructor.friendly.find(params[:instructor_id])
     @course = Course.friendly.find(params[:course_id])
     @track = Track.friendly.find(params[:track_id])
-    @video = Video.friendly.find(params[:id])
+    @video = Video.friendly.find(params[:video_id])
     @comment = @video.comments.build(comment_params)
     if instructor_signed_in?
       @comment.instructor_id = current_instructor.id
@@ -52,7 +52,7 @@ class Instructors::CommentsController < ApplicationController
   private
 
     def comment_params
-      params.require(:course).permit(:content)
+      params.require(:comment).permit(:content)
     end
 
     def authenticate_commenter

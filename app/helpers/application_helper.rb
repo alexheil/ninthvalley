@@ -73,4 +73,14 @@ module ApplicationHelper
     ]
   end
 
+  def rating
+    [
+      ['5'],
+      ['4'],
+      ['3'],
+      ['2'],
+      ['1']
+    ]
+  end
+
 end

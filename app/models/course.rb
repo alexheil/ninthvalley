@@ -18,6 +18,10 @@ class Course < ApplicationRecord
 
   before_save :should_generate_new_friendly_id?, if: :title_changed?
     
+  def average_rating
+    reviews.sum(:rating) / reviews.size if reviews.any?
+  end
+
   private
 
     def should_generate_new_friendly_id?

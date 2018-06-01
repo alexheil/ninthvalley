@@ -10,6 +10,9 @@ class Instructors::VideosController < ApplicationController
     @course = Course.friendly.find(params[:course_id])
     @track = Track.friendly.find(params[:track_id])
     @video = Video.friendly.find(params[:id])
+    if instructor_signed_in? or student_signed_in?
+      @comment = Comment.new
+    end
   end
 
   def create

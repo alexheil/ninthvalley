@@ -51,23 +51,25 @@
               <div class="mid-text padding-bottom">
                 <%= link_to category.title, category_path(category) %>
               </div>
+
               <div class="flex">
                 <% category.courses.take(8).each do |course| %>
-                  <div class="four-column border margin-bottom">
+                  <div class="four-column-course border margin-bottom">
                     <%= link_to(instructor_course_path(course.instructor, course)) do %>
-                      <img class="thumbnail-image-feed-five" src="<%= course.image %>">
+                      <img class="thumbnail-image-feed-five" src="<%= course.image_url(:thumb) %>">
                     <% end %>
                     <div class="padding-horizontal">
                       <div class="padding-vertical border-bottom">
-                        <%= course.title %>
+                        <%= link_to course.title, instructor_course_path(course.instructor, course) %>
                       </div>
                     </div>
                     <div class="padding-vertical padding-horizontal mini-text">
-                      <%= course.tagline %>
+                      <%= truncate(course.tagline, length: 140) %>
                     </div>
                   </div>
                 <% end %>
               </div>
+
             </div>
           <% end %>
 
