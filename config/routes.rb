@@ -51,6 +51,7 @@ Rails.application.routes.draw do
           get 'checkout'
           patch 'charge'
         end
+        resources :refunds, controller: 'purchases/refunds', only: :create
       end
     end
     resources :subscriptions, controller: 'instructors/subscriptions', only: [:create, :destroy]

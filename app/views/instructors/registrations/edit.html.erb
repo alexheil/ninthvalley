@@ -38,17 +38,19 @@
       </div>
 
 
-      <div class="margin-top-huge padding-vertical center mid-text border-bottom border-top">
-        Want to delete your account?
-      </div>
+      <% unless resource.subscriptions.any? || resource.purchases.any? %>
+        <div class="margin-top-huge padding-vertical center mid-text border-bottom border-top">
+          Want to delete your account?
+        </div>
 
-      <div class="padding-vertical">
-        You will not be able to get your account back. You will not be able to access your courses or subscriptions. All course purchases and subscriptions will be terminated upon deleting your account. It is recommended to keep your account open to view purchases.
-      </div>
+        <div class="padding-vertical">
+          You will not be able to get your account back. You will not be able to access your courses or subscriptions. All course purchases and subscriptions will be terminated upon deleting your account. It is recommended to keep your account open to view purchases.
+        </div>
 
-      <div class="border-bottom padding-bottom">
-        <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "removal-button" %>
-      </div>
+        <div class="border-bottom padding-bottom">
+          <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete, class: "removal-button" %>
+        </div>
+      <% end %>
 
     </div>
   </div>

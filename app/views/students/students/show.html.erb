@@ -53,15 +53,35 @@
     <div class="body-container">
       <div class="flex">
 
-        <div class="sidebar">
-          <li>Courses</li>
-          <li>Posts</li>
-          <li>Example</li>
-        </div>
+        <aside class="sidebar">
+          <ul>
+            <li><span id="first-tab-click" class="active-sidebar-tab">Overview</span></li>
+            <li><span id="second-tab-click" class="inactive-sidebar-tab">Courses</span></li>
+            <li><span id="third-tab-click" class="inactive-sidebar-tab">Posts</span></li>
+          </ul>
+        </aside>
 
-        <div class="content">
+        <main class="content">
+
+          <div id="first-tab">
+
+          </div>
+
+          <div id="second-tab">
+            <% @student.courses.each do |course| %>
+              <li><%= course.title %></li>
+              
+
+              <%= link_to "Refund", instructor_course_purchase_refunds_path(course.instructor, course, course.purchase) {:action => :create}, :method => :post %>
+
+            <% end %>
+          </div>
+
+          <div id="third-tab">
+
+          </div>
           
-        </div>
+        </main>
 
       </div>
     </div>

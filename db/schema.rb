@@ -48,7 +48,7 @@ ActiveRecord::Schema.define(version: 20180530180142) do
     t.boolean  "paid",                                   default: false
     t.decimal  "price",          precision: 9, scale: 2
     t.string   "currency"
-    t.text     "refund_policy",                          default: ""
+    t.integer  "refund_policy",                          default: 0
     t.string   "slug"
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
