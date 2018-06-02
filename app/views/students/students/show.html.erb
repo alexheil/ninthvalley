@@ -68,11 +68,17 @@
           </div>
 
           <div id="second-tab">
-            <% @student.courses.each do |course| %>
-              <li><%= course.title %></li>
+            <% @student.purchases.each do |purchase| %>
+              <li><%= purchase.course.title %></li>
               
 
-              <%= link_to "Refund", instructor_course_purchase_refunds_path(course.instructor, course, course.purchase) {:action => :create}, :method => :post %>
+              <% if student_signed_in? && current_student == @student %>
+                <% if purchase.stripe_charge_id.starts_with?("ch") %>
+                  <%= link_to "Refund", instructor_course_purchase_refunds_path(purchase.instructor, purchase.course, purchase), :method => :post %>
+                <% else %> 
+                  You have refunded this course.
+                <% end %>
+              <% end %>
 
             <% end %>
           </div>

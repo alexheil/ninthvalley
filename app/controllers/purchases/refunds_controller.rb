@@ -13,7 +13,8 @@ class Purchases::RefundsController < ApplicationController
 
     refund = Stripe::Refund.create(
       charge: charge.id,
-      refund_application_fee: true
+      refund_application_fee: true,
+      reverse_transfer: true
     )
 
     if refund.save
