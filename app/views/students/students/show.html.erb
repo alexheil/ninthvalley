@@ -91,7 +91,7 @@
 
                   <% if bookmark.course.reviews.any? %>
                     <div class="padding-horizontal">
-                      <div class="padding-vertical-mini border-bottom mini-text">
+                      <div class="padding-vertical-mini  mini-text">
                         <span class="review-container">
                           <ul>
                             <% if bookmark.course.average_rating == 5 %>
@@ -122,55 +122,16 @@
                   <% end %>
 
                   <% if student_signed_in? && current_student == @student %>
-                    <div class="padding-bottom link-color">
-                      <%= link_to "Delete bookmark", instructor_course_bookmark_path(bookmark.course.instructor, bookmark.course, current_student.bookmark_id(bookmark.course)), method: :delete, class: "delete-button" %>
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical link-color border-top ">
+                        <%= link_to "Delete bookmark", instructor_course_bookmark_path(bookmark.course.instructor, bookmark.course, current_student.bookmark_id(bookmark.course)), method: :delete, class: "delete-button" %>
+                      </div>
                     </div>
                   <% end %>
 
                 </div>
               <% end %>
             </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <% @student.bookmarks.each do |bookmark| %>
-              <%= link_to bookmark.course.title, instructor_course_path(bookmark.course.instructor, bookmark.course) %>
-
-              <% if student_signed_in? && current_student == @student %>
-                <div class="padding-bottom link-color">
-                  <%= link_to "Delete bookmark", instructor_course_bookmark_path(bookmark.course.instructor, bookmark.course, current_student.bookmark_id(bookmark.course)), method: :delete, class: "delete-button" %>
-                </div>
-              <% end %>
-
-            <% end %>
 
           </div>
 
