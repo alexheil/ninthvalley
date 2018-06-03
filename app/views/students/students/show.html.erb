@@ -16,6 +16,7 @@
         <% end %>
 
         <span class="hard-text"> | Student | <%= pluralize(@student.purchases.count, "Course") %> | <%= pluralize(@student.subscriptions.count, "Subscription") %> | <%= pluralize(@student.reviews.count, "Review") %></span>
+
       </div>
 
       <div class="flex padding-vertical border-bottom">
@@ -76,6 +77,90 @@
               Bookmarks 
             </div>
 
+            <div class="flex">
+              <% @student.bookmarks.each do |bookmark| %>
+                <div class="four-column-course border margin-bottom">
+                  <%= link_to(instructor_course_path(bookmark.course.instructor, bookmark.course)) do %>
+                    <img class="thumbnail-image-feed-five" src="<%= bookmark.course.image_url(:thumb) %>">
+                  <% end %>
+                  <div class="padding-horizontal">
+                    <div class="padding-vertical-mini border-bottom">
+                      <%= link_to truncate(bookmark.course.title,length: 50), instructor_course_path(bookmark.course.instructor, bookmark.course) %>
+                    </div>
+                  </div>
+
+                  <% if bookmark.course.reviews.any? %>
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical-mini border-bottom mini-text">
+                        <span class="review-container">
+                          <ul>
+                            <% if bookmark.course.average_rating == 5 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif bookmark.course.average_rating == 4 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif bookmark.course.average_rating == 3 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif bookmark.course.average_rating == 2 %>
+                              <li class="star-five"></li>
+                              <li class="star-five"></li>
+                            <% elsif bookmark.course.average_rating == 1 %>
+                              <li class="star-five"></li>
+                            <% end %><%= " - (" + bookmark.course.reviews.count.to_s + ")" %>
+                          </ul>
+                        </span>
+                      </div>
+                    </div>
+                  <% end %>
+
+                  <% if student_signed_in? && current_student == @student %>
+                    <div class="padding-bottom link-color">
+                      <%= link_to "Delete bookmark", instructor_course_bookmark_path(bookmark.course.instructor, bookmark.course, current_student.bookmark_id(bookmark.course)), method: :delete, class: "delete-button" %>
+                    </div>
+                  <% end %>
+
+                </div>
+              <% end %>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             <% @student.bookmarks.each do |bookmark| %>
               <%= link_to bookmark.course.title, instructor_course_path(bookmark.course.instructor, bookmark.course) %>
 
@@ -122,7 +207,6 @@
 
       </div>
     </div>
-
 
 
   </div>
