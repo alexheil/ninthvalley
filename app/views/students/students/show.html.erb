@@ -57,8 +57,10 @@
           <ul>
             <li><span id="first-tab-click" class="active-sidebar-tab">Overview</span></li>
             <li><span id="second-tab-click" class="inactive-sidebar-tab">Bookmarks</span></li>
-            <li><span id="third-tab-click" class="inactive-sidebar-tab">Purchases</span></li>
-            <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Subscriptions</span></li>
+            <% if student_signed_in? && current_student == @student %>
+              <li><span id="third-tab-click" class="inactive-sidebar-tab">Purchases</span></li>
+              <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Subscriptions</span></li>
+            <% end %>
             
           </ul>
         </aside>
@@ -70,23 +72,51 @@
           </div>
 
           <div id="second-tab">
-            
-          </div>
+            <div class="padding-bottom mid-text">
+              Bookmarks 
+            </div>
 
-          <div id="third-tab">
-            <% @student.purchases.each do |purchase| %>
-              <%= purchase.course.title %>
+            <% @student.bookmarks.each do |bookmark| %>
+              <%= link_to bookmark.course.title, instructor_course_path(bookmark.course.instructor, bookmark.course) %>
 
               <% if student_signed_in? && current_student == @student %>
-                <% if purchase.stripe_charge_id.starts_with?("ch") %>
-                  <%= link_to "Refund", instructor_course_purchase_refunds_path(purchase.instructor, purchase.course, purchase), :method => :post %>
-                <% else %> 
-                  You have refunded this course.
-                <% end %>
+                <div class="padding-bottom link-color">
+                  <%= link_to "Delete bookmark", instructor_course_bookmark_path(bookmark.course.instructor, bookmark.course, current_student.bookmark_id(bookmark.course)), method: :delete, class: "delete-button" %>
+                </div>
               <% end %>
 
             <% end %>
+
           </div>
+
+          <% if student_signed_in? && current_student == @student %>
+            <div id="third-tab">
+              <div class="padding-bottom mid-text">
+                Purchases 
+              </div>
+
+              <% @student.purchases.each do |purchase| %>
+                <%= link_to purchase.course.title, instructor_course_path(purchase.instructor, purchase.course) %>
+
+                <% if student_signed_in? && current_student == @student %>
+                  <% if purchase.stripe_charge_id.starts_with?("ch") %>
+                    <%= link_to "Refund", instructor_course_purchase_refunds_path(purchase.instructor, purchase.course, purchase), :method => :post %>
+                  <% else %> 
+                    You have refunded this course.
+                  <% end %>
+                <% end %>
+
+              <% end %>
+            </div>
+
+            <div id="fourth-tab">
+              <div class="padding-bottom mid-text">
+                Subscriptions 
+              </div>
+
+            </div>
+
+          <% end %>
           
         </main>
 

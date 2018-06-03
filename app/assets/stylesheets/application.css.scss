@@ -543,12 +543,6 @@ video {
 .fake-button {
   @include buttons;
   padding: .51vh .51vw;
-  a {
-    color: $white;
-    &:hover {
-      color: $white;
-    }
-  }
 }
 
 .image-button {

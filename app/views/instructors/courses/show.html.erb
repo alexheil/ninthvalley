@@ -22,6 +22,18 @@
             </div>
           <% end %>
 
+          <% if student_signed_in? %>
+            <% if current_student.bookmarked?(@course) %>
+              <div class="padding-bottom link-color">
+                <%= link_to "Delete bookmark", instructor_course_bookmark_path(@instructor, @course, current_student.bookmark_id(@course)), method: :delete, class: "delete-button" %>
+              </div>
+            <% else %>
+              <div class="padding-bottom link-color">
+                <%= link_to "Bookmark", instructor_course_bookmarks_path(@instructor, @course), :method => :post, class: "fake-button" %>
+              </div>
+            <% end %>
+          <% end %>
+
           <% if @course.image_url(:thumb).present? %>
             <img class="thumbnail-image" src="<%= @course.image_url(:thumb) %>">
           <% end %>

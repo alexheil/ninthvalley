@@ -55,6 +55,18 @@ class Student < ApplicationRecord
     Subscription.find_by(student_id: id, instructor_id: instructor.id).id
   end
 
+  def bookmarked?(course)
+    Bookmark.exists? student_id: id, course_id: course.id
+  end
+
+  def unbookmark(course)
+    Bookmark.find_by(student_id: id, course_id: course.id).destroy
+  end
+
+  def bookmark_id(course)
+    Bookmark.find_by(student_id: id, course_id: course.id).id
+  end
+
   private
 
     def should_generate_new_friendly_id?

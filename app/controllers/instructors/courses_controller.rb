@@ -13,7 +13,6 @@ class Instructors::CoursesController < ApplicationController
       @video = Video.new
     end
     if student_signed_in?
-      @bookmark = Bookmark.new
       @review = Review.new
       @purchase = Purchase.new
       Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
