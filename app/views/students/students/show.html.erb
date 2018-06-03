@@ -56,8 +56,10 @@
         <aside class="sidebar">
           <ul>
             <li><span id="first-tab-click" class="active-sidebar-tab">Overview</span></li>
-            <li><span id="second-tab-click" class="inactive-sidebar-tab">Courses</span></li>
-            <li><span id="third-tab-click" class="inactive-sidebar-tab">Posts</span></li>
+            <li><span id="second-tab-click" class="inactive-sidebar-tab">Bookmarks</span></li>
+            <li><span id="third-tab-click" class="inactive-sidebar-tab">Purchases</span></li>
+            <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Subscriptions</span></li>
+            
           </ul>
         </aside>
 
@@ -68,9 +70,12 @@
           </div>
 
           <div id="second-tab">
+            
+          </div>
+
+          <div id="third-tab">
             <% @student.purchases.each do |purchase| %>
-              <li><%= purchase.course.title %></li>
-              
+              <%= purchase.course.title %>
 
               <% if student_signed_in? && current_student == @student %>
                 <% if purchase.stripe_charge_id.starts_with?("ch") %>
@@ -81,10 +86,6 @@
               <% end %>
 
             <% end %>
-          </div>
-
-          <div id="third-tab">
-
           </div>
           
         </main>
