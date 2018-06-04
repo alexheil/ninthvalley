@@ -154,6 +154,8 @@ ActiveRecord::Schema.define(version: 20180603005435) do
     t.integer  "student_id"
     t.string   "stripe_charge_id"
     t.boolean  "use_your_card",    default: false
+    t.integer  "price"
+    t.string   "currency"
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.index ["course_id"], name: "index_purchases_on_course_id"

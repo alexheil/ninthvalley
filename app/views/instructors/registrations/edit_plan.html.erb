@@ -12,7 +12,7 @@
         <%= form_for(@instructor, url: instructor_update_plan_path) do |f| %>
           <% if @instructor.plan_id == @instructor.id.to_s %>
             <div class="field">
-              <%= f.label :plan_amount, "Amount" %><span class="dark mini-text"> You currently do not have a subscription.</span>
+              <%= f.label :plan_amount, "Amount per month" %><span class="dark mini-text"> You currently do not have a subscription.</span>
               <%= f.number_field :plan_amount, class: "text-field" %>
             </div>
             <div class="field">

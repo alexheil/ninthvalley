@@ -182,7 +182,7 @@
                             <%= subscription.instructor.profile.first_name if subscription.instructor.profile.first_name.present? %> <%= subscription.instructor.profile.last_name if subscription.instructor.profile.last_name.present? %>
                           <% end %>
                         </div>
-                        <div class="two-column right mini-text">
+                        <div class="two-column right">
                           <%= BigDecimal(Stripe::Plan.retrieve(subscription.instructor.plan_id, stripe_account: subscription.instructor.merchant.stripe_id).amount / 100) %> <%= Stripe::Plan.retrieve(subscription.instructor.plan_id, stripe_account: subscription.instructor.merchant.stripe_id).currency.upcase %>
                         </div>
                       </div>
@@ -212,18 +212,35 @@
               <div class="flex">
                 <% @student.purchases.each do |purchase| %>
                   <div class="four-column-course border margin-bottom">
-                    <%= link_to(instructor_course_path(purchase.instructor, purchase.course)) do %>
+                    <%= link_to(instructor_course_path(purchase.course.instructor, purchase.course)) do %>
                       <img class="thumbnail-image-feed-five" src="<%= purchase.course.image_url(:thumb) %>">
                     <% end %>
                     <div class="padding-horizontal">
-                      <div class="padding-vertical-mini">
-                        <%= link_to truncate(purchase.course.title,length: 50), instructor_course_path(purchase.instructor, purchase.course) %>
+                      <div class="padding-vertical-mini border-bottom">
+                        <%= link_to truncate(purchase.course.title,length: 50), instructor_course_path(purchase.course.instructor, purchase.course) %>
+                      </div>
+                    </div>
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical-mini border-bottom mini-text">
+                        <div class="flex">
+                          <div class="two-column-course">
+                            <%= link_to purchase.course.instructor.username, instructor_path(purchase.course.instructor) unless purchase.course.instructor.profile.first_name.present? || purchase.course.instructor.profile.last_name.present? %> 
+                            <%= link_to(instructor_path(purchase.course.instructor)) do %>
+                              <%= purchase.course.instructor.profile.first_name if purchase.course.instructor.profile.first_name.present? %> <%= purchase.course.instructor.profile.last_name if purchase.course.instructor.profile.last_name.present? %>
+                            <% end %>
+                          </div>
+                          <div class="two-column-course right bold">
+                            <% if purchase.course.paid? && student_signed_in? && current_student.purchased?(purchase.course) %>
+                              <%= purchase.price %> <%= purchase.currency %>
+                            <% end %>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
-                    <% if purchase.course.reviews.any? %>
-                      <div class="padding-horizontal">
-                        <div class="padding-vertical-mini  mini-text border-top">
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical-mini border-bottom mini-text">
+                        <% if purchase.course.reviews.any? %>
                           <span class="review-container">
                             <ul>
                               <% if purchase.course.average_rating == 5 %>
@@ -249,9 +266,15 @@
                               <% end %><%= " - (" + purchase.course.reviews.count.to_s + ")" %>
                             </ul>
                           </span>
-                        </div>
+                        <% else %>
+                          No reviews yet.
+                        <% end %>
                       </div>
-                    <% end %>
+                    </div>
+
+                    <div class="padding-vertical-mini padding-horizontal mini-text">
+                      <%= truncate(purchase.course.tagline, length: 140) %>
+                    </div>
 
                     <% if student_signed_in? && current_student == @student %>
                       <% if purchase.stripe_charge_id.starts_with?("ch") %>
@@ -274,7 +297,6 @@
                         </div>
                       <% end %>
                     <% end %>
-
                   </div>
                 <% end %>
               </div>
@@ -317,7 +339,7 @@
           <div class="field">
             <img class="thumbnail-image" src="<%= @student.profile.image_url(:thumb) %>">
           </div>
-          <div class="flex border-bottom">
+          <div class="flex">
             <div class="field-two-column center">
               <label class="image-button" for="profile-image">Upload a new profile image</label>
               <%= f.hidden_field :image, value: Profile.new.cached_image_data %>
@@ -337,7 +359,7 @@
         <% end %>
 
 
-        <div class="field padding-top">
+        <div class="field padding-top border-top">
           <%= f.label :city %>
           <%= f.text_field :city, class: "text-field" %>
         </div>
