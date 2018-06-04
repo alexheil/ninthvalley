@@ -24,6 +24,10 @@ class Course < ApplicationRecord
     reviews.sum(:rating) / reviews.size if reviews.any?
   end
 
+  def self.search(search)
+    where("title iLIKE ?", "%#{search}%")
+  end
+
   private
 
     def should_generate_new_friendly_id?
