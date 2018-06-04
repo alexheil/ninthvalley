@@ -60,7 +60,9 @@ class Purchases::PurchasesController < ApplicationController
 
     if charge.save
       @purchase.update_attributes(
-        stripe_charge_id: charge.id
+        stripe_charge_id: charge.id,
+        price: @course.price,
+        currency: @course.currency
       )
       # send_purchase_email
       redirect_to instructor_course_path(@instructor, @course)
@@ -111,7 +113,9 @@ class Purchases::PurchasesController < ApplicationController
 
     if charge.save
       @purchase.update_attributes(
-        stripe_charge_id: charge.id
+        stripe_charge_id: charge.id,
+        price: @course.price,
+        currency: @course.currency
       )
       # send_purchase_email
       redirect_to instructor_course_path(@instructor, @course)
@@ -125,7 +129,7 @@ class Purchases::PurchasesController < ApplicationController
   private 
 
     def purchase_params
-      params.permit(:stripe_charge_id, :use_your_card)
+      params.permit(:stripe_charge_id, :use_your_card, :price, :currency)
     end
 
 end

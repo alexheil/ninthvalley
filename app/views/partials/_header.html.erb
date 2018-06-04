@@ -6,11 +6,14 @@
       </div>
       <div class="search-spacer">
         <div id="search-container">
-          <%= text_field_tag :search, params[:search], placeholder: "I want to learn...", class: "search-field" %>
+          <%= form_tag(search_path, :method => "get") do %>
+            <%= text_field_tag :search, params[:search], placeholder: "I want to learn...", class: "search-field" %>
+            <%= submit_tag "search", class: "exchange", :style => "display: none;" %>
+          <% end %>
         </div>
       </div>
       <ul>
-        <li><span id="search-icon"><svg class="search" width="12px" height="12px" viewBox="0 0 128.000000 128.000000" preserveAspectRatio="xMidYMid meet"><g transform="translate(0.000000,128.000000) scale(0.100000,-0.100000)" stroke="none"><path d="M364 1260 c-114 -37 -216 -117 -286 -224 -55 -85 -78 -168 -78 -280 0 -154 49 -273 154 -379 158 -157 398 -197 605 -100 l53 26 137 -135 c75 -75 147 -143 161 -152 13 -9 44 -16 68 -16 62 0 102 40 102 102 0 24 -7 55 -16 68 -9 14 -77 86 -152 161 l-135 137 26 53 c141 301 -14 650 -332 743 -77 23 -229 20 -307 -4z m311 -205 c206 -105 249 -373 86 -536 -203 -203 -548 -76 -569 210 -5 79 12 144 59 214 90 136 278 185 424 112z"/></g></svg></span></li>
+        <li><span id="search-icon"><span class="search-icon"></span></span></li>
         <% unless student_signed_in? || instructor_signed_in? %>
           <li><span id="sign-in">Sign in</span></li>
           <li><span id="register">Register</span></li>

@@ -1,9 +1,13 @@
 class Instructors::CoursesController < ApplicationController
 
-  before_action :authenticate_instructor!, except: :show
+  before_action :authenticate_instructor!, except: [:search, :show]
   before_action :correct_instructor, only: :create
   before_action :correct_course_instructor, only: [:update, :destroy]
-  before_action :set_instructor, except: :show
+  before_action :set_instructor, except: [:search, :show]
+
+  def search
+    @courses = Course.search(params[:search]).order("created_at DESC").page params[:page]
+  end
 
   def show
     @instructor = Instructor.friendly.find(params[:instructor_id])

@@ -20,10 +20,6 @@ class StaticPagesController < ApplicationController
   def register
   end
 
-  def courses
-    @courses = Courses.search(params[:search]).order("created_at DESC").page params[:page]
-  end
-
   private
 
     def redirect_if_signed_in

@@ -47,7 +47,7 @@
           </div>
 
           <% @categories.each do |category| %>
-            <div class="padding-vertical-mini border-bottom">
+            <div class="padding-vertical border-bottom">
               <div class="mid-text padding-bottom">
                 <%= link_to category.title, category_path(category) %>
               </div>
@@ -65,25 +65,29 @@
                     </div>
                     <div class="padding-horizontal">
                       <div class="padding-vertical-mini border-bottom mini-text">
-                        <%= link_to course.instructor.username, instructor_path(course.instructor) unless course.instructor.profile.first_name.present? || course.instructor.profile.last_name.present? %> 
-                        <%= link_to(instructor_path(course.instructor)) do %>
-                          <%= course.instructor.profile.first_name if course.instructor.profile.first_name.present? %> <%= course.instructor.profile.last_name if course.instructor.profile.last_name.present? %>
-                        <% end %>
-                      </div>
-                    </div>
-                    <div class="padding-horizontal">
-                      <div class="padding-vertical-mini border-bottom mini-text">
-                        <% if course.paid? %>
-                          <%= course.price %> <%= course.currency %>
-                        <% else %>
-                          Free!
-                        <% end %>
+                        <div class="flex">
+                          <div class="two-column-course">
+                            <%= link_to course.instructor.username, instructor_path(course.instructor) unless course.instructor.profile.first_name.present? || course.instructor.profile.last_name.present? %> 
+                            <%= link_to(instructor_path(course.instructor)) do %>
+                              <%= course.instructor.profile.first_name if course.instructor.profile.first_name.present? %> <%= course.instructor.profile.last_name if course.instructor.profile.last_name.present? %>
+                            <% end %>
+                          </div>
+                          <div class="two-column-course right bold">
+                            <% if student_signed_in? && current_student.purchased?(course) %>
+                              Owned
+                            <% elsif course.paid? %>
+                              <%= course.price %> <%= course.currency %>
+                            <% else %>
+                              Free!
+                            <% end %>
+                          </div>
+                        </div>
                       </div>
                     </div>
 
-                    <% if course.reviews.any? %>
-                      <div class="padding-horizontal">
-                        <div class="padding-vertical-mini border-bottom mini-text">
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical-mini border-bottom mini-text">
+                        <% if course.reviews.any? %>
                           <span class="review-container">
                             <ul>
                               <% if course.average_rating == 5 %>
@@ -109,9 +113,11 @@
                               <% end %><%= " - (" + course.reviews.count.to_s + ")" %>
                             </ul>
                           </span>
-                        </div>
+                        <% else %>
+                          No reviews yet.
+                        <% end %>
                       </div>
-                    <% end %>
+                    </div>
 
                     <div class="padding-vertical-mini padding-horizontal mini-text">
                       <%= truncate(course.tagline, length: 140) %>

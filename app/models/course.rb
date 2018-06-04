@@ -25,7 +25,7 @@ class Course < ApplicationRecord
   end
 
   def self.search(search)
-    where("title iLIKE ?", "%#{search}%")
+    where("title LIKE ?", "%#{search}%")
   end
 
   private

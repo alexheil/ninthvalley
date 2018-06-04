@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   get 'faq' => 'static_pages#faq'
   get 'updates' => 'static_pages#updates'
 
-  get 'courses' => 'static_pages#courses'
+  get 'search' => 'instructors/courses#search'
 
   get 'register' => 'static_pages#register'
   get 'sign-in' => 'static_pages#sign_in'

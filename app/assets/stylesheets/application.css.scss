@@ -259,6 +259,7 @@ video {
 
 .mini-text {
   font-size: .75em;
+  line-height: 1.75em;
 }
 
 .mid-text {
@@ -277,9 +278,16 @@ video {
   vertical-align: top;
 }
 
+.two-column-course {
+  margin: 0;
+  width: 49%;
+  display: inline-block;
+  vertical-align: top;
+}
+
 .four-column-course {
   margin: 0;
-  width: 23%;
+  width: 49%;
   display: inline-block;
   vertical-align: top;
 }
@@ -1111,16 +1119,6 @@ select {
   display: none;
 }
 
-svg.search {
-  @include transition;
-  fill: $white;
-  width: 12px;
-  height: 12px;
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-  }
-}
-
 #search-icon {
   @include transition;
   cursor: pointer;
@@ -1129,6 +1127,32 @@ svg.search {
     background-color: rgba(255, 255, 255, 0.1);
   }
 }
+
+.search-icon {
+  font-size: 1.25em; /* This controls the size. */
+  display: inline-block;
+  width: 0.4em;
+  height: 0.4em;
+  border: 0.1em solid $white;
+  position: relative;
+  border-radius: 0.35em;
+  &:before {
+    content: "";
+    display: inline-block;
+    position: absolute;
+    right: -0.25em;
+    bottom: -0.1em;
+    border-width: 0;
+    background: $white;
+    width: 0.35em;
+    height: 0.08em;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+  }
+}
+
 
 #sign-in {
   @include textLabels;
