@@ -18,6 +18,9 @@ class Instructors::CoursesController < ApplicationController
       Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
       @customer = Stripe::Customer.retrieve(current_student.customer_id)
     end
+    if student_signed_in? && current_student.purchased?(@course)
+      @purchased_course = Purchase.find(current_student.purchase_id(@course))
+    end
   end
 
   def create

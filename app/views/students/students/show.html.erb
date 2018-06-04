@@ -58,9 +58,9 @@
           <ul>
             <li><span id="first-tab-click" class="active-sidebar-tab">Overview</span></li>
             <li><span id="second-tab-click" class="inactive-sidebar-tab">Bookmarks</span></li>
+            <li><span id="third-tab-click" class="inactive-sidebar-tab">Subscriptions</span></li>
             <% if student_signed_in? && current_student == @student %>
-              <li><span id="third-tab-click" class="inactive-sidebar-tab">Purchases</span></li>
-              <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Subscriptions</span></li>
+              <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Purchases</span></li>
             <% end %>
             
           </ul>
@@ -84,14 +84,14 @@
                     <img class="thumbnail-image-feed-five" src="<%= bookmark.course.image_url(:thumb) %>">
                   <% end %>
                   <div class="padding-horizontal">
-                    <div class="padding-vertical-mini border-bottom">
+                    <div class="padding-vertical-mini">
                       <%= link_to truncate(bookmark.course.title,length: 50), instructor_course_path(bookmark.course.instructor, bookmark.course) %>
                     </div>
                   </div>
 
                   <% if bookmark.course.reviews.any? %>
                     <div class="padding-horizontal">
-                      <div class="padding-vertical-mini  mini-text">
+                      <div class="padding-vertical-mini  mini-text border-top">
                         <span class="review-container">
                           <ul>
                             <% if bookmark.course.average_rating == 5 %>
@@ -123,7 +123,7 @@
 
                   <% if student_signed_in? && current_student == @student %>
                     <div class="padding-horizontal">
-                      <div class="padding-vertical link-color border-top ">
+                      <div class="padding-vertical link-color border-top">
                         <%= link_to "Delete bookmark", instructor_course_bookmark_path(bookmark.course.instructor, bookmark.course, current_student.bookmark_id(bookmark.course)), method: :delete, class: "delete-button" %>
                       </div>
                     </div>
@@ -135,31 +135,123 @@
 
           </div>
 
+          <div id="third-tab">
+            <div class="padding-bottom mid-text">
+              Subscriptions 
+            </div>
+
+            <% @student.subscriptions.each do |subscription| %>
+              <div class="four-column-course border margin-bottom">
+                <%= link_to(instructor_path(subscription.instructor)) do %>
+                  <img class="thumbnail-image-feed-five" src="<%= subscription.instructor.profile.image_url(:thumb) %>">
+                <% end %>
+                <div class="padding-horizontal">
+                  <div class="padding-vertical-mini">
+
+                    <% if student_signed_in? && current_student == @student %>
+                      <div class="flex">
+                        <div class="two-column">
+                          <%= link_to subscription.instructor.username, instructor_path(subscription.instructor) unless subscription.instructor.profile.first_name.present? || subscription.instructor.profile.last_name.present? %> 
+                          <%= link_to(instructor_path(subscription.instructor)) do %>
+                            <%= subscription.instructor.profile.first_name if subscription.instructor.profile.first_name.present? %> <%= subscription.instructor.profile.last_name if subscription.instructor.profile.last_name.present? %>
+                          <% end %>
+                        </div>
+                        <div class="two-column right mini-text">
+                          <%= BigDecimal(Stripe::Plan.retrieve(subscription.instructor.plan_id, stripe_account: subscription.instructor.merchant.stripe_id).amount / 100) %> <%= Stripe::Plan.retrieve(subscription.instructor.plan_id, stripe_account: subscription.instructor.merchant.stripe_id).currency.upcase %>
+                        </div>
+                      </div>
+                    <% else %>
+                      <%= link_to subscription.instructor.username, instructor_path(subscription.instructor) unless subscription.instructor.profile.first_name.present? || subscription.instructor.profile.last_name.present? %> 
+                      <%= link_to(instructor_path(subscription.instructor)) do %>
+                        <%= subscription.instructor.profile.first_name if subscription.instructor.profile.first_name.present? %> <%= subscription.instructor.profile.last_name if subscription.instructor.profile.last_name.present? %>
+                      <% end %>
+                    <% end %>
+
+                  </div>
+                </div>
+
+              </div>
+            <% end %>
+          </div>
+
+
+
           <% if student_signed_in? && current_student == @student %>
-            <div id="third-tab">
+            <div id="fourth-tab">
               <div class="padding-bottom mid-text">
                 Purchases 
               </div>
 
-              <% @student.purchases.each do |purchase| %>
-                <%= link_to purchase.course.title, instructor_course_path(purchase.instructor, purchase.course) %>
 
-                <% if student_signed_in? && current_student == @student %>
-                  <% if purchase.stripe_charge_id.starts_with?("ch") %>
-                    <%= link_to "Refund", instructor_course_purchase_refunds_path(purchase.instructor, purchase.course, purchase), :method => :post %>
-                  <% else %> 
-                    You have refunded this course.
-                  <% end %>
+              <div class="flex">
+                <% @student.purchases.each do |purchase| %>
+                  <div class="four-column-course border margin-bottom">
+                    <%= link_to(instructor_course_path(purchase.instructor, purchase.course)) do %>
+                      <img class="thumbnail-image-feed-five" src="<%= purchase.course.image_url(:thumb) %>">
+                    <% end %>
+                    <div class="padding-horizontal">
+                      <div class="padding-vertical-mini">
+                        <%= link_to truncate(purchase.course.title,length: 50), instructor_course_path(purchase.instructor, purchase.course) %>
+                      </div>
+                    </div>
+
+                    <% if purchase.course.reviews.any? %>
+                      <div class="padding-horizontal">
+                        <div class="padding-vertical-mini  mini-text border-top">
+                          <span class="review-container">
+                            <ul>
+                              <% if purchase.course.average_rating == 5 %>
+                                <li class="star-five"></li>
+                                <li class="star-five"></li>
+                                <li class="star-five"></li>
+                                <li class="star-five"></li>
+                                <li class="star-five"></li>
+                              <% elsif purchase.course.average_rating == 4 %>
+                                <li class="star-five"></li>
+                                <li class="star-five"></li>
+                                <li class="star-five"></li>
+                                <li class="star-five"></li>
+                              <% elsif purchase.course.average_rating == 3 %>
+                                <li class="star-five"></li>
+                                <li class="star-five"></li>
+                                <li class="star-five"></li>
+                              <% elsif purchase.course.average_rating == 2 %>
+                                <li class="star-five"></li>
+                                <li class="star-five"></li>
+                              <% elsif purchase.course.average_rating == 1 %>
+                                <li class="star-five"></li>
+                              <% end %><%= " - (" + purchase.course.reviews.count.to_s + ")" %>
+                            </ul>
+                          </span>
+                        </div>
+                      </div>
+                    <% end %>
+
+                    <% if student_signed_in? && current_student == @student %>
+                      <% if purchase.stripe_charge_id.starts_with?("ch") %>
+                        <div class="padding-horizontal">
+                          <div class="padding-vertical link-color border-top ">
+                            <% if purchase.course.refund_policy == "three" && purchase.created_at > 3.days.ago %>
+                              <%= link_to "Refund", instructor_course_purchase_refunds_path(purchase.instructor, purchase.course, purchase), :method => :post, class: "delete-button" %>
+                            <% elsif purchase.course.refund_policy == "seven" && purchase.created_at > 7.days.ago %>
+                              <%= link_to "Refund", instructor_course_purchase_refunds_path(purchase.instructor, purchase.course, purchase), :method => :post, class: "delete-button" %>
+                            <% else %>
+                              You cannot refund this course.
+                            <% end %>
+                          </div>
+                        </div>
+                      <% else %> 
+                        <div class="padding-horizontal">
+                          <div class="padding-vertical border-top ">
+                            You have refunded this course.
+                          </div>
+                        </div>
+                      <% end %>
+                    <% end %>
+
+                  </div>
                 <% end %>
-
-              <% end %>
-            </div>
-
-            <div id="fourth-tab">
-              <div class="padding-bottom mid-text">
-                Subscriptions 
               </div>
-
             </div>
 
           <% end %>

@@ -67,6 +67,14 @@ class Student < ApplicationRecord
     Bookmark.find_by(student_id: id, course_id: course.id).id
   end
 
+  def purchased?(course)
+    Purchase.where("stripe_charge_id like ?", "%ch%").exists? student_id: id, course_id: course.id
+  end
+
+  def purchase_id(course)
+    Purchase.find_by(student_id: id, course_id: course.id).id
+  end
+
   private
 
     def should_generate_new_friendly_id?

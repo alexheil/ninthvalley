@@ -121,6 +121,20 @@ video {
   }
 }
 
+.red-link {
+  color: $red;
+  &:hover {
+    color: $dark;
+  }
+}
+
+.bottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
 .hidden {
   display: none;
 }
@@ -136,6 +150,7 @@ video {
 .flex {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .center {
@@ -202,15 +217,15 @@ video {
 }
 
 .content {
-  width: 80%;
-  margin: 0 auto;
+  width: 83%;
+  margin: 0;
   display: inline-block;
   vertical-align: top;
 }
 
 .sidebar {
   width: 15%;
-  margin: 0 auto;
+  margin: 0;
   display: inline-block;
   vertical-align: top;
   ul {
@@ -256,29 +271,29 @@ video {
 }
 
 .two-column {
-  margin: 0 auto;
-  width: 48%;
+  margin: 0;
+  width: 49%;
   display: inline-block;
   vertical-align: top;
 }
 
 .four-column-course {
-  margin: 0 auto;
+  margin: 0;
   width: 23%;
   display: inline-block;
   vertical-align: top;
 }
 
 .four-column {
-  margin: 0 auto;
+  margin: 0;
   width: 23%;
   display: inline-block;
   vertical-align: top;
 }
 
 .seventy-column {
-  margin: 0 auto;
-  width: 73%;
+  margin: 0;
+  width: 75%;
   display: inline-block;
   vertical-align: top;
 }
@@ -515,7 +530,7 @@ video {
   color: $white;
   padding: 1vh 1vw;
   background: $main;
-  border: 1px solid $main;
+  border: 2px solid $main;
   color: $white;
   -webkit-font-smoothing: unset;
   &:hover {
@@ -629,17 +644,20 @@ select {
 }
 
 .field-two-column {
-  margin: 0 auto 2vh auto;
-  width: 48%;
+  margin: 0 0 2vh 0;
+  width: 49%;
   display: inline-block;
   vertical-align: top;
 }
 
 .field-three-column {
-  margin: 0 auto 2vh auto;
+  margin: 0 0 2vh 0;
   width: 32%;
   display: inline-block;
   vertical-align: top;
+  select { 
+    background-position-x: 94%;
+  }
 }
 
 .padding-field-match {
@@ -682,6 +700,7 @@ select {
 
 .nav {
   display: flex;
+  justify-content: space-between;
   .site-title {
     display: inline-block;
     width: 24%;
@@ -706,6 +725,7 @@ select {
       width: 24%;
       display: inline-block;
       position: relative;
+      text-align: right;
     }
   }
 }
@@ -767,15 +787,15 @@ select {
 /* ******************** USERS **************** */
 
 .profile-picture-container {
-  margin: 0 auto;
+  margin: 0;
   width: 30%;
   display: inline-block;
   vertical-align: top;
 }
 
 .profile-info-container {
-  margin: 0 auto;
-  width: 65%;
+  margin: 0;
+  width: 68%;
   display: inline-block;
   vertical-align: top;
 }
@@ -1513,7 +1533,7 @@ svg.search {
   }
 
   .four-column-course {
-    width: 48%;
+    width: 49%;
   }
 
   @mixin javaScriptForms {

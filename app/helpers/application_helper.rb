@@ -53,23 +53,24 @@ module ApplicationHelper
   def country
     [
       ['US | United States'],
-      ['AT'],
-      ['AU'],
-      ['BE'],
-      ['CA'],
-      ['DE'],
-      ['DK'],
-      ['ES'],
-      ['FI'],
-      ['FR'],
-      ['GB'],
-      ['IE'],
-      ['IT'],
-      ['JP'],
-      ['LU'],
-      ['NL'],
-      ['NO'],
-      ['SE']
+      ['AT | Austria'],
+      ['AU | Australia'],
+      ['BE | Belgium'],
+      ['CA | Canada'],
+      ['DE | Germany'],
+      ['DK | Denmark'],
+      ['ES | Spain'],
+      ['FI | Finland'],
+      ['FR | France'],
+      ['GB | United Kingdom'],
+      ['IE | Ireland'],
+      ['IT | Italy'],
+      ['JP | Japan'],
+      ['LU | Luxembourg'],
+      ['MX | Mexico'],
+      ['NL | Netherlands'],
+      ['NO | Norway'],
+      ['SE | Sweden']
     ]
   end
 

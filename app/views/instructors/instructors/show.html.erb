@@ -313,13 +313,10 @@
 
           </div>
 
-
         </main>
 
       </div>
     </div>
-
-
 
   </div>
 </div>
@@ -468,18 +465,18 @@
 
           <div id="paid-container">
             <div class="flex">
-              <div class="field-two-column">
+              <div class="field-three-column">
                 <%= f.label :price %>
                 <%= f.text_field :price, class: "text-field" %>
               </div>
-              <div class="field-two-column">
+              <div class="field-three-column">
                 <%= f.label :currency %>
-                  <%= f.select :currency, options_for_select(currency) %>
+                <%= f.select :currency, options_for_select(currency) %>
               </div>
-            </div>
-            <div class="field">
+              <div class="field-three-column">
               <%= f.label :refund_policy %>
-              <%= f.text_area :refund_policy, class: "text-area" %>
+              <%= f.select :refund_policy, options_for_select([["None", :zero], ["3 days", :three], ["7 days", :seven]]) %>
+            </div>
             </div>
           </div>
         <% else %>
@@ -492,7 +489,6 @@
       <% end %>
     </div>
   </div>
-
 
 
   <div id="post-form">

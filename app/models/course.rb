@@ -2,6 +2,8 @@ class Course < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
+  enum refund_policy: [:zero, :three, :seven]
+
   include ImageUploader[:image]
 
   belongs_to :instructor

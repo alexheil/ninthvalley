@@ -6,7 +6,6 @@ class Students::StudentsController < ApplicationController
       @profile = current_student.profile
     end
     Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
-    
     @customer = Stripe::Customer.retrieve(@student.customer_id)
   end
 

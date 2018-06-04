@@ -13,7 +13,7 @@ class Purchases::PurchasesController < ApplicationController
     Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
     customer = Stripe::Customer.retrieve(current_student.customer_id)
 
-    if customer.default_source.present? && @purchase.use_your_card?
+    if customer.default_source.present? && params[:purchase][:use_your_card] == "1"
 
       amount = ((@course.price) * 100).to_i
       application_fee = (((@course.price * 0.129) + 0.30) * 100).round
@@ -32,18 +32,6 @@ class Purchases::PurchasesController < ApplicationController
         # The card has been declined
         render 'checkout'
         flash.now[:alert] = "Your card has been declined."
-      end
-
-      if charge.save
-        @purchase.update_attributes(
-          stripe_charge_id: charge.id
-        )
-        # send_purchase_email
-        redirect_to instructor_course_path(@instructor, @course)
-        flash[:notice] = "You have successfully purchased #{@course.title}!"
-      else
-        render 'checkout'
-        flash.now[:alert] = "You have failed."
       end
 
     else
@@ -68,19 +56,20 @@ class Purchases::PurchasesController < ApplicationController
         flash.now[:alert] = "You have failed."
       end
 
-      if charge.save
-        @purchase.update_attributes(
-          stripe_charge_id: charge.id
-        )
-        # send_purchase_email
-        redirect_to instructor_course_path(@instructor, @course)
-        flash[:notice] = "You have successfully purchased #{@course.title}!"
-      else
-        render 'checkout'
-        flash.now[:alert] = "Your card has been declined."
-      end
-
     end
+
+    if charge.save
+      @purchase.update_attributes(
+        stripe_charge_id: charge.id
+      )
+      # send_purchase_email
+      redirect_to instructor_course_path(@instructor, @course)
+      flash[:notice] = "You have successfully purchased #{@course.title}!"
+    else
+      render 'checkout'
+      flash.now[:alert] = "Your card has been declined."
+    end
+
   end
 
   def checkout
@@ -136,7 +125,7 @@ class Purchases::PurchasesController < ApplicationController
   private 
 
     def purchase_params
-      params.permit(:course_id, :student_id, :instructor_id, :stripe_charge_id, :use_your_card)
+      params.permit(:stripe_charge_id, :use_your_card)
     end
 
 end

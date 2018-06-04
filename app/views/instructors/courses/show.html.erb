@@ -48,10 +48,17 @@
                     Your course is <%= @course.price %> <%= @course.currency %>.
                   </div>
                 </div>
-              <% elsif student_signed_in? && current_student.courses.exists?(@course.id) %>
+              <% elsif student_signed_in? && current_student.purchased?(@course) %>
                 <div class="free-card center">
                   <div class="padding-horizontal">
-                    You own this course!
+                    You own this course! 
+
+                    <% if @course.refund_policy == "three" && @purchased_course.created_at > 3.days.ago %>
+                      <%= link_to "Refund?", instructor_course_purchase_refunds_path(@instructor, @course, @purchased_course), data: { confirm: "Are you sure?" }, :method => :post, class: "red-link" %>
+                    <% elsif @course.refund_policy == "seven" && @purchased_course.created_at > 7.days.ago %>
+                      <%= link_to "Refund?", instructor_course_purchase_refunds_path(@instructor, @course, @purchased_course), data: { confirm: "Are you sure?" }, :method => :post, class: "red-link" %>
+                    <% end %>
+
                   </div>
                 </div>
               <% else %>
@@ -72,7 +79,7 @@
             <%= link_to(instructor_path(@instructor)) do %>
               <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %>
             <% end %>
-         | <%= link_to @course.category.title, category_path(@course.category) %> | <%= @course.created_at.strftime("Created on %m.%d.%Y") %> | <%= @course.updated_at.strftime("Last updated on %m.%d.%Y") %> | <%= @course.language %>
+         | <%= link_to @course.category.title, category_path(@course.category) %> | <%= @course.created_at.strftime("Created on %m.%d.%Y") %> | <%= @course.updated_at.strftime("Last updated on %m.%d.%Y") %> | <%= @course.language %> <%= " | No refunds" if @course.paid? && @course.refund_policy == "zero" %><%= " | 3 day refund policy" if @course.paid? && @course.refund_policy == "three" %><%= " | 7 day refund policy" if @course.paid? && @course.refund_policy == "seven" %>
           </div>
           <div class="padding-bottom">
             <%= pluralize(@course.tracks.count, "Track") %> | <%= pluralize(@course.videos.count, "Video") %> | <%= pluralize(@instructor.subscriptions.count + @course.purchases.count, "Student") %> | <%= pluralize(@course.reviews.count, "Review") %>
@@ -112,7 +119,7 @@
             </div>
           <% end %>
 
-          <% if (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.courses.exists?(@course.id)) %>
+          <% if (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.purchased?(@course)) %>
             <% unless (student_signed_in? && current_student.reviews.exists?(@course.id)) %>
               <div class="padding-bottom">
                 <div id="review-button-click">
@@ -524,7 +531,7 @@
                   </div>
                 </div>
 
-                <% if (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.courses.exists?(@course.id)) %>
+                <% if (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.purchased?(@course)) %>
 
                   <div class="edit-review-form">
                     <div class="popup-form-inside">
@@ -654,22 +661,24 @@
 
           <div id="paid-container">
             <div class="flex">
-              <div class="field-two-column">
+              <div class="field-three-column">
                 <%= f.label :price %>
                 <%= f.text_field :price, class: "text-field" %>
               </div>
-              <div class="field-two-column">
+              <div class="field-three-column">
                 <%= f.label :currency %>
-                  <%= f.select :currency, options_for_select(currency) %>
+                <%= f.select :currency, options_for_select(currency) %>
               </div>
-            </div>
-            <div class="field">
-              <%= f.label :refund_policy %>
-              <%= f.text_area :refund_policy, class: "text-area" %>
+              <div class="field-three-column">
+                <%= f.label :refund_policy %>
+                <%= f.select :refund_policy, options_for_select([["None", :zero], ["3 days", :three], ["7 days", :seven]]) %>
+              </div>
             </div>
           </div>
         <% else %>
-          In order to sell a course you must first become a <%= link_to "Merchant", edit_instructor_merchant_path(current_instructor) %>
+          <div class="field center">
+            In order to sell a course you must first become a <%= link_to "Merchant", new_instructor_merchant_path(current_instructor) %>.
+          </div>
         <% end %>
 
         <%= f.submit "Update course", data: { disable_with: 'Updating...' }, class: "submit-button" %>
@@ -770,7 +779,7 @@
 
 <% end %>
 
-<% if (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.courses.exists?(@course.id)) %>
+<% if (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.purchased?(@course)) %>
   
   <div id="review-form">
     <div class="popup-form-inside">
