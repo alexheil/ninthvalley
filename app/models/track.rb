@@ -9,6 +9,10 @@ class Track < ApplicationRecord
 
   before_save :should_generate_new_friendly_id?, if: :title_changed?
     
+  validates :instructor_id, presence: true
+  validates :course_id, presence: true
+  validates :title, presence: true, length: { maximum: 255 }
+
   private
 
     def should_generate_new_friendly_id?

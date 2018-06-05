@@ -5,6 +5,8 @@ class Categories::SubcategoriesController < ApplicationController
   def show
     @category = Category.friendly.find(params[:category_id])
     @subcategory = Subcategory.friendly.find(params[:id])
+    @popular_courses = @subcategory.courses.left_joins(:purchases).group(:id).order('COUNT(purchases.id) DESC').limit(8)
+    @recent_courses = @subcategory.courses.reorder("created_at desc").limit(8)
   end
 
   def new

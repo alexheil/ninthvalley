@@ -7,5 +7,9 @@ class Review < ApplicationRecord
   belongs_to :student
 
   validates :student_id, :uniqueness => {:scope => :course_id}, presence: true
+  validates :course_id, presence: true
+  validates :instructor_id, presence: true
+  validates :rating, presence: true, length: { maximum: 1 }
+  validates :content, presence: true, length: { maximum: 5000 }
   
 end

@@ -10,6 +10,13 @@ class Video < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
+  validates :instructor_id, presence: true
+  validates :course_id, presence: true
+  validates :track_id, presence: true
+  validates :title, presence: true, length: { maximum: 255 }
+  validates :video_data, presence: true, unless: :video_data?
+  validates :description, presence: true, length: { maximum: 5000 }
+
   before_save :should_generate_new_friendly_id?, if: :title_changed?
     
   private

@@ -4,10 +4,13 @@ class Categories::CategoriesController < ApplicationController
 
   def index
     @categories = Category.all
+    @popular_courses = Course.left_joins(:purchases).group(:id).order('COUNT(purchases.id) DESC').limit(8)
   end
 
   def show
     @category = Category.friendly.find(params[:id])
+    @popular_courses = @category.courses.left_joins(:purchases).group(:id).order('COUNT(purchases.id) DESC').limit(8)
+    @recent_courses = @category.courses.reorder("created_at desc").limit(4)
     @subcategories = @category.subcategories
   end
 

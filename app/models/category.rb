@@ -5,6 +5,10 @@ class Category < ApplicationRecord
   has_many :subcategories
   has_many :courses
 
+  validates :title, presence: true, length: { maximum: 100 }
+  validates :description, presence: true, length: { maximum: 1000 }
+  validates :image, presence: true
+
   before_save :should_generate_new_friendly_id?, if: :title_changed?
   
   private

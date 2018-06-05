@@ -2,7 +2,6 @@ class Profile < ApplicationRecord
 
   include ImageUploader[:image]
 
-  #validates :user_id, presence: true
   validates :first_name, format: { with: /\A[-a-z]+\z/i }, allow_blank: true
   validates :last_name, format: { with: /\A[-a-z]+\z/i }, allow_blank: true
   validates :biography, length: { maximum: 4000 }, allow_blank: true

@@ -286,10 +286,14 @@ video {
 }
 
 .four-column-course {
+  @include transition;
   margin: 0;
   width: 49%;
   display: inline-block;
   vertical-align: top;
+  &:hover {
+    box-shadow: $shadow;
+  }
 }
 
 .four-column {
@@ -714,6 +718,7 @@ select {
     width: 24%;
     color: $main;
     font-weight: 300;
+    letter-spacing: 2px;
     &:hover {
       text-decoration: none;
       color: $light;
@@ -730,7 +735,7 @@ select {
     text-align: center;
     display: inline-block;
     li {
-      width: 24%;
+      width: 19%;
       display: inline-block;
       position: relative;
       text-align: right;
@@ -1187,6 +1192,17 @@ select {
   }
 }
 
+.discover {
+  @include textLabels;
+  @include transition;
+  cursor: pointer;
+  color: $white;
+  padding: 3vh 1vw;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
 #close-menu {
   @include transition;
   cursor: pointer;
@@ -1520,7 +1536,7 @@ select {
       width: 100%;
       display: block;
       li {
-        width: 31%;
+        width: 23%;
         text-align: center;
         &:first-child {
           display: none;
@@ -1627,6 +1643,10 @@ select {
   }
 
   #menu-click {
+    padding: 1vh 1vw;
+  }
+
+  .discover {
     padding: 1vh 1vw;
   }
 

@@ -3,7 +3,7 @@ class Instructors::InstructorsController < ApplicationController
   def show
     @instructor = Instructor.friendly.find(params[:id])
     @courses = @instructor.courses.page params[:page]
-    @popular_courses = @instructor.courses.reorder("created_at desc").limit(4)
+    @popular_courses = @instructor.courses.left_joins(:purchases).group(:id).order('COUNT(purchases.id) DESC').limit(4)
     @posts = @instructor.posts
     if instructor_signed_in? && current_instructor == @instructor
       @profile = current_instructor.profile

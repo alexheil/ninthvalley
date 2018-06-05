@@ -18,6 +18,7 @@
           <li><span id="sign-in">Sign in</span></li>
           <li><span id="register">Register</span></li>
         <% end %>
+        <li><span class="discover"><%= link_to "Discover", categories_path %></span></li>
         <li><span id="menu-click">Menu</span></li>
       </ul>
     </nav>
@@ -27,7 +28,6 @@
 <div id="menu-container" class="side-header mid-text">
   <ul>
     <li id="close-menu">Close</li>
-    <li><%= link_to "Discover", categories_path, class: "nav-links" %></li>
     <% if instructor_signed_in? %>
       <li><%= link_to "Your Page", instructor_path(current_instructor), class: "nav-links" %></li>
       <li><%= link_to "Subscription", instructor_edit_plan_path(current_instructor), class: "nav-links" %></li>
