@@ -1,0 +1,26 @@
+<%= provide(:title, "Create A Track") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical">
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Create a track
+      </div>
+
+      <div class="padding-top">
+        <%= form_for(@track, url: instructor_course_tracks_path(@instructor, @course)) do |f| %>
+          <span class="track_errors"><%= render 'partials/errors/track_errors' %></span>
+          
+          <div class="field">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: "text-field" %>
+          </div>
+
+          <%= f.submit "Create track", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

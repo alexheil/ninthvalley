@@ -34,18 +34,18 @@ Rails.application.routes.draw do
   end
 
   resources :students, controller: 'students/students', only: :show do
-    resource :profile, controller: 'profiles/profiles', only: :update
+    resource :profile, controller: 'profiles/profiles', only: [:edit, :update]
   end
 
   resources :instructors, controller: 'instructors/instructors', only: :show do
-    resource :profile, controller: 'profiles/profiles', only: :update
+    resource :profile, controller: 'profiles/profiles', only: [:edit, :update]
     resource :merchant, controller: 'instructors/merchants', only: [:new, :create, :edit, :update]
     resources :posts, controller: 'instructors/posts', only: [:show, :create, :update, :destroy]
-    resources :courses, controller: 'instructors/courses', only: [:show, :create, :update, :destroy] do
+    resources :courses, controller: 'instructors/courses' do
       resources :bookmarks, controller: 'students/bookmarks', only: [:create, :destroy]
       resources :reviews, controller: 'instructors/reviews', only: [:create, :update, :destroy]
-      resources :tracks, controller: 'instructors/tracks', only: [:create, :update, :destroy] do
-        resources :videos, controller: 'instructors/videos', only: [:show, :create, :update, :destroy] do
+      resources :tracks, controller: 'instructors/tracks', only: [:new, :create, :edit, :update, :destroy] do
+        resources :videos, controller: 'instructors/videos', only: [:show, :new, :create, :edit, :update, :destroy] do
           resources :comments, controller: 'instructors/comments', only: [:create, :update, :destroy]
         end
       end

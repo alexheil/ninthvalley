@@ -15,6 +15,12 @@ class Instructors::VideosController < ApplicationController
     end
   end
 
+  def new
+    @course = Course.friendly.find(params[:course_id])
+    @track = Track.friendly.find(params[:track_id])
+    @video = Video.new
+  end
+
   def create
     @course = Course.friendly.find(params[:course_id])
     @track = Track.friendly.find(params[:track_id])
@@ -27,6 +33,13 @@ class Instructors::VideosController < ApplicationController
       flash.now[:alert] = 'Whoa! Something went wrong!'
       redirect_to root_url
     end
+  end
+
+  def edit
+    @instructor = Instructor.friendly.find(params[:instructor_id])
+    @course = Course.friendly.find(params[:course_id])
+    @track = Track.friendly.find(params[:track_id])
+    @video = Video.friendly.find(params[:id])
   end
 
   def update

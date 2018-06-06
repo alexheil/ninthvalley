@@ -634,7 +634,7 @@
         </div>
         <div class="field">
           <%= f.label :language %>
-          <%= f.text_field :language, class: "text-field" %>
+          <%= f.select :language, options_for_select(language) %>
         </div>
         <div class="field">
           <%= f.label :highlights %>

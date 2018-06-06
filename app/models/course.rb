@@ -30,10 +30,10 @@ class Course < ApplicationRecord
   validates :highlights, presence: true, length: { maximum: 5000 }
   validates :target, presence: true, length: { maximum: 5000 }
 
-  validates :paid, presence: true
-  validates :price, presence: true, length: { maximum: 9 }, numericality: { greater_than: 0}, if: :paid?
-  validates :currency, presence: true, if: :paid?
-  validates :refund_policy, presence: true, if: :paid?
+  validates :paid, presence: true, if: :is_paid
+  validates :price, presence: true, length: { maximum: 9 }, numericality: { greater_than: 0}, if: :is_paid
+  validates :currency, presence: true, if: :is_paid
+  validates :refund_policy, presence: true, if: :is_paid
 
   before_save :should_generate_new_friendly_id?, if: :title_changed?
     
@@ -51,7 +51,7 @@ class Course < ApplicationRecord
       title_changed?
     end
 
-    def paid?
+    def is_paid
       self.paid?
     end
 

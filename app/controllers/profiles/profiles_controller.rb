@@ -3,6 +3,16 @@ class Profiles::ProfilesController < ApplicationController
   before_action :authenticate_user!
   before_action :correct_user
 
+  def edit
+    if instructor_signed_in?
+      @instructor = current_instructor
+      @profile = @instructor.profile
+    elsif student_signed_in?
+      @student = current_student
+      @profile = @student.profile
+    end
+  end
+
   def update
     if instructor_signed_in?
       @instructor = current_instructor

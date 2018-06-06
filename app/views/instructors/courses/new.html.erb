@@ -1,0 +1,92 @@
+<%= provide(:title, "Create Your Course") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical">
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Create your course
+      </div>
+
+      <div class="padding-top">
+        <%= form_for(@course, url: instructor_courses_path(@instructor)) do |f| %>
+          <span id="course_errors"><%= render 'partials/errors/course_errors' %></span>
+          
+          <div class="field">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: "text-field" %>
+          </div>
+
+          <div class="field">
+            <%= f.label :category_id %>
+            <%= f.hidden_field :category_id %>
+            <%= f.collection_select(:category_id, Category.all, :id, :title) %>
+          </div>
+
+          <div class="padding-bottom border-bottom">
+            <label class="image-button" for="course-image">Upload a course thumbnail</label>
+            <%= f.hidden_field :image, value: @course.cached_image_data %>
+            <span class="hidden"><%= f.file_field :image, id: "course-image" %></span>
+          </div>
+          
+          <div class="field padding-top">
+            <%= f.label :tagline %>
+            <%= f.text_field :tagline, class: "text-field" %>
+          </div>
+          <div class="field">
+            <%= f.label :language %>
+            <%= f.select :language, options_for_select(language) %>
+          </div>
+          <div class="field">
+            <%= f.label :highlights %>
+            <%= f.text_area :highlights, class: "text-area" %>
+          </div>
+          <div class="field">
+            <%= f.label :requirements %>
+            <%= f.text_area :requirements, class: "text-area" %>
+          </div>
+          <div class="field">
+            <%= f.label :target %>
+            <%= f.text_area :target, class: "text-area" %>
+          </div>
+          <div class="field">
+            <%= f.label :description %>
+            <%= f.text_area :description, class: "text-area" %>
+          </div>
+
+          <% if @instructor.merchant.present? %>
+            <div class="field">
+              <label class="inactive-paid-tab" id="paid-tab" for="paid-inactive">Pay for course</label>
+              <span class="hidden"><%= f.check_box :paid, id: "paid-inactive" %></span>
+            </div>
+
+
+            <div id="paid-container">
+              <div class="flex">
+                <div class="field-three-column">
+                  <%= f.label :price %>
+                  <%= f.text_field :price, class: "text-field" %>
+                </div>
+                <div class="field-three-column">
+                  <%= f.label :currency %>
+                  <%= f.select :currency, options_for_select(currency) %>
+                </div>
+                <div class="field-three-column">
+                <%= f.label :refund_policy %>
+                <%= f.select :refund_policy, options_for_select([["None", :zero], ["3 days", :three], ["7 days", :seven]]) %>
+              </div>
+              </div>
+            </div>
+          <% else %>
+            <div class="field center">
+              In order to sell a course you must first become a <%= link_to "Merchant", new_instructor_merchant_path(current_instructor) %>.
+            </div>
+          <% end %>
+
+          <%= f.submit "Create course", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

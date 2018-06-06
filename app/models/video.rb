@@ -11,7 +11,6 @@ class Video < ApplicationRecord
   has_many :comments, dependent: :destroy
 
   validates :instructor_id, presence: true
-  validates :course_id, presence: true
   validates :track_id, presence: true
   validates :title, presence: true, length: { maximum: 255 }
   validates :video_data, presence: true, unless: :video_data?

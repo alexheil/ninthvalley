@@ -33,6 +33,31 @@ module ApplicationHelper
     @devise_mapping ||= Devise.mappings[:student]
   end
 
+  def language
+    [
+      ['English'],
+      ['Mandarin'],
+      ['Spanish'],
+      ['French'],
+      ['German'],
+      ['Hindi'],
+      ['Arabic'],
+      ['Portuguese'],
+      ['Bengali'],
+      ['Russian'],
+      ['Japanese'],
+      ['Punjabi'],
+      ['Wu'],
+      ['Malay'],
+      ['Telugu'],
+      ['Vietnamese'],
+      ['Turkish'],
+      ['Polish'],
+      ['Swedish'],
+      ['Italian']
+    ]
+  end
+
   def currency
     [
       ['USD'],

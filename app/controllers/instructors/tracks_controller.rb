@@ -1,9 +1,14 @@
 class Instructors::TracksController < ApplicationController
 
   before_action :authenticate_instructor!, except: :show
-  before_action :correct_instructor, only: :create
-  before_action :correct_track_instructor, only: [:update, :destroy]
+  before_action :correct_instructor, only: [:new, :create]
+  before_action :correct_track_instructor, only: [:edit, :update, :destroy]
   before_action :set_instructor, except: :show
+
+  def new
+    @course = Course.friendly.find(params[:course_id])
+    @track = Track.new
+  end
 
   def create
     @course = Course.friendly.find(params[:course_id])
@@ -18,6 +23,12 @@ class Instructors::TracksController < ApplicationController
     end
   end
 
+  def edit
+    @instructor = Instructor.friendly.find(params[:instructor_id])
+    @course = Course.friendly.find(params[:course_id])
+    @track = Track.friendly.find(params[:id])
+  end
+
   def update
     @course = Course.friendly.find(params[:course_id])
     @track = Track.friendly.find(params[:id])
@@ -26,7 +37,7 @@ class Instructors::TracksController < ApplicationController
       redirect_to instructor_course_path(@instructor, @course)
     else
       flash.now[:alert] = 'Whoa! Something went wrong!'
-      render 'new'
+      render 'edit'
     end
   end
 

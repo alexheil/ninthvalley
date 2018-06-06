@@ -1,0 +1,37 @@
+<%= provide(:title, "Edit Your Video") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical">
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Edit <%= @video.title %>
+      </div>
+
+      <div class="padding-top">
+        <%= form_for(@video, url: instructor_course_track_video_path(@instructor, @course, @track, @video)) do |f| %>
+          <span class="video_errors"><%= render 'partials/errors/video_errors' %></span>
+          
+          <div class="field">
+            <%= f.label :title %>
+            <%= f.text_field :title, class: "text-field" %>
+          </div>
+          
+          <div class="field">
+            <label class="image-button" for="video-image">Upload a video</label>
+            <%= f.hidden_field :video, value: @video.cached_video_data %>
+            <span class="hidden"><%= f.file_field :video, id: "video-image" %></span>
+          </div>
+
+          <div class="field">
+            <%= f.label :description %>
+            <%= f.text_area :description, class: "text-area" %>
+          </div>
+
+          <%= f.submit "Create video", data: { disable_with: 'Creating...' }, class: "submit-button" %>
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>
