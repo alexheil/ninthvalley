@@ -7,6 +7,7 @@ class Instructors::InstructorsController < ApplicationController
     @posts = @instructor.posts
     if instructor_signed_in? && current_instructor == @instructor
       @profile = current_instructor.profile
+      @notifications = @instructor.notifications
       @course = Course.new
       @post = Post.new
     end

@@ -569,6 +569,15 @@ var sidebarTabs = function() {
     $(this).next('.video-list').slideDown(300).delay(100);
   });
 
+  $('.notification-card').click(function() {
+    $('.notification-card').removeClass('active-notification-tab');
+    $('.notification-card').addClass('inactive-notification-tab');
+    $(this).addClass('active-notification-tab');
+    $(this).removeClass('inactive-notification-tab');
+    $('.notification-container').hide();
+    $(this).next('.notification-container').slideDown(300).delay(100);
+  });
+
 };
 
 $(document).ready(sidebarTabs);

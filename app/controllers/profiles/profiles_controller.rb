@@ -30,7 +30,7 @@ class Profiles::ProfilesController < ApplicationController
       #  flash.now[:notice] = "You have successfully updated your profile."
       #end
     else
-      redirect_to root_url
+      render 'edit'
       #respond_to do |format|
       #  format.html { redirect_to (:back) }
       #  format.js { render :action => "profiles" }

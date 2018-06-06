@@ -21,9 +21,9 @@ class Instructor < ApplicationRecord
   has_many :videos, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   has_many :purchases
-
   has_many :subscriptions, dependent: :destroy
   has_many :students, through: :subscriptions
   belongs_to :student

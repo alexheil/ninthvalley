@@ -509,6 +509,50 @@ video {
   }
 }
 
+.inactive-notification-tab {
+  box-sizing: border-box;
+  margin-bottom: 2vh;
+  @include transition;
+  background: $grey;
+  color: $black;
+  padding: .51vh .51vw;
+  border-radius: $radius;
+  text-transform: uppercase;
+  width: 100%;
+  display: inline-block;
+  font-size: .75em;
+  font-weight: 300;
+  cursor: pointer;
+  border-radius: $radius;
+  font-family: $fancy;
+  border: 1px solid transparent;
+  -webkit-font-smoothing: unset;
+  &:hover {
+    box-shadow: $shadow;
+  }
+}
+
+.active-notification-tab {
+  @include transition;
+  box-sizing: border-box;
+  margin-bottom: 2vh;
+  background: $main;
+  color: $white;
+  padding: .51vh .51vw;
+  border-radius: $radius;
+  text-transform: uppercase;
+  width: 100%;
+  display: inline-block;
+  font-size: .75em;
+  font-weight: 400;
+  cursor: pointer;
+  border-radius: $radius;
+  font-family: $fancy;
+  border: 1px solid $main;
+  -webkit-font-smoothing: unset;
+  box-shadow: $shadow;
+}
+
 .active-sidebar-tab {
   @include transition;
   border-left: 3px solid $main;
@@ -1008,6 +1052,15 @@ select {
   }
 }
 
+.notification-circle {
+  background: $red;
+  border-radius: $radius;
+  color: $white;
+  font-size: .75em;
+  font-weight: 400;
+  padding: .15vh .25vw 0 .25vw;
+}
+
 /* ******************* JAVASCRIPT ************** */
 
 @mixin javaScriptForms {
@@ -1429,6 +1482,10 @@ select {
 
 .edit-comment-form {
   @include javaScriptForms;
+}
+
+.notification-container {
+  display: none;
 }
 
 .video-list {

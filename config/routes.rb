@@ -58,6 +58,10 @@ Rails.application.routes.draw do
       end
     end
     resources :subscriptions, controller: 'instructors/subscriptions', only: [:create, :destroy]
+    resources :notifications, controller: 'instructors/notifications', only: [:create, :update, :destroy]
+    #resources :messages, controller: 'instructors/messages', only: [:create, :update, :destroy] do
+    #  resources :message_replies, controller: 'instructors/message_replies', only: [:create, :update, :destroy]
+    #end
   end
 
   resources :categories, controller: 'categories/categories' do

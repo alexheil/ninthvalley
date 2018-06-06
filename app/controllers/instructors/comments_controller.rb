@@ -78,4 +78,11 @@ class Instructors::CommentsController < ApplicationController
       end
     end
 
+    def create_notification(video, comment)
+      Notification.create(instructor_id: course.instructor_id,
+        student_id: current_student.id,
+        comment_id: comment.id,
+        notice_type: 'comment')
+    end
+
 end

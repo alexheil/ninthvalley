@@ -12,6 +12,8 @@ class Instructors::ReviewsController < ApplicationController
     @review.instructor_id = @instructor.id
     if @review.save
       flash.now[:notice] = "You posted a review on #{@course.title}."
+      create_notification(@review)
+      #send_email
       redirect_to instructor_course_path(@instructor, @course)
     else
       redirect_to (:back)
@@ -53,6 +55,13 @@ class Instructors::ReviewsController < ApplicationController
       @course = Course.friendly.find(params[:course_id])
       @review = Review.find(params[:id])
       redirect_to instructor_path(@instructor) if @review.student_id != current_student.id
+    end
+
+    def create_notification(review)
+      Notification.create(instructor_id: review.course.instructor_id,
+        student_id: current_student.id,
+        review_id: review.id,
+        notice_type: 'review')
     end
 
 end

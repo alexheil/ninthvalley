@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180603005435) do
+ActiveRecord::Schema.define(version: 20180606173507) do
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "student_id"
@@ -114,6 +114,25 @@ ActiveRecord::Schema.define(version: 20180603005435) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.index ["instructor_id"], name: "index_merchants_on_instructor_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "instructor_id"
+    t.integer  "student_id"
+    t.integer  "review_id"
+    t.integer  "comment_id"
+    t.integer  "purchase_id"
+    t.integer  "subscription_id"
+    t.string   "notice_type"
+    t.boolean  "read",            default: false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.index ["comment_id"], name: "index_notifications_on_comment_id"
+    t.index ["instructor_id"], name: "index_notifications_on_instructor_id"
+    t.index ["purchase_id"], name: "index_notifications_on_purchase_id"
+    t.index ["review_id"], name: "index_notifications_on_review_id"
+    t.index ["student_id"], name: "index_notifications_on_student_id"
+    t.index ["subscription_id"], name: "index_notifications_on_subscription_id"
   end
 
   create_table "posts", force: :cascade do |t|
