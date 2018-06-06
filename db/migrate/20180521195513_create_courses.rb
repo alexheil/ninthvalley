@@ -20,5 +20,10 @@ class CreateCourses < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+
+    add_index :courses, :title
+    add_index :courses, :tagline
+    add_index :courses, :price
+    add_index :courses, :currency
   end
 end

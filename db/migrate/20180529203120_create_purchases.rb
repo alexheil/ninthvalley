@@ -11,5 +11,9 @@ class CreatePurchases < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+
+    add_index :purchases, :stripe_charge_id
+    add_index :purchases, :price
+    add_index :purchases, :currency
   end
 end

@@ -62,8 +62,12 @@ ActiveRecord::Schema.define(version: 20180606173507) do
     t.datetime "created_at",                                             null: false
     t.datetime "updated_at",                                             null: false
     t.index ["category_id"], name: "index_courses_on_category_id"
+    t.index ["currency"], name: "index_courses_on_currency"
     t.index ["instructor_id"], name: "index_courses_on_instructor_id"
+    t.index ["price"], name: "index_courses_on_price"
     t.index ["subcategory_id"], name: "index_courses_on_subcategory_id"
+    t.index ["tagline"], name: "index_courses_on_tagline"
+    t.index ["title"], name: "index_courses_on_title"
   end
 
   create_table "instructors", force: :cascade do |t|
@@ -129,7 +133,9 @@ ActiveRecord::Schema.define(version: 20180606173507) do
     t.datetime "updated_at",                      null: false
     t.index ["comment_id"], name: "index_notifications_on_comment_id"
     t.index ["instructor_id"], name: "index_notifications_on_instructor_id"
+    t.index ["notice_type"], name: "index_notifications_on_notice_type"
     t.index ["purchase_id"], name: "index_notifications_on_purchase_id"
+    t.index ["read"], name: "index_notifications_on_read"
     t.index ["review_id"], name: "index_notifications_on_review_id"
     t.index ["student_id"], name: "index_notifications_on_student_id"
     t.index ["subscription_id"], name: "index_notifications_on_subscription_id"
@@ -144,6 +150,7 @@ ActiveRecord::Schema.define(version: 20180606173507) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["instructor_id"], name: "index_posts_on_instructor_id"
+    t.index ["title"], name: "index_posts_on_title"
   end
 
   create_table "profiles", force: :cascade do |t|
@@ -163,7 +170,9 @@ ActiveRecord::Schema.define(version: 20180606173507) do
     t.text     "biography",      default: ""
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
+    t.index ["first_name"], name: "index_profiles_on_first_name"
     t.index ["instructor_id"], name: "index_profiles_on_instructor_id"
+    t.index ["last_name"], name: "index_profiles_on_last_name"
     t.index ["student_id"], name: "index_profiles_on_student_id"
   end
 
@@ -178,7 +187,10 @@ ActiveRecord::Schema.define(version: 20180606173507) do
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
     t.index ["course_id"], name: "index_purchases_on_course_id"
+    t.index ["currency"], name: "index_purchases_on_currency"
     t.index ["instructor_id"], name: "index_purchases_on_instructor_id"
+    t.index ["price"], name: "index_purchases_on_price"
+    t.index ["stripe_charge_id"], name: "index_purchases_on_stripe_charge_id"
     t.index ["student_id"], name: "index_purchases_on_student_id"
   end
 
@@ -192,6 +204,7 @@ ActiveRecord::Schema.define(version: 20180606173507) do
     t.datetime "updated_at",                null: false
     t.index ["course_id"], name: "index_reviews_on_course_id"
     t.index ["instructor_id"], name: "index_reviews_on_instructor_id"
+    t.index ["rating"], name: "index_reviews_on_rating"
     t.index ["student_id"], name: "index_reviews_on_student_id"
   end
 
@@ -245,6 +258,7 @@ ActiveRecord::Schema.define(version: 20180606173507) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.index ["instructor_id"], name: "index_subscriptions_on_instructor_id"
+    t.index ["stripe_subscription_id"], name: "index_subscriptions_on_stripe_subscription_id"
     t.index ["student_id"], name: "index_subscriptions_on_student_id"
   end
 
@@ -257,6 +271,7 @@ ActiveRecord::Schema.define(version: 20180606173507) do
     t.datetime "updated_at",    null: false
     t.index ["course_id"], name: "index_tracks_on_course_id"
     t.index ["instructor_id"], name: "index_tracks_on_instructor_id"
+    t.index ["title"], name: "index_tracks_on_title"
   end
 
   create_table "videos", force: :cascade do |t|
@@ -269,6 +284,7 @@ ActiveRecord::Schema.define(version: 20180606173507) do
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["instructor_id"], name: "index_videos_on_instructor_id"
+    t.index ["title"], name: "index_videos_on_title"
     t.index ["track_id"], name: "index_videos_on_track_id"
   end
 

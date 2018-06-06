@@ -7,5 +7,7 @@ class CreateSubscriptions < ActiveRecord::Migration[5.0]
 
       t.timestamps
     end
+
+    add_index :subscriptions, :stripe_subscription_id
   end
 end
