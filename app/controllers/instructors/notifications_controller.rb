@@ -22,6 +22,7 @@ class Instructors::NotificationsController < ApplicationController
   def destroy
     @instructor = Instructor.friendly.find(params[:instructor_id])
     @notification = Notification.find(params[:id]).destroy
+    @notifications = @instructor.notifications
     respond_to do |format|
       format.html { redirect_to redirect_to instructor_path(@instructor) }
       format.js { render :action => "notifications" }

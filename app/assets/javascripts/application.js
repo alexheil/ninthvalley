@@ -569,7 +569,7 @@ var sidebarTabs = function() {
     $(this).next('.video-list').slideDown(300).delay(100);
   });
 
-  $('.notification-card').click(function() {
+  $(".notifications_container").on("click", ".notification-card", function() {
     $('.notification-card').removeClass('active-notification-tab');
     $('.notification-card').addClass('inactive-notification-tab');
     $(this).addClass('active-notification-tab');

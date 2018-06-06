@@ -101,7 +101,7 @@
             <li><span id="third-tab-click" class="inactive-sidebar-tab">Posts</span></li>
             <% if instructor_signed_in? && @instructor == current_instructor %>
               <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Notifications 
-                <span class="notifications_count"><%= render 'instructors/partials/notifications/notification_count' %></span>
+                <span class="notifications_count"><%= render 'instructors/partials/notifications/notifications_count' %></span>
               </li>
               <li><span id="fifth-tab-click" class="inactive-sidebar-tab">Messages</span></li>
               <% if @instructor.purchases.any? %>
