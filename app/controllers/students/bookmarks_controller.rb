@@ -10,7 +10,7 @@ class Students::BookmarksController < ApplicationController
     if @bookmark.save
       respond_to do |format|
         format.html { redirect_to instructor_course_path(@instructor, @course) }
-        format.js { render :action => "notifications" }
+        format.js { render :action => "bookmarks" }
         flash.now[:notice] = "You have successfully bookmarked #{@course.title}!"
       end
     else
@@ -24,8 +24,11 @@ class Students::BookmarksController < ApplicationController
     @instructor = Instructor.friendly.find(params[:instructor_id])
     @course = Course.friendly.find(params[:course_id])
     @student.unbookmark(@course)
-    redirect_to instructor_course_path(@instructor, @course)
-    flash[:notice] = "You unbookmarked #{@course.title}!"
+    respond_to do |format|
+      format.html { redirect_to instructor_course_path(@instructor, @course) }
+      format.js { render :action => "bookmarks" }
+      flash.now[:notice] = "You unbookmarked #{@course.title}!"
+    end
   end
 
 end

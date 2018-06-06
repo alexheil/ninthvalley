@@ -1,5 +1,4 @@
-$('.follow_button_<%= @user.id %>').html('<%=  escape_javascript(render :partial => 'users/partials/relationships/follow_button') %>');
-$('.mini_follow_button_<%= @user.id %>').html('<%=  escape_javascript(render :partial => 'users/partials/relationships/mini_follow_button', :locals => {:user => @user}) %>');
+$('.bookmark_button').html('<%=  escape_javascript(render :partial => 'students/partials/bookmarks/bookmark_button') %>');
 $('.flash_js').fadeIn(300);
 $('.flash_js').html('<%=  escape_javascript(render :partial => 'partials/flash') %>');
 setTimeout(function() {
