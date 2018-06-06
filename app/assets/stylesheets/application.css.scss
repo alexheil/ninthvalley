@@ -153,6 +153,10 @@ video {
   justify-content: space-between;
 }
 
+.width-hundred {
+  width: 100%;
+}
+
 .center {
   text-align: center;
 }
@@ -898,7 +902,7 @@ select {
   padding: .51vh 0;
   text-transform: uppercase;
   border-radius: $radius;
-  border: 1px solid $grey;
+  border: 2px solid $grey;
   color: $black;
 }
 

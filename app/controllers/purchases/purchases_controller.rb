@@ -65,7 +65,7 @@ class Purchases::PurchasesController < ApplicationController
         currency: @course.currency
       )
       # send_purchase_email
-      create_notification(@course, @purchase)
+      create_notification(@purchase)
       redirect_to instructor_course_path(@instructor, @course)
       flash[:notice] = "You have successfully purchased #{@course.title}!"
     else
@@ -119,7 +119,7 @@ class Purchases::PurchasesController < ApplicationController
         currency: @course.currency
       )
       # send_purchase_email
-      create_notification(@course, @purchase)
+      create_notification(@purchase)
       redirect_to instructor_course_path(@instructor, @course)
       flash[:notice] = "You have successfully purchased #{@course.title}!"
     else
@@ -134,8 +134,8 @@ class Purchases::PurchasesController < ApplicationController
       params.permit(:stripe_charge_id, :use_your_card, :price, :currency)
     end
 
-    def create_notification(course, purchase)
-      Notification.create(instructor_id: course.instructor_id,
+    def create_notification(purchase)
+      Notification.create(instructor_id: purchase.instructor_id,
         student_id: current_student.id,
         purchase_id: purchase.id,
         notice_type: 'purchase')

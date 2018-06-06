@@ -361,7 +361,7 @@ var purchaseForms = function() {
 
   $('#use-card-inactive').change(function(){
     if($(this).is(":checked")) {
-      $('#fatty').click(function() {
+      $('#use-card-id').click(function() {
         $('#checkout-container').remove();
         var form = document.getElementById('payment-form');
         form.submit();

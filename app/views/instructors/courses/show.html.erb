@@ -734,7 +734,7 @@
             Pressing "Purchase course" will automatically finish this process, including charging your card. If you'd like to change your card, <%= link_to "please do so before continuing", student_edit_source_path(current_student) %>.
           </div>
 
-          <span id="use-card-button"><%= f.submit "Purchase button", data: { disable_with: 'Loading...' }, id:"fatty", class: "submit-button" %></span>
+          <span id="use-card-button"><%= f.submit "Purchase", data: { disable_with: 'Loading...' }, id:"use-card-id", class: "submit-button" %></span>
 
         <% end %>
 
@@ -753,8 +753,8 @@
           <div id="card-errors" role="alert"></div>
         </div>
 
-        <span id="checkout-button" class="fake-button margin-top">checkout button</span>
-        <span id="purchase-button"><%= f.submit "Purchase button", data: { disable_with: 'Loading...' }, class: "submit-button" %></span>
+        <span id="checkout-button" class="fake-button margin-top">Purchase</span>
+        <span id="purchase-button"><%= f.submit "Purchase", data: { disable_with: 'Loading...' }, class: "submit-button" %></span>
 
       <% end %>
 

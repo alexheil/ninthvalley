@@ -4,6 +4,8 @@ class Post < ApplicationRecord
 
   include ImageUploader[:image]
 
+  default_scope -> { order('id DESC') }
+
   belongs_to :instructor
 
   before_save :should_generate_new_friendly_id?, if: :title_changed?

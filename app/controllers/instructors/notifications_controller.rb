@@ -20,6 +20,17 @@ class Instructors::NotificationsController < ApplicationController
     end
   end
 
+  def destroy
+    @instructor = Instructor.friendly.find(params[:instructor_id])
+    @notification = Notification.find(params[:id]).destroy
+    redirect_to instructor_path(@instructor)
+    flash.now[:notice] = "Notification deleted."
+    #respond_to do |format|
+    #  format.html { redirect_to instructor_notifications_path(current_instructor) }
+    #  format.js { render :action => "notifications" }
+    #end
+  end
+
   private
 
     def set_instructor

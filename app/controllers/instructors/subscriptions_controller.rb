@@ -39,7 +39,7 @@ class Instructors::SubscriptionsController < ApplicationController
       @subscription.update_attributes(
         stripe_subscription_id: subscription.id,
       )
-      create_notification(@instructor, @subscription)
+      create_notification(@subscription)
       redirect_to instructor_path(@instructor)
       flash[:notice] = "You subscribed to #{@instructor.profile.first_name.presence || @instructor.username}!"
     else 
@@ -82,8 +82,8 @@ class Instructors::SubscriptionsController < ApplicationController
       end
     end
 
-    def create_notification(instructor, subscription)
-      Notification.create(instructor_id: course.instructor_id,
+    def create_notification(subscription)
+      Notification.create(instructor_id: subscription.instructor_id,
         student_id: current_student.id,
         subscription_id: subscription.id,
         notice_type: 'subscription')

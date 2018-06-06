@@ -16,6 +16,7 @@ class Instructors::CommentsController < ApplicationController
     end
     if @comment.save
       flash.now[:notice] = "You posted a comment on #{@video.title}."
+      create_notification(@comment)
       redirect_to instructor_course_track_video_path(@instructor, @course, @track, @video)
     else
       redirect_to (:back)
@@ -78,8 +79,8 @@ class Instructors::CommentsController < ApplicationController
       end
     end
 
-    def create_notification(video, comment)
-      Notification.create(instructor_id: course.instructor_id,
+    def create_notification(comment)
+      Notification.create(instructor_id: comment.video.instructor_id,
         student_id: current_student.id,
         comment_id: comment.id,
         notice_type: 'comment')

@@ -8,8 +8,11 @@ class Students::BookmarksController < ApplicationController
     @bookmark.student_id = @student.id
     @bookmark.course_id = @course.id
     if @bookmark.save
-      redirect_to instructor_course_path(@instructor, @course)
-      flash[:notice] = "You have successfully bookmarked #{@course.title}!"
+      respond_to do |format|
+        format.html { redirect_to instructor_course_path(@instructor, @course) }
+        format.js { render :action => "notifications" }
+        flash.now[:notice] = "You have successfully bookmarked #{@course.title}!"
+      end
     else
       redirect_to instructor_course_path(@instructor, @course)
       flash[:alert] = "You have failed."
