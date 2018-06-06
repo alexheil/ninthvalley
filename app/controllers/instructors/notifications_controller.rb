@@ -6,14 +6,13 @@ class Instructors::NotificationsController < ApplicationController
 
   def update
     @notification = Notification.find(params[:id])
-    #@notifications = @instructor.notifications
+    @notifications = @instructor.notifications
     if @notification.update_attributes(read: true)
-      redirect_to instructor_path(@instructor)
-      flash.now[:notice] = "Marked read."
-      #respond_to do |format|
-      #  format.html { redirect_to instructor_notifications_path(current_instructor) }
-      #  format.js { render :action => "notifications" }
-      #end
+      respond_to do |format|
+        format.html { redirect_to instructor_path(@instructor) }
+        format.js { render :action => "notifications" }
+        flash.now[:notice] = "Marked read."
+      end
     else
       redirect_to current_instructor
       flash[:alert] = "Not working."
@@ -23,12 +22,11 @@ class Instructors::NotificationsController < ApplicationController
   def destroy
     @instructor = Instructor.friendly.find(params[:instructor_id])
     @notification = Notification.find(params[:id]).destroy
-    redirect_to instructor_path(@instructor)
-    flash.now[:notice] = "Notification deleted."
-    #respond_to do |format|
-    #  format.html { redirect_to instructor_notifications_path(current_instructor) }
-    #  format.js { render :action => "notifications" }
-    #end
+    respond_to do |format|
+      format.html { redirect_to redirect_to instructor_path(@instructor) }
+      format.js { render :action => "notifications" }
+      flash.now[:notice] = "Notification deleted."
+    end
   end
 
   private

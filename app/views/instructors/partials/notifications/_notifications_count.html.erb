@@ -1,0 +1,3 @@
+<% if @notifications.where(read: false).any? %>
+  <span class="notification-circle"><%= @notifications.where(read: false).count %></span></span>
+<% end %>
