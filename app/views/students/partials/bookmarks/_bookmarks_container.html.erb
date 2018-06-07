@@ -71,7 +71,7 @@
     <% if student_signed_in? && current_student == @student %>
       <div class="padding-horizontal">
         <div class="padding-vertical link-color border-top">
-          <%= link_to "Delete bookmark", instructor_course_bookmark_path(bookmark.course.instructor, bookmark.course, current_student.bookmark_id(bookmark.course)), method: :delete, class: "delete-button" %>
+          <%= link_to "Delete bookmark", instructor_course_bookmark_path(bookmark.course.instructor, bookmark.course, current_student.bookmark_id(bookmark.course)), method: :delete, remote: true, class: "delete-button" %>
         </div>
       </div>
     <% end %>

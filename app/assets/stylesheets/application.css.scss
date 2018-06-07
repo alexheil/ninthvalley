@@ -1065,6 +1065,14 @@ select {
   padding: .15vh .25vw 0 .25vw;
 }
 
+.bookmarks_index_container {
+  width: 100%;
+}
+
+.bookmarks_container {
+  width: 100%;
+}
+
 /* ******************* JAVASCRIPT ************** */
 
 @mixin javaScriptForms {
