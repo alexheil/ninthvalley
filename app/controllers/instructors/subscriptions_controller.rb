@@ -40,6 +40,7 @@ class Instructors::SubscriptionsController < ApplicationController
         stripe_subscription_id: subscription.id,
       )
       create_notification(@subscription)
+      send_email
       redirect_to instructor_path(@instructor)
       flash[:notice] = "You subscribed to #{@instructor.profile.first_name.presence || @instructor.username}!"
     else 

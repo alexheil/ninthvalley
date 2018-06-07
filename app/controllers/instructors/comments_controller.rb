@@ -17,6 +17,7 @@ class Instructors::CommentsController < ApplicationController
     if @comment.save
       flash.now[:notice] = "You posted a comment on #{@video.title}."
       create_notification(@comment)
+      send_email
       redirect_to instructor_course_track_video_path(@instructor, @course, @track, @video)
     else
       redirect_to (:back)

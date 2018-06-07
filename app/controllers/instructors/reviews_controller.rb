@@ -13,7 +13,7 @@ class Instructors::ReviewsController < ApplicationController
     if @review.save
       flash.now[:notice] = "You posted a review on #{@course.title}."
       create_notification(@review)
-      #send_email
+      send_email
       redirect_to instructor_course_path(@instructor, @course)
     else
       redirect_to (:back)

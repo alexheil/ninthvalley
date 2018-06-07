@@ -21,6 +21,7 @@ class Purchases::RefundsController < ApplicationController
       @purchase.update_attributes(
         stripe_charge_id: refund.id,
       )
+      send_email
       redirect_to instructor_path(@instructor)
       flash[:notice] = "You have successfully refunded #{@course.title}."
     else 
