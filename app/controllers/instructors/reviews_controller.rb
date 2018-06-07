@@ -64,4 +64,9 @@ class Instructors::ReviewsController < ApplicationController
         notice_type: 'review')
     end
 
+    def send_email
+      return if instructor_signed_in? && @instructor.id == current_instructor.id
+      InstructorMailer.review_email(@instructor, @review).deliver_now unless @instructor.review_email == false
+    end
+
 end

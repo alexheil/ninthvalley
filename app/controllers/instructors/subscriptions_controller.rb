@@ -90,4 +90,9 @@ class Instructors::SubscriptionsController < ApplicationController
         notice_type: 'subscription')
     end
 
+    def send_email
+      return if instructor_signed_in? && @instructor.id == current_instructor.id
+      InstructorMailer.subscription_email(@instructor, @subscription).deliver_now unless @instructor.subscription_email == false
+    end
+
 end

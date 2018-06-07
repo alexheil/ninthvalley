@@ -141,4 +141,9 @@ class Purchases::PurchasesController < ApplicationController
         notice_type: 'purchase')
     end
 
+    def send_email
+      return if instructor_signed_in? && @instructor.id == current_instructor.id
+      InstructorMailer.purchase_email(@instructor, @purchase).deliver_now unless @instructor.purchase_email == false
+    end
+
 end

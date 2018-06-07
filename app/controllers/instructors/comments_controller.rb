@@ -87,4 +87,9 @@ class Instructors::CommentsController < ApplicationController
         notice_type: 'comment')
     end
 
+    def send_email
+      return if instructor_signed_in? && @instructor.id == current_instructor.id
+      InstructorMailer.comment_email(@instructor, @comment).deliver_now unless @instructor.comment_email == false
+    end
+
 end
