@@ -36,6 +36,7 @@ class Instructors::CoursesController < ApplicationController
     if @course.save
       flash[:notice] = "You just created " + @course.title + "!"
       redirect_to instructor_course_path(@instructor, @course)
+      send_student_email
     else
       flash.now[:alert] = 'Whoa! Something went wrong!'
       render 'new'
@@ -85,6 +86,12 @@ class Instructors::CoursesController < ApplicationController
     def correct_course_instructor
       @course = Course.friendly.find(params[:id])
       redirect_to instructor_path(@course.instructor_id) if @course.instructor_id != current_instructor.id
+    end
+
+    def send_student_email
+      @instructor.subscriptions.find_each do |subscription|
+        StudentMailer.course_email(subscription.student, @instructor, @purchase).deliver_now unless @student.course_email == false
+      end
     end
 
 end

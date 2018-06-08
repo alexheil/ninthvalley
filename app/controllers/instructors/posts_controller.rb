@@ -15,6 +15,7 @@ class Instructors::PostsController < ApplicationController
     if @post.save
       flash[:notice] = "You just created " + @post.title + "!"
       redirect_to instructor_path(@instructor, @post)
+      send_student_email
     else
       flash.now[:alert] = 'Whoa! Something went wrong!'
       render 'new'
@@ -59,6 +60,12 @@ class Instructors::PostsController < ApplicationController
     def correct_post_instructor
       @post = post.friendly.find(params[:id])
       redirect_to instructor_path(@post.instructor_id) if @post.instructor_id != current_instructor.id
+    end
+
+    def send_student_email
+      @instructor.subscriptions.find_each do |subscription|
+        StudentMailer.post_email(subscription.student, @instructor, @purchase).deliver_now unless @student.post_email == false
+      end
     end
 
 end

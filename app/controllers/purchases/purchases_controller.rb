@@ -65,6 +65,7 @@ class Purchases::PurchasesController < ApplicationController
         currency: @course.currency
       )
       send_email
+      send_student_email
       create_notification(@purchase)
       redirect_to instructor_course_path(@instructor, @course)
       flash[:notice] = "You have successfully purchased #{@course.title}!"
@@ -119,6 +120,7 @@ class Purchases::PurchasesController < ApplicationController
         currency: @course.currency
       )
       send_email
+      send_student_email
       create_notification(@purchase)
       redirect_to instructor_course_path(@instructor, @course)
       flash[:notice] = "You have successfully purchased #{@course.title}!"
@@ -143,6 +145,10 @@ class Purchases::PurchasesController < ApplicationController
 
     def send_email
       InstructorMailer.purchase_email(@instructor, @purchase).deliver_now unless @instructor.purchase_email == false
+    end
+
+    def send_student_email
+      StudentMailer.purchase_email(@student, @instructor, @purchase).deliver_now
     end
 
 end

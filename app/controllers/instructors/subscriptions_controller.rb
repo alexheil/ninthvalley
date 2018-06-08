@@ -41,6 +41,7 @@ class Instructors::SubscriptionsController < ApplicationController
       )
       create_notification(@subscription)
       send_email
+      send_student_email
       redirect_to instructor_path(@instructor)
       flash[:notice] = "You subscribed to #{@instructor.profile.first_name.presence || @instructor.username}!"
     else 
@@ -92,6 +93,10 @@ class Instructors::SubscriptionsController < ApplicationController
 
     def send_email
       InstructorMailer.subscription_email(@instructor, @subscription).deliver_now unless @instructor.subscription_email == false
+    end
+
+    def send_student_email
+      StudentMailer.purchase_email(@student, @instructor, @purchase).deliver_now
     end
 
 end

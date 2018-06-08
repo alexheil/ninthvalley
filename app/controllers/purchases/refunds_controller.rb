@@ -22,6 +22,7 @@ class Purchases::RefundsController < ApplicationController
         stripe_charge_id: refund.id,
       )
       send_email
+      send_student_email
       redirect_to instructor_path(@instructor)
       flash[:notice] = "You have successfully refunded #{@course.title}."
     else 
@@ -37,6 +38,10 @@ class Purchases::RefundsController < ApplicationController
 
     def send_email
       InstructorMailer.refund_email(@instructor, @purchase).deliver_now unless @instructor.refund_email == false
+    end
+
+    def send_student_email
+      StudentMailer.refund_email(@student, @instructor, @purchase).deliver_now
     end
 
 end
