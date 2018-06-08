@@ -35,4 +35,8 @@ class Purchases::RefundsController < ApplicationController
 
     end
 
+    def send_email
+      InstructorMailer.refund_email(@instructor, @purchase).deliver_now unless @instructor.refund_email == false
+    end
+
 end

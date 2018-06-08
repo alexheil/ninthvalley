@@ -21,6 +21,25 @@
             <%= f.email_field :email, autocomplete: "email", class: "text-field" %>
           </div>
 
+          <div class="padding-vertical center mid-text border-bottom border-top">
+            Receive emails for:
+          </div>
+
+          <div class="flex padding-top">
+            <div class="field-three-column">
+              <label class="inactive-paid-tab" id="first-email-tab" for="first-email-inactive">Courses</label>
+              <span class="hidden"><%= f.check_box :course_email, id: "first-email-inactive" %></span>
+            </div>
+            <div class="field-three-column">
+              <label class="inactive-paid-tab" id="second-email-tab" for="second-email-inactive">Posts</label>
+              <span class="hidden"><%= f.check_box :post_email, id: "second-email-inactive" %></span>
+            </div>
+            <div class="field-three-column">
+              <label class="inactive-paid-tab" id="third-email-tab" for="third-email-inactive">Messages</label>
+              <span class="hidden"><%= f.check_box :message_email, id: "third-email-inactive" %></span>
+            </div>
+          </div>
+
           <div class="field">
             <%= f.label :password %> <span class="dark mini-text"><%= @minimum_password_length.to_s + " characters minimum." if @minimum_password_length %> Leave blank if you don't want to change it</span>
             <%= f.password_field :password, autocomplete: "off", class: "text-field" %>

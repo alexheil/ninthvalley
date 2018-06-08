@@ -26,4 +26,16 @@ class InstructorMailer < ApplicationMailer
     mail(to: @instructor.email, subject: 'You\'ve got a new purchase! | Ninth Valley')
   end
 
+  def refund_email(instructor, purchase)
+    @instructor = instructor
+    @purchase = purchase
+    mail(to: @instructor.email, subject: 'Someone refunded your course | Ninth Valley')
+  end
+
+  def message_email(instructor, message)
+    @instructor = instructor
+    @message = message
+    mail(to: @instructor.email, subject: 'You\'ve got a new message! | Ninth Valley')
+  end
+
 end

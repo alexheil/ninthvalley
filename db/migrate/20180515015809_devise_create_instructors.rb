@@ -34,6 +34,13 @@ class DeviseCreateInstructors < ActiveRecord::Migration[5.0]
       t.string   :unlock_token # Only if unlock strategy is :email or :both
       t.datetime :locked_at
 
+      t.boolean :purchase_email, default: true
+      t.boolean :refund_email, default: true
+      t.boolean :subscription_email, default: true
+      t.boolean :review_email, default: true
+      t.boolean :comment_email, default: true
+      t.boolean :message_email, default: true
+
       t.string :plan_id, default: ""
       t.string :product_id, default: ""
 

@@ -582,3 +582,101 @@ var sidebarTabs = function() {
 
 $(document).ready(sidebarTabs);
 $(document).on('turbolinks:load', sidebarTabs);
+
+
+var emailTabs = function() {
+
+  $('#first-email-inactive').change(function(){
+    if($(this).is(":checked")) {
+      $('#first-email-tab').addClass("active-paid-tab");
+      $('#first-email-tab').removeClass("inactive-paid-tab");
+    } else {
+      $('#first-email-tab').removeClass("active-paid-tab");
+      $('#first-email-tab').addClass("inactive-paid-tab");
+    }
+  });
+
+  $('#second-email-inactive').change(function(){
+    if($(this).is(":checked")) {
+      $('#second-email-tab').addClass("active-paid-tab");
+      $('#second-email-tab').removeClass("inactive-paid-tab");
+    } else {
+      $('#second-email-tab').removeClass("active-paid-tab");
+      $('#second-email-tab').addClass("inactive-paid-tab");
+    }
+  });
+
+  $('#third-email-inactive').change(function(){
+    if($(this).is(":checked")) {
+      $('#third-email-tab').addClass("active-paid-tab");
+      $('#third-email-tab').removeClass("inactive-paid-tab");
+    } else {
+      $('#third-email-tab').removeClass("active-paid-tab");
+      $('#third-email-tab').addClass("inactive-paid-tab");
+    }
+  });
+
+  $('#fourth-email-inactive').change(function(){
+    if($(this).is(":checked")) {
+      $('#fourth-email-tab').addClass("active-paid-tab");
+      $('#fourth-email-tab').removeClass("inactive-paid-tab");
+    } else {
+      $('#fourth-email-tab').removeClass("active-paid-tab");
+      $('#fourth-email-tab').addClass("inactive-paid-tab");
+    }
+  });
+
+  $('#fifth-email-inactive').change(function(){
+    if($(this).is(":checked")) {
+      $('#fifth-email-tab').addClass("active-paid-tab");
+      $('#fifth-email-tab').removeClass("inactive-paid-tab");
+    } else {
+      $('#fifth-email-tab').removeClass("active-paid-tab");
+      $('#fifth-email-tab').addClass("inactive-paid-tab");
+    }
+  });
+
+  $('#sixth-email-inactive').change(function(){
+    if($(this).is(":checked")) {
+      $('#sixth-email-tab').addClass("active-paid-tab");
+      $('#sixth-email-tab').removeClass("inactive-paid-tab");
+    } else {
+      $('#sixth-email-tab').removeClass("active-paid-tab");
+      $('#sixth-email-tab').addClass("inactive-paid-tab");
+    }
+  });
+
+  if ($('#first-email-inactive').prop('checked')) {
+    $('#first-email-tab').addClass("active-paid-tab");
+    $('#first-email-tab').removeClass("inactive-paid-tab");
+  };
+
+  if ($('#second-email-inactive').prop('checked')) {
+    $('#second-email-tab').addClass("active-paid-tab");
+    $('#second-email-tab').removeClass("inactive-paid-tab");
+  };
+
+  if ($('#third-email-inactive').prop('checked')) {
+    $('#third-email-tab').addClass("active-paid-tab");
+    $('#third-email-tab').removeClass("inactive-paid-tab");
+  };
+
+  if ($('#fourth-email-inactive').prop('checked')) {
+    $('#fourth-email-tab').addClass("active-paid-tab");
+    $('#fourth-email-tab').removeClass("inactive-paid-tab");
+  };
+
+  if ($('#fifth-email-inactive').prop('checked')) {
+    $('#fifth-email-tab').addClass("active-paid-tab");
+    $('#fifth-email-tab').removeClass("inactive-paid-tab");
+  };
+
+  if ($('#sixth-email-inactive').prop('checked')) {
+    $('#sixth-email-tab').addClass("active-paid-tab");
+    $('#sixth-email-tab').removeClass("inactive-paid-tab");
+  };
+
+};
+
+$(document).ready(emailTabs);
+$(document).on('turbolinks:load', emailTabs);
