@@ -13,7 +13,7 @@ class Post < ApplicationRecord
   validates :instructor_id, presence: true
   validates :title, presence: true, length: { maximum: 255 }
   validates :image_data, presence: true, unless: :image_data?
-  validates :description, presence: true, length: { maximum: 65536 }
+  validates :content, presence: true, length: { maximum: 65536 }
    
   private
 

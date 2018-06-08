@@ -1,14 +1,16 @@
 class StudentMailer < ApplicationMailer
   default from: 'notifications@ninthvalley.com'
 
-  def course_email(student, instructor, course)
-    @student = subscription.student
+  def course_email(subscription, student, instructor, course)
+    @subscription = subscription
+    @student = student
     @instructor = instructor
     @course = course
     mail(to: @student.email, subject: 'You might like this course | Ninth Valley')
   end
 
-  def post_email(student, instructor, post)
+  def post_email(subscription, student, instructor, post)
+    @subscription = subscription
     @student = student
     @instructor = instructor
     @post = post

@@ -64,7 +64,7 @@ class Instructors::PostsController < ApplicationController
 
     def send_student_email
       @instructor.subscriptions.find_each do |subscription|
-        StudentMailer.post_email(subscription.student, @instructor, @purchase).deliver_now unless @student.post_email == false
+        StudentMailer.post_email(@subscription, subscription.student, @instructor, @purchase).deliver_now unless subscription.student.post_email == false
       end
     end
 
