@@ -68,4 +68,6 @@ Rails.application.routes.draw do
     resources :subcategories, controller: 'categories/subcategories', except: :index
   end
 
+  resources :blog_posts
+
 end

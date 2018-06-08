@@ -1,12 +1,11 @@
-<%= provide(:title, "Edit A Category") %>
+<%= provide(:title, "Create Blog Post") %>
 
 <div class="mid-text padding-vertical border-bottom center">
-  Edit <%= @category.title %>
+  Create a blog post
 </div>
 
 <div class="form-container padding-vertical">
-  <%= form_for(@category, url: category_path) do |f| %>
-    <%= render 'partials/errors/category_errors' %>
+  <%= form_for(@post, url: blog_posts_path) do |f| %>
     <div class="field">
       <%= f.text_field :title, placeholder: "Title", class: "text-field" %>
     </div>
@@ -14,10 +13,10 @@
       <%= f.text_field :image, placeholder: "Image", class: "text-field" %>
     </div>
     <div class="field">
-      <%= f.text_area :description, placeholder: "Description", class: "text-area" %>
+      <%= f.text_area :content, placeholder: "Description", class: "text-area" %>
     </div>
     <div class="actions">
-      <%= f.submit "Edit category", class: "submit-button" %>
+      <%= f.submit "Create blog post", class: "submit-button" %>
     </div>
   <% end %>
 </div>

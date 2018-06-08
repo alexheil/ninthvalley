@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180606173507) do
+ActiveRecord::Schema.define(version: 20180608182607) do
+
+  create_table "blog_posts", force: :cascade do |t|
+    t.string   "title"
+    t.string   "image"
+    t.text     "content"
+    t.string   "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["title"], name: "index_blog_posts_on_title"
+  end
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "student_id"
