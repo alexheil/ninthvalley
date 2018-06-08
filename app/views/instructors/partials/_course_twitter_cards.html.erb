@@ -1,0 +1,12 @@
+<% content_for :course_og_header do %>
+  <meta property="og:url" content="<%= instructor_course_url(@instructor, @course) %>" />
+  <meta property="og:title" content="<%= @course.title %>" />
+  <meta property="og:description" content="<%= truncate(@course.tagline, length: 140) %>" />
+  <meta property="og:image" content="<%= @course.image_url(:original) %>" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= @course.title %>" />
+  <meta name="twitter:description" content="<%= truncate(@course.tagline, length: 140) %>" />
+  <meta name="twitter:image" content="<%= @course.image_url(:original) %>" />
+  <meta name="twitter:url" content="<%= instructor_course_url(@instructor, @course) %>" />
+  <meta name="twitter:site" content="<%= @instructor.profile.twitter_handle %>" />
+<% end %>

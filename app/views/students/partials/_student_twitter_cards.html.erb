@@ -1,0 +1,12 @@
+<% content_for :student_og_header do %>
+  <meta property="og:url" content="<%= student_url(@student) %>" />
+  <meta property="og:title" content="<%= @student.profile.first_name %> <%= @student.profile.last_name %>" />
+  <meta property="og:description" content="<%= truncate(@student.profile.biography, length: 140) %>" />
+  <meta property="og:image" content="<%= @student.profile.image_url(:original) %>" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= @student.profile.first_name %> <%= @student.profile.last_name %>" />
+  <meta name="twitter:description" content="<%= truncate(@student.profile.biography, length: 140) %>" />
+  <meta name="twitter:image" content="<%= @student.profile.image_url(:original) %>" />
+  <meta name="twitter:url" content="<%= student_url(@student) %>" />
+  <meta name="twitter:site" content="<%= @student.profile.twitter_handle %>" />
+<% end %>
