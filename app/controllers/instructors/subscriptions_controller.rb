@@ -96,7 +96,7 @@ class Instructors::SubscriptionsController < ApplicationController
     end
 
     def send_student_email
-      StudentMailer.purchase_email(@student, @instructor, @purchase).deliver_now
+      StudentMailer.subscription_email(@student, @instructor, @purchase).deliver_now
     end
 
 end
