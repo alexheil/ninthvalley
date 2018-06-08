@@ -1,15 +1,10 @@
 <div class="wrapper">
-  <div class="container">
-    <div class="mid-container padding-vertical">
-      hey what's up man. <%= link_to "hey", '#' %> hey what a dumb day
+  <div style="background: url(https://i.imgur.com/4wlGmDk.jpg) no-repeat fixed; background-size: 100%;" class="home-image">
+    <div class="home-text">
+      <span class="bold">NINTH</span>VALLEY
+    </div>
+    <div class="home-tagline">
+      tagline
     </div>
   </div>
 </div>
-
-<% if instructor_signed_in? %>
-  <%= link_to current_instructor.username, instructor_path(current_instructor) %>
-<% end %>
-
-<% if student_signed_in? %>
-  <%= link_to current_student.username, student_path(current_student) %>
-<% end %>

@@ -1,1 +1,41 @@
-<%= @post.title %>
+<%= provide(:title, "Blog") %>
+
+<%= render 'partials/blog_twitter_cards' %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="mid-container padding-top">
+
+      <div class="padding-bottom mid-text border-bottom">
+        <%= @post.title %>
+      </div>
+
+      <div class="padding-vertical border-bottom">
+        <img class="tall-thumbnail-image" src="<%= @post.image %>">
+      </div>
+
+    </div>
+
+
+    <div class="body-container padding-vertical">
+      <div class="flex">
+
+        <div class="sidebar">
+          <ul>
+            <% @recent_posts.each do |post| %>
+              <li><%= link_to post.title, blog_post_path(post) %></li>
+            <% end %>
+          </ul>
+        </div>
+
+        <div class="content">
+          <div class="post-content">
+            <%= sanitize(@post.content) %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>

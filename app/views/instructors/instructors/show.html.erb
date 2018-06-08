@@ -83,7 +83,7 @@
 
             <%= "|" if (@instructor.profile.city.present? || @instructor.profile.state.present? || @instructor.profile.country.present?) && (@instructor.profile.website.present? || @instructor.profile.twitter_url.present? || @instructor.profile.youtube_url.present?) %> <%= link_to "Website", @instructor.profile.website, target: :_blank if @instructor.profile.website.present? %> <%= "|" if @instructor.profile.website.present? && (@instructor.profile.twitter_url.present? || @instructor.profile.youtube_url.present?) %> <%= link_to "Twitter", @instructor.profile.twitter_url, target: :_blank, class: "twitter" if @instructor.profile.twitter_url.present? %> <%= "|" if @instructor.profile.twitter_url.present? && @instructor.profile.youtube_url.present? %> <%= link_to "YouTube", @instructor.profile.youtube_url, target: :_blank, class: "youtube" if @instructor.profile.youtube_url.present? %>
           </div>
-          <div class="padding-bottom">
+          <div>
             <%= @instructor.profile.biography %>
           </div>
         </div>

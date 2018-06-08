@@ -15,6 +15,7 @@ ActiveRecord::Schema.define(version: 20180608182607) do
   create_table "blog_posts", force: :cascade do |t|
     t.string   "title"
     t.string   "image"
+    t.string   "tagline"
     t.text     "content"
     t.string   "slug"
     t.datetime "created_at", null: false

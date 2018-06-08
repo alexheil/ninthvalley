@@ -1,6 +1,8 @@
 
 <% if content_for?(:instructor_og_header) %>
   <%= yield(:instructor_og_header) %>
+<% elsif content_for?(:instructor_post_og_header) %>
+  <%= yield(:instructor_post_og_header) %>
 <% elsif content_for?(:course_og_header) %>
   <%= yield(:course_og_header) %>
 <% elsif content_for?(:student_og_header) %>

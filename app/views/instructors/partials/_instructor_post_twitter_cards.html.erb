@@ -1,0 +1,13 @@
+<% content_for :instructor_post_og_header do %>
+  <meta property="og:url" content="<%= instructor_post_url(@instructor, @post) %>" />
+  <meta property="og:title" content="<%= @post.title %>" />
+  <meta property="og:description" content="<%= truncate(@post.content, length: 140) %>" />
+  <meta property="og:image" content="<%= @post.image_url(:original) %>" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= @post.title %>" />
+  <meta name="twitter:description" content="<%= truncate(@post.content, length: 140) %>" />
+  <meta name="twitter:image" content="<%= @post.image_url(:original) %>" />
+  <meta name="twitter:url" content="<%= instructor_post_url(@instructor, @post) %>" />
+  <meta name="twitter:site" content="@ninthvalley" />
+  <meta name="twitter:creator" content="<%= @instructor.profile.twitter_handle %>" />
+<% end %>

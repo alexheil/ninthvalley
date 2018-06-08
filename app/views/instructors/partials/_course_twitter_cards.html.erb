@@ -8,5 +8,6 @@
   <meta name="twitter:description" content="<%= truncate(@course.tagline, length: 140) %>" />
   <meta name="twitter:image" content="<%= @course.image_url(:original) %>" />
   <meta name="twitter:url" content="<%= instructor_course_url(@instructor, @course) %>" />
-  <meta name="twitter:site" content="<%= @instructor.profile.twitter_handle %>" />
+  <meta name="twitter:site" content="@ninthvalley" />
+  <meta name="twitter:creator" content="<%= @instructor.profile.twitter_handle %>" />
 <% end %>

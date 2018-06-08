@@ -1,3 +1,40 @@
-<% @posts.each do |post| %>
-  <div><%= post.title %></div>
-<% end %>
+<%= provide(:title, "Blog") %>
+
+<div class="wrapper">
+  <div class="container">
+    <div class="form-container padding-vertical">
+
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Recent posts
+      </div>
+
+      <% if @posts.any? %>
+        <% @posts.each do |post| %>
+          <div class="flex padding-vertical border-bottom">
+            <div class="padding-bottom">
+              <img class="short-thumbnail-image" src="<%= post.image %>">
+            </div>
+            <div>
+              <div class="mid-text">
+                <%= link_to post.title, blog_post_path(post) %> 
+              </div>
+              <div class="mini-text padding-bottom">
+                <%= post.created_at.strftime("Posted on %m.%d.%Y") %>
+              </div>
+              <div class="post-content">
+                <%= sanitize(truncate(post.content, length: 140)) %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="padding-vertical">
+          There are no posts.
+        </div>
+      <% end %>
+
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,13 @@
+<% content_for :blog_og_header do %>
+  <meta property="og:url" content="<%= blog_post_url(@post) %>" />
+  <meta property="og:title" content="<%= @post.title %>" />
+  <meta property="og:description" content="<%= truncate(@post.tagline, length: 140) %>" />
+  <meta property="og:image" content="<%= @post.image %>" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="<%= @post.title %>" />
+  <meta name="twitter:description" content="<%= truncate(@post.tagline, length: 140) %>" />
+  <meta name="twitter:image" content="<%= @post.image %>" />
+  <meta name="twitter:url" content="<%= blog_post_url(@post) %>" />
+  <meta name="twitter:site" content="@ninthvalley" />
+  <meta name="twitter:creator" content="@ninthvalley" />
+<% end %>

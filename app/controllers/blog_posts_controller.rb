@@ -8,6 +8,7 @@ class BlogPostsController < ApplicationController
 
   def show
     @post = BlogPost.friendly.find(params[:id])
+    @recent_posts = BlogPost.all.reorder("created_at desc").limit(5)
   end
 
   def new
@@ -56,7 +57,7 @@ class BlogPostsController < ApplicationController
     end
 
     def blog_post_params
-      params.require(:blog_post).permit(:title, :image, :content)
+      params.require(:blog_post).permit(:title, :image, :tagline, :content)
     end
 
 end

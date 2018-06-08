@@ -3,6 +3,7 @@ class CreateBlogPosts < ActiveRecord::Migration[5.0]
     create_table :blog_posts do |t|
       t.string :title
       t.string :image
+      t.string :tagline
       t.text :content
       t.string :slug
 
