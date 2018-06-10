@@ -277,10 +277,11 @@ video {
 .home-search-button {
   @include transition;
   width: 30%;
-  font-size: 1.5em;
+  font-size: 1.25em;
   padding: 1vh 1vw;
-  font-weight: 300;
-  text-align: left;
+  font-weight: 400;
+  text-align: center;
+  text-transform: uppercase;
   background-color: rgba(255, 255, 255, 0.1);
   border: none;
   color: $white;
