@@ -3,7 +3,6 @@ class InstructorMailer < ApplicationMailer
 
   def comment_email(instructor, comment)
     @instructor = instructor
-    @video = video
     @comment = comment
     mail(to: @instructor.email, subject: 'You\'ve got a new comment! | Ninth Valley')
   end

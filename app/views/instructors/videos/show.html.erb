@@ -69,13 +69,11 @@
 
         <main class="content">
           <% if (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.purchased?(@course)) %>
-            <% unless (student_signed_in? && current_student.reviews.exists?(@course.id)) %>
-              <div class="padding-bottom">
-                <div id="comment-button-click">
-                  Leave a comment
-                </div>
+            <div class="padding-bottom">
+              <div id="comment-button-click">
+                Leave a comment
               </div>
-            <% end %>
+            </div>
           <% end %>
 
           <div id="first-tab">
@@ -177,7 +175,7 @@
                   <div class="padding-vertical border-bottom">
                     <div class="padding-bottom">
                       <% if comment.student.profile.image.present? %>
-                        <img class="baby-thumbnail-image" src="<%= comment.student.profile.image_url(:thumb) %>">
+                        <img class="baby-thumbnail-image" src="<%= comment.student.profile.image_url(:tiny) %>">
                       <% end %>
                       <%= link_to comment.student.username, student_path(comment.student) unless comment.student.profile.first_name.present? || comment.student.profile.last_name.present? %>
                       <%= link_to(student_path(comment.student)) do %>

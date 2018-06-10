@@ -794,6 +794,11 @@ label {
   -webkit-font-smoothing: antialiased;
 }
 
+input, textarea {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
+}
+
 .text-label {
   @include textLabels;
 }
@@ -903,6 +908,15 @@ select {
       padding: 3vh 0;
       list-style: none;
     }
+  }
+}
+
+.home-header-container {
+  width: 100%;
+  margin: 0 auto;
+  background: rgba(0,0,0,0.5);
+  a {
+    color: $white;
   }
 }
 

@@ -1,9 +1,9 @@
 class StaticPagesController < ApplicationController
+  layout "home", only: :home
 
   before_action :redirect_if_signed_in, only: [:register, :sign_in]
 
   def home
-    render layout: 'home'
     @popular_courses = Course.all.left_joins(:purchases).group(:id).order('COUNT(purchases.id) DESC').limit(4)
     @categories = Category.all
   end
