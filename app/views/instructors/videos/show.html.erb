@@ -94,61 +94,69 @@
               <%= sanitize(@course.description) %>
             </div>
 
-
             <div class="mid-text">
               Comments <%= "-" if @video.comments.any? %>
               <%= "(" + @video.comments.count.to_s + ")" if @video.comments.any? %>
             </div>
-            <div class="padding-bottom">
-              <% @video.comments.take(5).each do |comment| %>
-                <div class="padding-vertical border-bottom">
-                  <div class="padding-bottom">
-                    <% if comment.student.profile.image.present? %>
-                      <img class="baby-thumbnail-image" src="<%= comment.student.profile.image_url(:thumb) %>">
-                    <% end %>
-                    <%= link_to comment.student.username, student_path(comment.student) unless comment.student.profile.first_name.present? || comment.student.profile.last_name.present? %>
-                    <%= link_to(student_path(comment.student)) do %>
-                      <%= comment.student.profile.first_name if comment.student.profile.first_name.present? %> <%= comment.student.profile.last_name if comment.student.profile.last_name.present? %>
-                    <% end %>
-                    - <%= comment.created_at.strftime("posted on %m.%d.%Y") %>
-                  </div>
-                  <div>
-                    <%= comment.content %>
-                  </div>
-                </div>
-
-                <% if (instructor_signed_in? && @instructor == current_instructor) || (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.purchased?(@course)) %>
-
-                  <div class="edit-comment-form">
-                    <div class="popup-form-inside">
-                      <div class="close"></div>
-
-                      <div class="padding-bottom center mid-text border-bottom">
-                        Edit your comment
-                      </div>
-
-                      <%= form_for(comment, url: instructor_course_track_video_comment_path(@instructor, @course, @track, @video, comment)) do |f| %>
-                        <span class="comment_errors"><%= render 'partials/errors/comment_errors' %></span>
-                        
-                        <div class="field">
-                          <%= f.label :content %> <span class="mini-text">In 1000 characters or less.</span>
-                          <%= f.text_area :content, class: "text-area" %>
-                        </div>
-
-                        <%= f.submit "Update comment", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+            <% if @video.comments.any? %>
+              <div class="padding-bottom">
+                <% @video.comments.take(5).each do |comment| %>
+                  <div class="padding-vertical border-bottom">
+                    <div class="padding-bottom">
+                      <% if comment.student.profile.image.present? %>
+                        <img class="baby-thumbnail-image" src="<%= comment.student.profile.image_url(:thumb) %>">
                       <% end %>
+                      <%= link_to comment.student.username, student_path(comment.student) unless comment.student.profile.first_name.present? || comment.student.profile.last_name.present? %>
+                      <%= link_to(student_path(comment.student)) do %>
+                        <%= comment.student.profile.first_name if comment.student.profile.first_name.present? %> <%= comment.student.profile.last_name if comment.student.profile.last_name.present? %>
+                      <% end %>
+                      - <%= comment.created_at.strftime("posted on %m.%d.%Y") %>
+                    </div>
+                    <div>
+                      <%= comment.content %>
                     </div>
                   </div>
 
-                <% end %>
+                  <% if (instructor_signed_in? && @instructor == current_instructor) || (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.purchased?(@course)) %>
 
-              <% end %>
-            </div>
+                    <div class="edit-comment-form">
+                      <div class="popup-form-inside">
+                        <div class="close"></div>
+
+                        <div class="padding-bottom center mid-text border-bottom">
+                          Edit your comment
+                        </div>
+
+                        <%= form_for(comment, url: instructor_course_track_video_comment_path(@instructor, @course, @track, @video, comment)) do |f| %>
+                          <span class="comment_errors"><%= render 'partials/errors/comment_errors' %></span>
+                          
+                          <div class="field">
+                            <%= f.label :content %> <span class="mini-text">In 1000 characters or less.</span>
+                            <%= f.text_area :content, class: "text-area" %>
+                          </div>
+
+                          <%= f.submit "Update comment", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+                        <% end %>
+                      </div>
+                    </div>
+
+                  <% end %>
+
+                <% end %>
+              </div>
+            <% else %>
+              <div class="padding-top">
+                There are no tracks yet. <%= "Add a track to this course to start teaching your students." if instructor_signed_in? && @instructor == current_instructor %>
+              </div>
+            <% end %>
           </div>
 
           <div id="second-tab">
-            <div class="mid-text">
-              Description 
+            <div class="padding-bottom mid-text">
+              Description
+            </div>
+            <div class="post-content padding-bottom">
+              <%= sanitize(@video.description) %>
             </div>
           </div>
 
@@ -163,63 +171,69 @@
               Comments <%= "-" if @video.comments.any? %>
               <%= "(" + @video.comments.count.to_s + ")" if @video.comments.any? %>
             </div>
-            <div class="padding-bottom">
-              <% @video.comments.each do |comment| %>
-                <div class="padding-vertical border-bottom">
-                  <div class="padding-bottom">
-                    <% if comment.student.profile.image.present? %>
-                      <img class="baby-thumbnail-image" src="<%= comment.student.profile.image_url(:thumb) %>">
-                    <% end %>
-                    <%= link_to comment.student.username, student_path(comment.student) unless comment.student.profile.first_name.present? || comment.student.profile.last_name.present? %>
-                    <%= link_to(student_path(comment.student)) do %>
-                      <%= comment.student.profile.first_name if comment.student.profile.first_name.present? %> <%= comment.student.profile.last_name if comment.student.profile.last_name.present? %>
-                    <% end %>
-                    - <%= comment.created_at.strftime("posted on %m.%d.%Y") %>
-                  </div>
-                  <% if student_signed_in? && current_student.id == comment.student_id %>
-                    <div class="flex padding-bottom">
-                      <div class="two-column">
-                        <div class="edit-comment-button-click">
-                          Edit comment
-                        </div>
-                      </div>
-                      <div class="two-column link-color">
-                        <%= link_to "Delete comment", instructor_course_track_video_comment_path(@instructor, @course, @track, @video, comment), data: { confirm: "Are you sure?" }, method: :delete, class: "delete-button" %>
-                      </div>
-                    </div>
-                  <% end %>
-                  <div>
-                    <%= comment.content %>
-                  </div>
-                </div>
-
-                <% if (instructor_signed_in? && @instructor == current_instructor) || (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.purchased?(@course)) %>
-
-                  <div class="edit-comment-form">
-                    <div class="popup-form-inside">
-                      <div class="close"></div>
-
-                      <div class="padding-bottom center mid-text border-bottom">
-                        Edit your comment
-                      </div>
-
-                      <%= form_for(comment, url: instructor_course_track_video_comment_path(@instructor, @course, @track, @video, comment)) do |f| %>
-                        <span class="comment_errors"><%= render 'partials/errors/comment_errors' %></span>
-                        
-                        <div class="field padding-top">
-                          <%= f.label :content %> <span class="mini-text">In 1000 characters or less.</span>
-                          <%= f.text_area :content, class: "text-area" %>
-                        </div>
-
-                        <%= f.submit "Update comment", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+            <% if @video.comments.any? %>
+              <div class="padding-bottom">
+                <% @video.comments.each do |comment| %>
+                  <div class="padding-vertical border-bottom">
+                    <div class="padding-bottom">
+                      <% if comment.student.profile.image.present? %>
+                        <img class="baby-thumbnail-image" src="<%= comment.student.profile.image_url(:thumb) %>">
                       <% end %>
+                      <%= link_to comment.student.username, student_path(comment.student) unless comment.student.profile.first_name.present? || comment.student.profile.last_name.present? %>
+                      <%= link_to(student_path(comment.student)) do %>
+                        <%= comment.student.profile.first_name if comment.student.profile.first_name.present? %> <%= comment.student.profile.last_name if comment.student.profile.last_name.present? %>
+                      <% end %>
+                      - <%= comment.created_at.strftime("posted on %m.%d.%Y") %>
+                    </div>
+                    <% if student_signed_in? && current_student.id == comment.student_id %>
+                      <div class="flex padding-bottom">
+                        <div class="two-column">
+                          <div class="edit-comment-button-click">
+                            Edit comment
+                          </div>
+                        </div>
+                        <div class="two-column link-color">
+                          <%= link_to "Delete comment", instructor_course_track_video_comment_path(@instructor, @course, @track, @video, comment), data: { confirm: "Are you sure?" }, method: :delete, class: "delete-button" %>
+                        </div>
+                      </div>
+                    <% end %>
+                    <div>
+                      <%= comment.content %>
                     </div>
                   </div>
+
+                  <% if (instructor_signed_in? && @instructor == current_instructor) || (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.purchased?(@course)) %>
+
+                    <div class="edit-comment-form">
+                      <div class="popup-form-inside">
+                        <div class="close"></div>
+
+                        <div class="padding-bottom center mid-text border-bottom">
+                          Edit your comment
+                        </div>
+
+                        <%= form_for(comment, url: instructor_course_track_video_comment_path(@instructor, @course, @track, @video, comment)) do |f| %>
+                          <span class="comment_errors"><%= render 'partials/errors/comment_errors' %></span>
+                          
+                          <div class="field padding-top">
+                            <%= f.label :content %> <span class="mini-text">In 1000 characters or less.</span>
+                            <%= f.text_area :content, class: "text-area" %>
+                          </div>
+
+                          <%= f.submit "Update comment", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+                        <% end %>
+                      </div>
+                    </div>
+
+                  <% end %>
 
                 <% end %>
-
-              <% end %>
-            </div>
+              </div>
+            <% else %>
+              <div class="padding-top">
+                There are no comments yet.
+              </div>
+            <% end %>
           </div>
 
         </main>
