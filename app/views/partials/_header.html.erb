@@ -7,7 +7,7 @@
       <div class="search-spacer">
         <div id="search-container">
           <%= form_tag(search_path, :method => "get") do %>
-            <%= text_field_tag :search, params[:search], placeholder: "I want to learn...", class: "search-field" %>
+            <%= text_field_tag :search, params[:search], placeholder: "I want to learn about...", class: "search-field" %>
             <%= submit_tag "search", :style => "display: none;" %>
           <% end %>
         </div>

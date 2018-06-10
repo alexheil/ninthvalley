@@ -2,6 +2,8 @@ class Category < ApplicationRecord
   extend FriendlyId
   friendly_id :title, use: :slugged
 
+  default_scope -> { order('categories.title ASC') }
+
   has_many :subcategories
   has_many :courses
 
