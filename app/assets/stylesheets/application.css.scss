@@ -254,6 +254,11 @@ video {
   color: $black;
 }
 
+.home-mid-container {
+  width: 73%;
+  margin: 0 auto;
+}
+
 .home-column {
   width: 70%;
   margin: 0 auto;
@@ -1696,6 +1701,14 @@ select {
 
   .body-container {
     padding-top: 0;
+  }
+
+  .home-column {
+    width: 100%;
+  }
+
+  .home-mid-container {
+    width: 100%;
   }
 
   .content {
