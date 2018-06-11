@@ -1,1 +1,12 @@
-hey
+<div class="mid-container border margin-top">
+  <img class="image-image" src="<%= @review.course.image_url(:thumb) %>">
+  <div class="padding-horizontal">
+    <div class="padding-vertical border-bottom">
+      <%= link_to @review.course.title, instructor_course_url(@instructor, @review.course) %>
+    </div>
+
+    <div class="padding-vertical mini-text">
+      <%= link_to @review.student.username, student_url(@review.student) %> - posted <%= time_ago_in_words(@review.created_at) %> ago - <%= truncate(@review.content, length: 140) %>
+    </div>
+  </div>
+</div>
