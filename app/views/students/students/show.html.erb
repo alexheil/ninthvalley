@@ -139,7 +139,7 @@
                   <img class="thumbnail-image-feed-five" src="<%= subscription.instructor.profile.image_url(:thumb) %>">
                 <% end %>
                 <div class="padding-horizontal">
-                  <div class="padding-vertical-mini">
+                  <div class="padding-vertical-mini mini-text">
 
                     <% if student_signed_in? && current_student == @student %>
                       <div class="flex">
@@ -246,19 +246,21 @@
                     <% if student_signed_in? && current_student == @student %>
                       <% if purchase.stripe_charge_id.starts_with?("ch") %>
                         <div class="padding-horizontal">
-                          <div class="padding-vertical link-color border-top ">
+                          <div class="padding-vertical-mini link-color border-top">
                             <% if purchase.course.refund_policy == "three" && purchase.created_at > 3.days.ago %>
                               <%= link_to "Refund", instructor_course_purchase_refunds_path(purchase.instructor, purchase.course, purchase), :method => :post, class: "delete-button" %>
                             <% elsif purchase.course.refund_policy == "seven" && purchase.created_at > 7.days.ago %>
                               <%= link_to "Refund", instructor_course_purchase_refunds_path(purchase.instructor, purchase.course, purchase), :method => :post, class: "delete-button" %>
                             <% else %>
-                              You cannot refund this course.
+                              <div class="mini-text">
+                                You cannot refund this course.
+                              </div>
                             <% end %>
                           </div>
                         </div>
                       <% else %> 
                         <div class="padding-horizontal">
-                          <div class="padding-vertical border-top ">
+                          <div class="padding-vertical-mini border-top mini-text">
                             You have refunded this course.
                           </div>
                         </div>

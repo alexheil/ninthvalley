@@ -76,6 +76,10 @@ class Student < ApplicationRecord
     Purchase.find_by(student_id: id, course_id: course.id).id
   end
 
+  def reviewed?(course)
+    Review.exists? student_id: id, course_id: course.id
+  end
+
   private
 
     def should_generate_new_friendly_id?

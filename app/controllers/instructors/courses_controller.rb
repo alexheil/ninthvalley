@@ -4,6 +4,7 @@ class Instructors::CoursesController < ApplicationController
   before_action :correct_instructor, only: [:new, :create]
   before_action :correct_course_instructor, only: [:edit, :update, :destroy]
   before_action :set_instructor, except: [:search, :show]
+  before_action :deletable, only: :destroy
 
   def search
     @courses = Course.search(params[:search]).order("created_at DESC").page params[:page]
@@ -86,6 +87,15 @@ class Instructors::CoursesController < ApplicationController
     def correct_course_instructor
       @course = Course.friendly.find(params[:id])
       redirect_to instructor_path(@course.instructor_id) if @course.instructor_id != current_instructor.id
+    end
+
+    def deletable
+      @instructor = Instructor.friendly.find(params[:instructor_id])
+      @course = Course.friendly.find(params[:id])
+      if @course.purchases.any?
+        redirect_to instructor_course_path(@instructor, @course)
+        flash[:alert] = "This course has been purchased. You cannot delete it at this time."
+      end
     end
 
     def send_student_email

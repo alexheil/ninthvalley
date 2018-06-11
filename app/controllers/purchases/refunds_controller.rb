@@ -34,11 +34,11 @@ class Purchases::RefundsController < ApplicationController
         end
 
       else
-        redirect_to @course_path(@instructor, @course)
+        redirect_to instructor_course_path(@instructor, @course)
         flash[:notice] = "You cannot refund this course."
       end
     else
-      redirect_to @course_path(@instructor, @course)
+      redirect_to instructor_course_path(@instructor, @course)
       flash[:notice] = "You have already refunded this course."
     end
   end

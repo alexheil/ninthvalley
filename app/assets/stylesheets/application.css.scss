@@ -556,7 +556,7 @@ video {
 .inactive-tab {
   @include transition;
   box-sizing: border-box;
-  background: transparent;
+  background: $grey;
   color: $black;
   padding: 2vh 0;
   border-radius: $radius;
@@ -591,7 +591,7 @@ video {
 .inactive-removal-tab {
   box-sizing: border-box;
   @include transition;
-  background: transparent;
+  background: $grey;
   color: $black;
   padding: .51vh .51vw;
   border-radius: $radius;
@@ -636,7 +636,7 @@ video {
 .inactive-paid-tab {
   box-sizing: border-box;
   @include transition;
-  background: transparent;
+  background: $grey;
   color: $black;
   padding: .51vh .51vw;
   border-radius: $radius;
