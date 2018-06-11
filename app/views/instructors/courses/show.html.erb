@@ -9,7 +9,11 @@
       <div class="padding-bottom mid-text border-bottom">
         <%= @course.title %> 
         <% if instructor_signed_in? && current_instructor == @instructor %>
-          <span class="hard-text"> - <%= link_to "Delete course", instructor_course_path(@instructor, @course), data: { confirm: "Are you sure? This cannot be undone. Ever..." }, method: :delete %></span>
+          <% if @course.purchases.any? %>
+            <span class="hard-text"> - This course has been purchased. You cannot delete it at this time.</span>
+          <% else %>
+            <span class="hard-text"> - <%= link_to "Delete course", instructor_course_path(@instructor, @course), data: { confirm: "Are you sure? This cannot be undone. Ever..." }, method: :delete %></span>
+          <% end %>
         <% end %>
       </div>
 
