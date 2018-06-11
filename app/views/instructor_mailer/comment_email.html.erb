@@ -1,0 +1,12 @@
+<div class="mid-container border margin-top">
+  <img class="image-image" src="<%= @comment.video.track.course.image_url(:thumb) %>">
+  <div class="padding-horizontal">
+    <div class="padding-vertical border-bottom">
+      <%= link_to @comment.video.title, instructor_course_track_video_url(@instructor, @comment.video.track.course, @comment.video.track, @comment.video) %> from the course <%= link_to @comment.video.track.course.title, instructor_course_url(@instructor, @comment.video.track.course) %>
+    </div>
+
+    <div class="padding-vertical mini-text">
+      <%= link_to @comment.student.username, student_url(@comment.student) %> - posted <%= time_ago_in_words(@comment.created_at) %> ago - <%= truncate(@comment.content, length: 140) %>
+    </div>
+  </div>
+</div>

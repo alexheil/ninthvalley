@@ -21,9 +21,15 @@
       a:hover {
         color: #C8A223;
       }
-      img {
-        border-radius: 4px;
+      .image-image {
+        height: 20vw;
+        width: 100%;
+        object-fit: cover;
         display: block;
+        border-top-left-radius: $radius - 1;
+        border-top-right-radius: $radius - 1;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
       }
       .center {
         text-align: center;
@@ -33,13 +39,49 @@
         border-radius: 4px;
       }
       .mid-container {
-        width: 73%;
+        width: 40%;
         margin: 0 auto;
+      }
+      .border-top {
+        border-top: 1px solid #BEC8CE;
+      }
+      .border-bottom {
+        border-bottom: 1px solid #BEC8CE;
+      }
+      .padding-vertical {
+        padding-top: 2vh;
+        padding-bottom: 2vh;
+      }
+      .padding-top {
+        padding-top: 2vh;
+      }
+      .padding-horizontal {
+        padding-right: 2vh;
+        padding-left: 2vh;
+      }
+      .mini-text {
+        font-size: .75em;
+      }
+      .margin-top {
+        margin-top: 5vh;
+      }
+      .margin-top-large {
+        margin-top: 20vh;
+      }
+      @media (max-width: 800px) {
+        .mid-container {
+          width: 90%;
+        }  
       }
     </style>
   </head>
 
   <body>
     <%= yield %>
+
+    <div class="mid-container padding-top border-top mini-text center margin-top-large">
+      <div><%= link_to "Unsubscribe", sign_in_url %></div>
+      <div>Ninth Valley. 769 Columbus Pkwy, Buffalo, NY 14213</div>
+    </div>
   </body>
 </html>
