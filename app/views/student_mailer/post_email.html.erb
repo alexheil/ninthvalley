@@ -1,0 +1,16 @@
+<div class="mid-container border margin-top">
+  <img class="image-image" src="<%= @post.image_url(:thumb) %>">
+  <div class="padding-horizontal">
+    <div class="padding-vertical border-bottom">
+      <%= link_to @instructor.username, instructor_url(@instructor) %> created a new post that you might like.
+    </div>
+
+    <div class="padding-vertical border-bottom">
+      <%= link_to @post.title, instructor_post_url(@instructor, @post) %>
+    </div>
+
+    <div class="padding-vertical mini-text">
+      <%= truncate(@post.content, length: 140) %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,19 @@
+<div class="mid-container border margin-top">
+  <img class="image-image" src="<%= @purchase.course.image_url(:thumb) %>">
+  <div class="padding-horizontal">
+    <div class="padding-vertical border-bottom">
+      <%= link_to @purchase.course.title, instructor_course_url(@instructor, @purchase.course) %>
+    </div>
+
+    <div class="padding-vertical mini-text">
+      <%= link_to @student.username, student_url(@student) %> - purchased <%= time_ago_in_words(@purchase.created_at) %> ago - <%= @purchase.price %> <%= @purchase.currency.upcase %> - 
+      <% if @purchase.course.refund_policy == "three" && @purchase.created_at > 3.days.ago %>
+        <%= (@purchase.created_at + 3.days).strftime("Refundable until %m.%d.%Y") %>
+        <% elsif @purchase.course.refund_policy == "seven" && @purchase.created_at > 7.days.ago %>
+          <%= (@purchase.created_at + 7.days).strftime("Refundable until %m.%d.%Y") %>
+      <% else %>
+        This course cannot be refunded.
+      <% end %>
+    </div>
+  </div>
+</div>

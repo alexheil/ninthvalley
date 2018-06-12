@@ -1,0 +1,12 @@
+<div class="mid-container border margin-top">
+  <img class="image-image" src="<%= @subscription.student.profile.image_url(:thumb) %>">
+  <div class="padding-horizontal">
+    <div class="padding-vertical border-bottom">
+      <%= link_to @instructor.username, instructor_url(@instructor) %>
+    </div>
+
+    <div class="padding-vertical mini-text">
+      <%= link_to @subscription.student.username, student_url(@subscription.student) %> - subscribed <%= time_ago_in_words(@subscription.created_at) %> ago
+    </div>
+  </div>
+</div>

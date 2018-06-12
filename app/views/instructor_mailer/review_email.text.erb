@@ -1,0 +1,3 @@
+<%= @review.course.title %>
+
+<%= @review.student.username %> - posted <%= time_ago_in_words(@review.created_at) %> ago - <%= truncate(@review.content, length: 140) %>

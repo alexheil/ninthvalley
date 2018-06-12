@@ -1,0 +1,3 @@
+<%= @purchase.course.title %>
+
+<%= @purchase.student.username %> - refunded <%= time_ago_in_words(@purchase.updated_at) %> ago - <%= @purchase.price %> <%= @purchase.currency.upcase %>

@@ -133,6 +133,14 @@
             </div>
           <% end %>
 
+          <% if student_signed_in? && current_student.subscribed?(@instructor) %>
+            <div class="padding-bottom">
+              <div id="post-button-click">
+                Send a message
+              </div>
+            </div>
+          <% end %>
+
           <div id="first-tab">
 
             <div class="padding-bottom mid-text">
@@ -744,5 +752,19 @@
 
     </div>
   </div>
+
+  <div id="post-form">
+    <div class="popup-form-inside">
+      <div class="close"></div>
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Send a message
+      </div>
+
+      
+
+    </div>
+  </div>
+
 
 <% end %>

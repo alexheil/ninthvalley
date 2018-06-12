@@ -16,4 +16,8 @@ class InstructorMailerPreview < ActionMailer::Preview
     InstructorMailer.refund_email(Instructor.first, Purchase.first)
   end
 
+  def subscription_email
+    InstructorMailer.subscription_email(Instructor.first, Subscription.first)
+  end
+
 end

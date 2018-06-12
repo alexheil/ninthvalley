@@ -1,0 +1,16 @@
+<div class="mid-container border margin-top">
+  <img class="image-image" src="<%= @course.image_url(:thumb) %>">
+  <div class="padding-horizontal">
+    <div class="padding-vertical border-bottom">
+      <%= link_to @instructor.username, instructor_url(@instructor) %> created a new course that you might like.
+    </div>
+
+    <div class="padding-vertical border-bottom">
+      <%= link_to @course.title, instructor_course_url(@instructor, @course) %>
+    </div>
+
+    <div class="padding-vertical mini-text">
+      <%= @course.tagline %>
+    </div>
+  </div>
+</div>
