@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180608182607) do
+ActiveRecord::Schema.define(version: 20180612222553) do
 
   create_table "blog_posts", force: :cascade do |t|
     t.string   "title"
@@ -137,6 +137,16 @@ ActiveRecord::Schema.define(version: 20180608182607) do
     t.index ["instructor_id"], name: "index_merchants_on_instructor_id"
   end
 
+  create_table "messages", force: :cascade do |t|
+    t.integer  "instructor_id"
+    t.integer  "student_id"
+    t.text     "content"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["instructor_id"], name: "index_messages_on_instructor_id"
+    t.index ["student_id"], name: "index_messages_on_student_id"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer  "instructor_id"
     t.integer  "student_id"
@@ -209,6 +219,16 @@ ActiveRecord::Schema.define(version: 20180608182607) do
     t.index ["price"], name: "index_purchases_on_price"
     t.index ["stripe_charge_id"], name: "index_purchases_on_stripe_charge_id"
     t.index ["student_id"], name: "index_purchases_on_student_id"
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.integer  "instructor_id"
+    t.integer  "student_id"
+    t.text     "content"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["instructor_id"], name: "index_replies_on_instructor_id"
+    t.index ["student_id"], name: "index_replies_on_student_id"
   end
 
   create_table "reviews", force: :cascade do |t|
