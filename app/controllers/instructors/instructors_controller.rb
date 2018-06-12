@@ -10,6 +10,7 @@ class Instructors::InstructorsController < ApplicationController
       @notifications = @instructor.notifications
       @course = Course.new
       @post = Post.new
+      @reply = Reply.new
     end
     unless @instructor.plan_id == @instructor.id.to_s
       Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
@@ -17,6 +18,7 @@ class Instructors::InstructorsController < ApplicationController
       @amount = BigDecimal(@plan.amount) / 100
     end
     if student_signed_in?
+      @message = Message.new
       @subscription = Subscription.new
       Stripe.api_key = "sk_test_ECd3gjeIEDsGkySmF8FQOC5i"
       @customer = Stripe::Customer.retrieve(current_student.customer_id)

@@ -761,7 +761,16 @@
         Send a message
       </div>
 
-      
+      <%= form_for(@message, url: instructor_messages_path(@instructor)) do |f| %>
+        <span id="message_errors"><%= render 'partials/errors/message_errors' %></span>
+
+        <div class="field padding-top">
+          <%= f.label :content %>
+          <%= f.text_area :content, class: "text-area" %>
+        </div>
+
+        <%= f.submit "Send message", data: { disable_with: 'Sending...' }, class: "submit-button" %>
+      <% end %>
 
     </div>
   </div>
