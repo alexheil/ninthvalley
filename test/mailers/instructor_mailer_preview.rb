@@ -12,4 +12,8 @@ class InstructorMailerPreview < ActionMailer::Preview
     InstructorMailer.purchase_email(Instructor.first, Purchase.first)
   end
 
+  def refund_email
+    InstructorMailer.refund_email(Instructor.first, Purchase.first)
+  end
+
 end
