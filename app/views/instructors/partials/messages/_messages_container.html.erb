@@ -31,7 +31,7 @@
       <div class="reply-container">
 
         <div class="padding-bottom">
-          <%= form_for(Reply.new, url: instructor_message_reply_path(@instructor, message)) do |f| %>
+          <%= form_for(Reply.new, url: instructor_message_replies_path(@instructor, message)) do |f| %>
 
             <div class="field">
               <%= f.label :content %>
@@ -58,6 +58,27 @@
       <div class="padding-bottom">
         <%= sanitize(message.content) %>
       </div>
+
+      <% message.replies.each do |reply| %>
+        <div class="padding-vertical border-top">
+          <% if reply.student_id.present? %>
+            <%= link_to reply.student.username, student_path(reply.student) unless reply.student.profile.first_name.present? || reply.student.profile.last_name.present? %>
+            <%= link_to(student_path(reply.student)) do %>
+              <%= reply.student.profile.first_name if reply.student.profile.first_name.present? %> <%= reply.student.profile.last_name if reply.student.profile.last_name.present? %>
+            <% end %>
+            | <%= time_ago_in_words(reply.created_at) %> ago
+          <% else %>
+            <%= link_to reply.instructor.username, instructor_path(reply.instructor) unless reply.instructor.profile.first_name.present? || reply.instructor.profile.last_name.present? %>
+            <%= link_to(instructor_path(reply.instructor)) do %>
+              <%= reply.instructor.profile.first_name if reply.instructor.profile.first_name.present? %> <%= reply.instructor.profile.last_name if reply.instructor.profile.last_name.present? %>
+            <% end %>
+            | <%= time_ago_in_words(reply.created_at) %> ago
+          <% end %>
+          <div class="padding-top">
+            <%= sanitize(reply.content) %>
+          </div>
+        </div>
+      <% end %>
 
     </div>
 

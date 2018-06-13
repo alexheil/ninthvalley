@@ -375,7 +375,10 @@
 
             <div id="fifth-tab">
               <div class="padding-bottom mid-text">
-                Messages <span class="notification-circle"><%= @messages.count %>
+                Messages 
+                <% if @messages.any? %>
+                  <span class="notification-circle"><%= @messages.count %>
+                <% end %>
               </div>
 
               <span class="messages_container"><%= render 'instructors/partials/messages/messages_container' %></span>
