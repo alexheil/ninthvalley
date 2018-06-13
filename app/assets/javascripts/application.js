@@ -9,18 +9,21 @@ var menuToggle = function() {
     $('#menu-container').fadeIn(300);
     $('.back').fadeIn(300);
     $(".wrapper").addClass("blur");
+    $('.background').addClass('blur');
   });
 
   $('.back').click(function() {
     $('#menu-container').fadeOut(300);
     $('.back').fadeOut(300);
     $(".wrapper").removeClass("blur");
+    $('.background').removeClass('blur');
   });
 
   $('#close-menu').click(function() {
     $('#menu-container').fadeOut(300);
     $('.back').fadeOut(300);
     $(".wrapper").removeClass("blur");
+    $('.background').removeClass('blur');
   });
 
 };
@@ -49,7 +52,8 @@ var signInAndRegister = function() {
     $('#register').fadeOut(300);
     $('#menu-container').fadeOut(300);
     $('.back').fadeIn(300);
-    $('.wrapper').addClass("blur", 300);
+    $('.wrapper').addClass("blur");
+    $('.background').addClass('blur');
   });
 
   $('#register').click(function() {
@@ -58,7 +62,8 @@ var signInAndRegister = function() {
     $('#register').fadeOut(300);
     $('#menu-container').fadeOut(300);
     $('.back').fadeIn(300);
-    $('.wrapper').addClass("blur", 300);
+    $('.wrapper').addClass("blur");
+    $('.background').addClass('blur');
   });
 
   $('#menu-sign-in').click(function() {
@@ -67,7 +72,8 @@ var signInAndRegister = function() {
     $('#register').fadeOut(300);
     $('#menu-container').fadeOut(300);
     $('.back').fadeIn(300);
-    $('.wrapper').addClass("blur", 300);
+    $('.wrapper').addClass("blur");
+    $('.background').addClass('blur');
   });
 
   $('#menu-register').click(function() {
@@ -76,7 +82,8 @@ var signInAndRegister = function() {
     $('#register').fadeOut(300);
     $('#menu-container').fadeOut(300);
     $('.back').fadeIn(300);
-    $('.wrapper').addClass("blur", 300);
+    $('.wrapper').addClass("blur");
+    $('.background').addClass('blur');
   });
 
   $('.back').click(function() {
@@ -86,7 +93,8 @@ var signInAndRegister = function() {
     $('#register').fadeIn(300);
     $('#menu-container').fadeOut(300);
     $('.back').fadeOut(300);
-    $('.wrapper').removeClass("blur", 300);
+    $('.wrapper').removeClass("blur");
+    $('.background').removeClass('blur');
   });
 
   $('.close').click(function() {
@@ -96,7 +104,8 @@ var signInAndRegister = function() {
     $('#register').fadeIn(300);
     $('#menu-container').fadeOut(300);
     $('.back').fadeOut(300);
-    $('.wrapper').removeClass("blur", 300);
+    $('.wrapper').removeClass("blur");
+    $('.background').removeClass('blur');
   });
 
   $('#student-sign-in-click').click(function() {

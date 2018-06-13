@@ -265,7 +265,7 @@ video {
 }
 
 .back-second {
-  background: #212121;
+  background: $black;
   background-size: cover;
   -o-background-size: cover;
   -moz-background-size: cover;
@@ -1449,13 +1449,14 @@ select {
   @include transition;
   cursor: pointer;
   padding: 3vh 1vw;
+  border-radius: $radius;
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
 }
 
 .search-icon {
-  font-size: 1.25em; /* This controls the size. */
+  font-size: 1.25em;
   display: inline-block;
   width: 0.4em;
   height: 0.4em;
@@ -1479,13 +1480,13 @@ select {
   }
 }
 
-
 #sign-in {
   @include textLabels;
   @include transition;
   cursor: pointer;
   color: $white;
   padding: 3vh 1vw;
+  border-radius: $radius;
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
@@ -1497,6 +1498,7 @@ select {
   cursor: pointer;
   color: $white;
   padding: 3vh 1vw;
+  border-radius: $radius;
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
@@ -1508,6 +1510,7 @@ select {
   cursor: pointer;
   color: $white;
   padding: 3vh 1vw;
+  border-radius: $radius;
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
@@ -1519,6 +1522,7 @@ select {
   cursor: pointer;
   color: $white;
   padding: 3vh 1vw;
+  border-radius: $radius;
   &:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }

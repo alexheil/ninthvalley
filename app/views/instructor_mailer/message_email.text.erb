@@ -1,0 +1,1 @@
+<%= @message.student.username %> - posted <%= time_ago_in_words(@message.created_at) %> ago - <%= truncate(@message.content, length: 140) %>

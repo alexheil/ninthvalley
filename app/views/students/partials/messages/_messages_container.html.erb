@@ -1,0 +1,96 @@
+<% if @messages.any? %>
+
+  <% @messages.each do |message| %>
+
+    <div class="message-card inactive-notification-tab">
+      <div class="padding-horizontal flex">
+        <div class="two-column">
+          <%= @student.username unless @student.profile.first_name.present? || @student.profile.last_name.present? %> 
+          <%= @student.profile.first_name if @student.profile.first_name.present? %> <%= @student.profile.last_name if @student.profile.last_name.present? %>
+          | <%= time_ago_in_words(message.created_at) %> ago
+        </div>
+
+        <div class="two-column right">
+          Message
+        </div>
+      </div>
+    </div>
+
+    <div class="message-container border-bottom margin-bottom">
+      <div class="flex padding-bottom">
+        <div class="two-column link-color">
+          <%= link_to "Delete", instructor_message_path(message.instructor, message), method: :delete, remote: true, class: "delete-button" %>
+        </div>
+        <div class="two-column">
+          <div class="reply-button fake-button link_color">
+            Reply
+          </div>
+        </div>
+      </div>
+
+      <div class="reply-container">
+
+        <div class="padding-bottom">
+          <%= form_for(Reply.new, url: instructor_message_replies_path(message.instructor, message)) do |f| %>
+
+            <div class="field">
+              <%= f.label :content %>
+              <%= f.text_area :content, class: "text-area" %>
+            </div>
+
+            <%= f.submit "Send reply", data: { disable_with: 'Sending...' }, class: "submit-button" %>
+          <% end %>
+        </div>
+
+      </div>
+
+      <div class="padding-bottom">
+        <% if @student.profile.image.present? %>
+          <img class="baby-thumbnail-image" src="<%= @student.profile.image_url(:tiny) %>">
+        <% end %>
+        <%= link_to @student.username, student_path(@student) unless @student.profile.first_name.present? || @student.profile.last_name.present? %>
+        <%= link_to(student_path(@student)) do %>
+          <%= @student.profile.first_name if @student.profile.first_name.present? %> <%= @student.profile.last_name if @student.profile.last_name.present? %>
+        <% end %>
+        | <%= message.created_at.strftime("sent on %m.%d.%Y") %>
+      </div>
+
+      <div class="padding-bottom">
+        <%= sanitize(message.content) %>
+      </div>
+
+      <% message.replies.each do |reply| %>
+        <div class="padding-vertical border-top">
+          <% if reply.student_id.present? %>
+            <% if @student.profile.image.present? %>
+              <img class="baby-thumbnail-image" src="<%= @student.profile.image_url(:tiny) %>">
+            <% end %>
+            <%= link_to @student.username, student_path(@student) unless @student.profile.first_name.present? || @student.profile.last_name.present? %>
+            <%= link_to(student_path(@student)) do %>
+              <%= @student.profile.first_name if @student.profile.first_name.present? %> <%= @student.profile.last_name if @student.profile.last_name.present? %>
+            <% end %>
+            | <%= time_ago_in_words(reply.created_at) %> ago
+          <% else %>
+            <% if reply.instructor.profile.image.present? %>
+              <img class="baby-thumbnail-image" src="<%= reply.instructor.profile.image_url(:tiny) %>">
+            <% end %>
+            <%= link_to reply.instructor.username, instructor_path(reply.instructor) unless reply.instructor.profile.first_name.present? || reply.instructor.profile.last_name.present? %>
+            <%= link_to(instructor_path(reply.instructor)) do %>
+              <%= reply.instructor.profile.first_name if reply.instructor.profile.first_name.present? %> <%= reply.instructor.profile.last_name if reply.instructor.profile.last_name.present? %>
+            <% end %>
+            | <%= time_ago_in_words(reply.created_at) %> ago
+          <% end %>
+          <div class="padding-top">
+            <%= sanitize(reply.content) %>
+          </div>
+        </div>
+      <% end %>
+
+    </div>
+
+  <% end %>
+<% else %>
+  <div class="padding-bottom">
+    You have no messages.
+  </div>
+<% end %>

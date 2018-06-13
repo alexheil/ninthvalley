@@ -46,13 +46,13 @@
 
       <div class="padding-bottom">
         <% if message.student.profile.image.present? %>
-          <img class="baby-thumbnail-image" src="<%= notification.student.profile.image_url(:tiny) %>">
+          <img class="baby-thumbnail-image" src="<%= message.student.profile.image_url(:tiny) %>">
         <% end %>
         <%= link_to message.student.username, student_path(message.student) unless message.student.profile.first_name.present? || message.student.profile.last_name.present? %>
         <%= link_to(student_path(message.student)) do %>
           <%= message.student.profile.first_name if message.student.profile.first_name.present? %> <%= message.student.profile.last_name if message.student.profile.last_name.present? %>
         <% end %>
-        - <%= message.created_at.strftime("posted on %m.%d.%Y") %>
+        | <%= message.created_at.strftime("sent on %m.%d.%Y") %>
       </div>
 
       <div class="padding-bottom">
@@ -62,15 +62,21 @@
       <% message.replies.each do |reply| %>
         <div class="padding-vertical border-top">
           <% if reply.student_id.present? %>
+            <% if reply.student.profile.image.present? %>
+              <img class="baby-thumbnail-image" src="<%= reply.student.profile.image_url(:tiny) %>">
+            <% end %>
             <%= link_to reply.student.username, student_path(reply.student) unless reply.student.profile.first_name.present? || reply.student.profile.last_name.present? %>
             <%= link_to(student_path(reply.student)) do %>
               <%= reply.student.profile.first_name if reply.student.profile.first_name.present? %> <%= reply.student.profile.last_name if reply.student.profile.last_name.present? %>
             <% end %>
             | <%= time_ago_in_words(reply.created_at) %> ago
           <% else %>
-            <%= link_to reply.instructor.username, instructor_path(reply.instructor) unless reply.instructor.profile.first_name.present? || reply.instructor.profile.last_name.present? %>
-            <%= link_to(instructor_path(reply.instructor)) do %>
-              <%= reply.instructor.profile.first_name if reply.instructor.profile.first_name.present? %> <%= reply.instructor.profile.last_name if reply.instructor.profile.last_name.present? %>
+            <% if @instructor.profile.image.present? %>
+              <img class="baby-thumbnail-image" src="<%= @instructor.profile.image_url(:tiny) %>">
+            <% end %>
+            <%= link_to @instructor.username, instructor_path(@instructor) unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %>
+            <%= link_to(instructor_path(@instructor)) do %>
+              <%= @instructor.profile.first_name if @instructor.profile.first_name.present? %> <%= @instructor.profile.last_name if @instructor.profile.last_name.present? %>
             <% end %>
             | <%= time_ago_in_words(reply.created_at) %> ago
           <% end %>

@@ -6,7 +6,7 @@
     </div>
 
     <div class="padding-vertical mini-text">
-      <%= link_to @reply.message.instructor.username, instructor_url(@reply.message.instructor) %> - posted <%= time_ago_in_words(@reply.created_at) %> ago - <%= truncate(@reply.content, length: 140) %>
+      <%= link_to @reply.message.student.username, student_url(@reply.message.student) %> - posted <%= time_ago_in_words(@reply.created_at) %> ago - <%= truncate(@reply.content, length: 140) %>
     </div>
   </div>
 </div>

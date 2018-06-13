@@ -1,0 +1,8 @@
+<div class="mid-container border margin-top">
+  <img class="image-image" src="<%= @message.student.profile.image_url(:thumb) %>">
+  <div class="padding-horizontal">
+    <div class="padding-vertical">
+      <%= link_to @message.student.username, student_url(@message.student) %> - posted <%= time_ago_in_words(@message.created_at) %> ago - <%= truncate(@message.content, length: 140) %>
+    </div>
+  </div>
+</div>

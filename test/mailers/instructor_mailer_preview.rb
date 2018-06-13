@@ -20,4 +20,12 @@ class InstructorMailerPreview < ActionMailer::Preview
     InstructorMailer.subscription_email(Instructor.first, Subscription.first)
   end
 
+  def reply_email
+    InstructorMailer.reply_email(Instructor.first, Reply.first)
+  end
+
+  def message_email
+    InstructorMailer.message_email(Instructor.first, Message.first)
+  end
+
 end

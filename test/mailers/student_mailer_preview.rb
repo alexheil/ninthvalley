@@ -20,4 +20,8 @@ class StudentMailerPreview < ActionMailer::Preview
     StudentMailer.subscription_email(Student.first, Instructor.first, Subscription.first)
   end
 
+  def message_email
+    StudentMailer.message_email(Student.first, Instructor.first, Reply.first)
+  end
+
 end

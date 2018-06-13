@@ -63,6 +63,8 @@
             <li><span id="third-tab-click" class="inactive-sidebar-tab">Subscriptions</span></li>
             <% if student_signed_in? && current_student == @student %>
               <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Purchases</span></li>
+              <li><span id="fifth-tab-click" class="inactive-sidebar-tab">Messages 
+              <span class="messages_count"><%= render 'instructors/partials/messages/messages_count' %></span></span></li>
           <% end %>    
           </ul>
         </aside>
@@ -270,6 +272,23 @@
                 <% end %>
               </div>
             </div>
+
+
+
+            <div id="fifth-tab">
+              <div class="padding-bottom mid-text">
+                Messages 
+                <% if @messages.any? %>
+                  <span class="notification-circle"><%= @messages.count %>
+                <% end %>
+              </div>
+
+              <span class="messages_container"><%= render 'students/partials/messages/messages_container' %></span>
+
+
+            </div>
+
+
 
           <% end %>
           

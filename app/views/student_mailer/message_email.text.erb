@@ -1,0 +1,3 @@
+<%= @reply.message.student.username %> - <%= truncate(@reply.message.content, length: 140) %>
+
+<%= @reply.message.instructor.username %> - posted <%= time_ago_in_words(@reply.created_at) %> ago - <%= truncate(@reply.content, length: 140) %>

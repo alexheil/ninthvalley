@@ -44,7 +44,7 @@ class Messages::RepliesController < ApplicationController
 
     def send_instructor_email
       return if instructor_signed_in? && @instructor.id == current_instructor.id
-      InstructorMailer.reply_email(@instructor, @reply).deliver_now unless @instructor.reply_email == false
+      InstructorMailer.reply_email(@instructor, @reply).deliver_now unless @instructor.message_email == false
     end
 
     def send_student_email
