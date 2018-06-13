@@ -1,0 +1,69 @@
+<% if @messages.any? %>
+
+  <% @messages.each do |message| %>
+
+    <div class="message-card inactive-notification-tab">
+      <div class="padding-horizontal flex">
+        <div class="two-column">
+          <%= message.student.username unless message.student.profile.first_name.present? || message.student.profile.last_name.present? %> 
+          <%= message.student.profile.first_name if message.student.profile.first_name.present? %> <%= message.student.profile.last_name if message.student.profile.last_name.present? %>
+          | <%= time_ago_in_words(message.created_at) %> ago
+        </div>
+
+        <div class="two-column right">
+          Message
+        </div>
+      </div>
+    </div>
+
+    <div class="message-container border-bottom margin-bottom">
+      <div class="flex padding-bottom">
+        <div class="two-column link-color">
+          <%= link_to "Delete", instructor_message_path(@instructor, message), method: :delete, remote: true, class: "delete-button" %>
+        </div>
+        <div class="two-column">
+          <div class="reply-button fake-button link_color">
+            Reply
+          </div>
+        </div>
+      </div>
+
+      <div class="reply-container">
+
+        <div class="padding-bottom">
+          <%= form_for(Reply.new, url: instructor_message_reply_path(@instructor, message)) do |f| %>
+
+            <div class="field">
+              <%= f.label :content %>
+              <%= f.text_area :content, class: "text-area" %>
+            </div>
+
+            <%= f.submit "Send reply", data: { disable_with: 'Sending...' }, class: "submit-button" %>
+          <% end %>
+        </div>
+
+      </div>
+
+      <div class="padding-bottom">
+        <% if message.student.profile.image.present? %>
+          <img class="baby-thumbnail-image" src="<%= notification.student.profile.image_url(:tiny) %>">
+        <% end %>
+        <%= link_to message.student.username, student_path(message.student) unless message.student.profile.first_name.present? || message.student.profile.last_name.present? %>
+        <%= link_to(student_path(message.student)) do %>
+          <%= message.student.profile.first_name if message.student.profile.first_name.present? %> <%= message.student.profile.last_name if message.student.profile.last_name.present? %>
+        <% end %>
+        - <%= message.created_at.strftime("posted on %m.%d.%Y") %>
+      </div>
+
+      <div class="padding-bottom">
+        <%= sanitize(message.content) %>
+      </div>
+
+    </div>
+
+  <% end %>
+<% else %>
+  <div class="padding-bottom">
+    You have no messages.
+  </div>
+<% end %>

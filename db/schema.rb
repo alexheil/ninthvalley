@@ -224,10 +224,12 @@ ActiveRecord::Schema.define(version: 20180612222553) do
   create_table "replies", force: :cascade do |t|
     t.integer  "instructor_id"
     t.integer  "student_id"
+    t.integer  "message_id"
     t.text     "content"
     t.datetime "created_at",    null: false
     t.datetime "updated_at",    null: false
     t.index ["instructor_id"], name: "index_replies_on_instructor_id"
+    t.index ["message_id"], name: "index_replies_on_message_id"
     t.index ["student_id"], name: "index_replies_on_student_id"
   end
 

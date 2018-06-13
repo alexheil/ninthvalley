@@ -37,4 +37,10 @@ class InstructorMailer < ApplicationMailer
     mail(to: @instructor.email, subject: 'You\'ve got a new message! | Ninth Valley')
   end
 
+  def reply_email(instructor, reply)
+    @instructor = instructor
+    @reply = reply
+    mail(to: @instructor.email, subject: 'You\'ve got a new reply! | Ninth Valley')
+  end
+
 end

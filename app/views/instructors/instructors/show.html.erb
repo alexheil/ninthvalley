@@ -103,9 +103,11 @@
             <li><span id="third-tab-click" class="inactive-sidebar-tab">Posts</span></li>
             <% if instructor_signed_in? && @instructor == current_instructor %>
               <li><span id="fourth-tab-click" class="inactive-sidebar-tab">Notifications 
-                <span class="notifications_count"><%= render 'instructors/partials/notifications/notifications_count' %></span>
+                <span class="notifications_count"><%= render 'instructors/partials/notifications/notifications_count' %></span></span>
               </li>
-              <li><span id="fifth-tab-click" class="inactive-sidebar-tab">Messages</span></li>
+              <li><span id="fifth-tab-click" class="inactive-sidebar-tab">Messages
+              <span class="messages_count"><%= render 'instructors/partials/messages/messages_count' %></span></span>
+              </li>
               <% if @instructor.purchases.any? %>
                 <li><span id="sixth-tab-click" class="inactive-sidebar-tab">Purchases</span></li>
               <% end %>
@@ -373,10 +375,10 @@
 
             <div id="fifth-tab">
               <div class="padding-bottom mid-text">
-                Messages 
+                Messages <span class="notification-circle"><%= @messages.count %>
               </div>
 
-              
+              <span class="messages_container"><%= render 'instructors/partials/messages/messages_container' %></span>
 
             </div>
 

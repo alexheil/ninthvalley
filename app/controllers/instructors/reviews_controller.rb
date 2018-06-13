@@ -11,7 +11,7 @@ class Instructors::ReviewsController < ApplicationController
     @review.student_id = @student.id
     @review.instructor_id = @instructor.id
     if @review.save
-      flash.now[:notice] = "You posted a review on #{@course.title}."
+      flash[:notice] = "You posted a review on #{@course.title}."
       create_notification(@review)
       send_email
       redirect_to instructor_course_path(@instructor, @course)
@@ -30,7 +30,7 @@ class Instructors::ReviewsController < ApplicationController
       flash[:notice] = "You just updated your review on #{@course.title}!"
       redirect_to instructor_course_path(@instructor, @course)
     else
-      flash.now[:alert] = 'Whoa! Something went wrong!'
+      flash[:alert] = 'Whoa! Something went wrong!'
       render 'new'
     end
   end

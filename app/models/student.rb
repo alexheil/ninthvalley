@@ -18,6 +18,8 @@ class Student < ApplicationRecord
   has_many :bookmarks, dependent: :destroy
   has_many :courses, through: :bookmarks
   has_many :notifications, dependent: :destroy
+  has_many :messages, dependent: :destroy
+  has_many :replies, dependent: :destroy
 
   has_many :purchases
   has_many :courses, through: :purchases

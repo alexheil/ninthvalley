@@ -578,6 +578,21 @@ var sidebarTabs = function() {
     $(this).next('.notification-container').slideDown(300).delay(100);
   });
 
+  $(".messages_container").on("click", ".message-card", function() {
+    $('.message-card').removeClass('active-notification-tab');
+    $('.message-card').addClass('inactive-notification-tab');
+    $(this).addClass('active-notification-tab');
+    $(this).removeClass('inactive-notification-tab');
+    $('.message-container').hide();
+    $(this).next('.message-container').slideDown(300).delay(100);
+  });
+
+  $('.reply-button').click(function() {
+    $('.reply-container').hide();
+    $(this).parent().parent().next('.reply-container').slideDown(300).delay(100);
+  });
+
+
 };
 
 $(document).ready(sidebarTabs);

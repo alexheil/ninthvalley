@@ -38,11 +38,11 @@ class StudentMailer < ApplicationMailer
     mail(to: @student.email, subject: 'You\'ve successfully refunded a course! | Ninth Valley')
   end
 
-  def message_email(student, instructor, message)
+  def message_email(student, instructor, reply)
     @student = student
     @instructor = instructor
-    @message = message
-    mail(to: @student.email, subject: 'You\'ve got a new message! | Ninth Valley')
+    @reply = reply
+    mail(to: @student.email, subject: 'You\'ve got a new reply! | Ninth Valley')
   end
 
 end
