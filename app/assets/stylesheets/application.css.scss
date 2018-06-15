@@ -10,12 +10,12 @@ $green: #47B975; /* OCEAN GREEN */
 $border: #BEC8CE; /* LOBLOLLY */
 $red: #F44336; /* POMEGRANATE */
 $yellow: #ff9800; /* PIZAZZ */
-$black: #0C1F14; /* GREEN KELP */
+$black: #3f4c47; /* GREEN KELP */
 $white: #FFFFFF; /* FAFAFA DESERT STORM */
 $grey: #EEEEEE; /* GALLERY */
-$fancy: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$fancy: 'Open Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-$radius: 4px;
+$radius: 6px;
 $shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42), 0 3px 20px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
 $shadow-lite: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12), 0 1px 5px 0 rgba(0, 0, 0, 0.2);
 
@@ -32,7 +32,7 @@ $shadow-lite: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.12
 
 @mixin textLabels {
   font-size: .75em;
-  font-weight: 400;
+  font-weight: 700;
   text-transform: uppercase;
 }
 
@@ -40,12 +40,13 @@ body {
   padding: 0;
   margin: 0;
   font-size: 16px;
-  line-height: 1.75em;
-  letter-spacing: .5px;
+  line-height: 1.5em;
+  letter-spacing: 0px;
   font-family: $fancy;
-  font-weight: 300;
+  font-weight: 400;
   background: $white;
   color: $black;
+  -webkit-font-smoothing: antialiased;
 }
 
 a {
@@ -140,7 +141,7 @@ video {
 }
 
 .bold {
-  font-weight: 400;
+  font-weight: 700;
 }
 
 .blur {
@@ -317,7 +318,7 @@ video {
   width: 70%;
   font-size: 1.5em;
   padding: 1vh 1vw;
-  font-weight: 300;
+  font-weight: 400;
   text-align: right;
   border: none;
   display: inline-block;
@@ -325,7 +326,7 @@ video {
   border-top-left-radius: $radius;
   border-bottom-left-radius: $radius;
   font-family: $fancy;
-  letter-spacing: .5px;
+  letter-spacing: 0px;
 }
 
 .home-search-button {
@@ -333,7 +334,7 @@ video {
   width: 30%;
   font-size: 1.25em;
   padding: 1vh 1vw;
-  font-weight: 400;
+  font-weight: 700;
   text-align: center;
   text-transform: uppercase;
   background-color: rgba(255, 255, 255, 0.1);
@@ -345,7 +346,7 @@ video {
   border-top-right-radius: $radius;
   border-bottom-right-radius: $radius;
   font-family: $fancy;
-  letter-spacing: .5px;
+  letter-spacing: 0px;
   &:hover {
     background: $main;
   }
@@ -355,6 +356,7 @@ video {
   position: relative;
   text-align: center;
   background: $black;
+  border-radius: $radius - 1;
 }
 
 .home-image-centered {
@@ -370,10 +372,7 @@ video {
   width: 100%;
   object-fit: cover;
   display: block;
-  border-top-left-radius: $radius - 1;
-  border-top-right-radius: $radius - 1;
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
+  border-radius: $radius - 1;
   -webkit-backface-visibility: hidden;
   -webkit-transition: .3s ease-in-out;
   -moz-transition: .3s ease-in-out;
@@ -440,6 +439,14 @@ video {
     color: $light;
     &:hover {
       color: $dark;
+    }
+  }
+  .main-color {
+    a {
+      color: $main;
+      &:hover {
+        color: $dark;
+      }
     }
   }
   .link-color {
@@ -598,7 +605,7 @@ video {
   border-radius: $radius;
   text-transform: uppercase;
   font-size: .75em;
-  font-weight: 400;
+  font-weight: 700;
   box-shadow: $shadow;
 }
 
@@ -628,7 +635,7 @@ video {
   display: inline-block;
   text-align: center;
   font-size: .75em;
-  font-weight: 400;
+  font-weight: 700;
   cursor: pointer;
   border-radius: $radius;
   font-family: $fancy;
@@ -649,7 +656,7 @@ video {
   display: inline-block;
   text-align: center;
   font-size: .75em;
-  font-weight: 300;
+  font-weight: 400;
   cursor: pointer;
   border-radius: $radius;
   font-family: $fancy;
@@ -673,7 +680,7 @@ video {
   display: inline-block;
   text-align: center;
   font-size: .75em;
-  font-weight: 400;
+  font-weight: 700;
   cursor: pointer;
   border-radius: $radius;
   font-family: $fancy;
@@ -694,7 +701,7 @@ video {
   display: inline-block;
   text-align: center;
   font-size: .75em;
-  font-weight: 300;
+  font-weight: 400;
   cursor: pointer;
   border-radius: $radius;
   font-family: $fancy;
@@ -718,7 +725,7 @@ video {
   width: 100%;
   display: inline-block;
   font-size: .75em;
-  font-weight: 300;
+  font-weight: 400;
   cursor: pointer;
   border-radius: $radius;
   font-family: $fancy;
@@ -741,7 +748,7 @@ video {
   width: 100%;
   display: inline-block;
   font-size: .75em;
-  font-weight: 400;
+  font-weight: 700;
   cursor: pointer;
   border-radius: $radius;
   font-family: $fancy;
@@ -773,13 +780,13 @@ video {
   display: inline-block;
   text-align: center;
   font-size: .75em;
-  font-weight: 400;
+  font-weight: 700;
   cursor: pointer;
   border-radius: $radius;
   box-sizing: border-box;
   font-family: $fancy;
   text-transform: uppercase;
-  letter-spacing: .5px;
+  letter-spacing: 0px;
   color: $white;
   padding: 1vh 1vw;
   background: $main;
@@ -797,11 +804,11 @@ video {
   background: $grey;
   border: none;
   color: $black;
-  font-weight: 300;
+  font-weight: 400;
   &:hover {
     background: $main;
     color: $white;
-    font-weight: 400;
+    font-weight: 700;
   }
 }
 
@@ -848,6 +855,10 @@ input, textarea {
   -webkit-border-radius: 0;
 }
 
+::placeholder {
+    color: $border;
+  }
+
 .text-label {
   @include textLabels;
 }
@@ -855,7 +866,7 @@ input, textarea {
 @mixin fields {
   width: 100%;
   font-size: 1em;
-  font-weight: 300;
+  font-weight: 400;
   border: none;
   display: inline-block;
   box-sizing: border-box;
@@ -986,7 +997,7 @@ select {
     display: inline-block;
     width: 24%;
     color: $main;
-    font-weight: 300;
+    font-weight: 400;
     letter-spacing: .125em;
     &:hover {
       text-decoration: none;
@@ -1317,7 +1328,7 @@ select {
   border-radius: $radius;
   color: $white;
   font-size: .75em;
-  font-weight: 400;
+  font-weight: 700;
   padding: .15vh .25vw 0 .25vw;
 }
 
@@ -1873,8 +1884,9 @@ select {
       padding-bottom: 1vh;
     }
     .search-spacer {
-      width: 100%;
+      width: 90%;
       display: block;
+      margin: 0 auto;
       padding-bottom: 1vh;
     }
     ul {
