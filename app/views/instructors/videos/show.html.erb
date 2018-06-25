@@ -25,7 +25,7 @@
               Your browser does not support this video.
               </video>
             <% else %>
-              You must purchase this course in order to view this video.
+              You must <%= link_to "purchase this course", instructor_course_path(@instructor, @course) %> in order to view this video.
             <% end %>
           <% else %>
             <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
@@ -47,7 +47,7 @@
             <% end %>
           </div>
           <div class="blackbox">
-            Ad trash
+            <%= render 'partials/ad_trash_video' %>
           </div>
         </div>
       <% end %>
@@ -118,7 +118,7 @@
             </div>
             <% if @video.comments.any? %>
               <div class="padding-bottom">
-                <% @video.comments.take(5).each do |comment| %>
+                <% @video.comments.limit(5).each do |comment| %>
                   <div class="padding-vertical border-bottom">
                     <div class="padding-bottom">
                       <% if comment.student.profile.image.present? %>
@@ -192,7 +192,7 @@
                         <%= video.title %>
                       </div>
                       <div class="two-column right">
-                        01:02
+                        <%= video.video_url.duration %>
                       </div>
                     </div>
                   </div>
@@ -209,7 +209,7 @@
             </div>
             <% if @video.comments.any? %>
               <div class="padding-bottom">
-                <% @video.comments.each do |comment| %>
+                <% @video.comments.limit(25).each do |comment| %>
                   <div class="padding-vertical border-bottom">
                     <div class="padding-bottom">
                       <% if comment.student.profile.image.present? %>

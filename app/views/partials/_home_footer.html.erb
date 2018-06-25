@@ -6,7 +6,7 @@
       <div class="four-column">
         <div class="home-footer">
           <ul>
-            <li><%= link_to "Terms of Use", terms_path, class: "nav-links" %></li>
+            <li><%= link_to "Terms", terms_path, class: "nav-links" %></li>
             <li><%= link_to "Privacy", privacy_path, class: "nav-links" %></li>
           </ul>
         </div>
@@ -30,10 +30,7 @@
             <li><%= link_to "Facebook", "https://facebook.com/ninthvalley", :target => "_blank", class: "facebook" %></li>
             <li><%= link_to "Twitter", "https://twitter.com/ninthvalley", :target => "_blank", class: "twitter" %></li>
             <li><%= link_to "YouTube", "https://www.youtube.com/channel/UCZaUpn3Lk-3Df1ixPNaVlfA", :target => "_blank", class: "youtube" %></li>
-            <li><%= link_to "Google+", "https://plus.google.com/ninthvalley", :target => "_blank", class: "googleplus" %></li>
             <li><%= link_to "Instagram", "https://instagram.com/ninthvalley", :target => "_blank", class: "instagram" %></li>
-            <li><%= link_to "tumblr.", "https://ninthvalley.tumblr.com/", :target => "_blank", class: "tumblr" %></li>
-            <li><%= link_to "Pinterest", "https://pinterest.com/ninthvalley", :target => "_blank", class: "pinterest" %></li>
           </ul>
         </div>
       </div>
@@ -41,8 +38,14 @@
       <div class="four-column">
         <div class="home-footer">
           <ul>
-            <li><%= link_to "Terms of Use", terms_path, class: "nav-links" %></li>
-            <li><%= link_to "Privacy", privacy_path, class: "nav-links" %></li>
+            <% if instructor_signed_in? %>
+              <li><%= link_to "Your page", instructor_path(current_instructor), class: "nav-links" %></li>
+            <% elsif student_signed_in? %>
+              <li><%= link_to "Your page", student_path(current_student), class: "nav-links" %></li>
+            <% else %>
+              <li><%= link_to "Sign in", sign_in_path, class: "nav-links" %></li>
+              <li><%= link_to "Register", register_path, class: "nav-links" %></li>
+            <% end %>
           </ul>
         </div>
       </div>
