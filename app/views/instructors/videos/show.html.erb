@@ -81,6 +81,9 @@
             <div class="padding-bottom mid-text">
               Description
             </div>
+            <div class="padding-bottom">
+              Course: <%= link_to @video.track.course.title, instructor_course_path(@instructor, @course) %>
+            </div>
             <div class="post-content padding-bottom">
               <%= sanitize(truncate(@video.description, length: 280)) %>
             </div>
@@ -173,6 +176,9 @@
             <div class="padding-bottom mid-text">
               Description
             </div>
+            <div class="padding-bottom">
+              Course: <%= link_to @video.track.course.title, instructor_course_path(@instructor, @course) %>
+            </div>
             <div class="post-content padding-bottom">
               <%= sanitize(@video.description) %>
             </div>
@@ -192,7 +198,7 @@
                         <%= video.title %>
                       </div>
                       <div class="two-column right">
-                        <%= video.video_url.duration %>
+                        01:02
                       </div>
                     </div>
                   </div>

@@ -9,8 +9,8 @@ class Profile < ApplicationRecord
   validates :twitter_handle, length: { maximum: 15 }, allow_blank: true
   validates :youtube_handle, length: { maximum: 75 }, allow_blank: true
 
-  belongs_to :instructor
-  belongs_to :student
+  belongs_to :instructor, optional: true
+  belongs_to :student, optional: true
 
   before_save :create_twitter_url
   before_save :create_youtube_url

@@ -8,9 +8,9 @@ class Course < ApplicationRecord
 
   belongs_to :instructor
   belongs_to :category
-  belongs_to :subcategory
+  belongs_to :subcategory, optional: true
 
-  belongs_to :student
+  belongs_to :student, optional: true
   has_many :students, through: :purchases
   has_many :purchases
 

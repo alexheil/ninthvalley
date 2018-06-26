@@ -28,7 +28,7 @@ class Instructor < ApplicationRecord
   has_many :purchases
   has_many :subscriptions, dependent: :destroy
   has_many :students, through: :subscriptions
-  belongs_to :student
+  belongs_to :student, optional: true
 
   before_save :should_generate_new_friendly_id?, if: :username_changed?
   before_save :downcase_username

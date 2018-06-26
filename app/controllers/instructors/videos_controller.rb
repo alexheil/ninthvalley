@@ -31,7 +31,7 @@ class Instructors::VideosController < ApplicationController
       redirect_to instructor_course_track_video_path(@instructor, @course, @track, @video)
     else
       flash.now[:alert] = 'Whoa! Something went wrong!'
-      redirect_to root_url
+      render 'new'
     end
   end
 

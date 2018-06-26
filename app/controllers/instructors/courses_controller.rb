@@ -100,7 +100,7 @@ class Instructors::CoursesController < ApplicationController
 
     def send_student_email
       @instructor.subscriptions.find_each do |subscription|
-        StudentMailer.course_email(@subscription, subscription.student, @instructor, @purchase).deliver_now unless subscription.student.course_email == false
+        StudentMailer.course_email(subscription.student, @instructor, @subscription, @course).deliver_now unless subscription.student.course_email == false
       end
     end
 

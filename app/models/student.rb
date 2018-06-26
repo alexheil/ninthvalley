@@ -23,8 +23,8 @@ class Student < ApplicationRecord
 
   has_many :purchases
   has_many :courses, through: :purchases
-  belongs_to :course
-  belongs_to :instructor
+  belongs_to :course, optional: true
+  belongs_to :instructor, optional: true
   has_many :instructors, through: :subscriptions
   has_many :subscriptions, dependent: :destroy
 
