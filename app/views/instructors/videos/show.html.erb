@@ -22,7 +22,7 @@
             <% if (instructor_signed_in? && @instructor == current_instructor) || (student_signed_in? && current_student.subscribed?(@instructor)) || (student_signed_in? && current_student.purchased?(@course)) %>
               <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
                 <source src="<%= @video.video_url %>">
-              Your browser does not support this video.
+                Your browser does not support this video.
               </video>
             <% else %>
               You must <%= link_to "purchase this course", instructor_course_path(@instructor, @course) %> in order to view this video.
@@ -30,13 +30,15 @@
           <% else %>
             <video class="video-player" width="100%" height="auto" controls controlslist="nodownload">
               <source src="<%= @video.video_url %>">
-            Your browser does not support this video.
+              Your browser does not support this video.
             </video>
           <% end %>
 
         </div>
 
       </div>
+
+      <%= @video.video_url.height %>
 
       <% unless @course.paid? %>
         <div class="padding-bottom border-bottom">
