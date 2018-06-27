@@ -65,7 +65,7 @@ class Instructors::VideosController < ApplicationController
   private
 
     def video_params
-      params.require(:video).permit(:title, :description, :video, :remove_video)
+      params.require(:video).permit(:title, :description, :video, :remove_video, :duration)
     end
 
     def set_instructor
