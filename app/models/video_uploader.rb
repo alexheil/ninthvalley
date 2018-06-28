@@ -1,3 +1,5 @@
+require "streamio-ffmpeg"
+
 class VideoUploader < Shrine
   plugin :processing
   plugin :versions
@@ -8,9 +10,10 @@ class VideoUploader < Shrine
   plugin :add_metadata
 
   add_metadata do |io|
-    video = FFMPEG::Video.new(io.path)
+    video = FFMPEG::Movie.new(io.path)
     { "duration" => video.duration}
   end
 
   metadata_method :duration
+
 end

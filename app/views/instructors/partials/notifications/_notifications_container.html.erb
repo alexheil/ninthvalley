@@ -7,13 +7,13 @@
 
     <div class="notification-card inactive-notification-tab">
       <div class="padding-horizontal flex">
-        <div class="two-column">
+        <div class="two-column-track">
           <%= notification.student.username unless notification.student.profile.first_name.present? || notification.student.profile.last_name.present? %> 
           <%= notification.student.profile.first_name if notification.student.profile.first_name.present? %> <%= notification.student.profile.last_name if notification.student.profile.last_name.present? %>
           | <%= time_ago_in_words(notification.created_at) %> ago
         </div>
 
-        <div class="two-column right">
+        <div class="two-column-track right">
           <%= notification.notice_type %>
         </div>
       </div>
@@ -170,13 +170,13 @@
   <% @notifications.where(read: true).each do |notification| %>
     <div class="notification-card inactive-notification-tab">
       <div class="padding-horizontal flex">
-        <div class="two-column">
+        <div class="two-column-track">
           <%= notification.student.username unless notification.student.profile.first_name.present? || notification.student.profile.last_name.present? %> 
           <%= notification.student.profile.first_name if notification.student.profile.first_name.present? %> <%= notification.student.profile.last_name if notification.student.profile.last_name.present? %>
           | <%= time_ago_in_words(notification.created_at) %> ago
         </div>
 
-        <div class="two-column right">
+        <div class="two-column-track right">
           <%= notification.notice_type %>
         </div>
       </div>

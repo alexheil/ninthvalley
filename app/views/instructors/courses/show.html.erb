@@ -136,10 +136,10 @@
               <% @course.tracks.limit(3).each do |track| %>
                 <div class="track-card inactive-tab">
                   <div class="padding-horizontal flex">
-                    <div class="two-column">
+                    <div class="two-column-track">
                       <%= track.title %>
                     </div>
-                    <div class="two-column right">
+                    <div class="two-column-track right">
                       <span class="expand-videos"><%= pluralize(track.videos.count, "video") %></span>
                     </div>
                   </div>
@@ -150,11 +150,11 @@
                       <%= link_to(instructor_course_track_video_path(@instructor, @course, track, video)) do %>
                         <div class="video-card">
                           <div class="padding-horizontal flex">
-                            <div class="two-column">
+                            <div class="two-column-track">
                               <%= video.title %>
                             </div>
-                            <div class="two-column right">
-                              01:02
+                            <div class="two-column-track right">
+                              <%= Time.at(video.video.duration).utc.strftime("%H:%M:%S") %>
                             </div>
                           </div>
                         </div>
@@ -295,10 +295,10 @@
               <% @course.tracks.each do |track| %>
                 <div class="track-card inactive-tab">
                   <div class="padding-horizontal flex">
-                    <div class="two-column">
+                    <div class="two-column-track">
                       <%= track.title %>
                     </div>
-                    <div class="two-column right">
+                    <div class="two-column-track right">
                       <span class="expand-videos"><%= pluralize(track.videos.count, "video") %></span>
                     </div>
                   </div>
@@ -327,11 +327,11 @@
                       <%= link_to(instructor_course_track_video_path(@instructor, @course, track, video)) do %>
                         <div class="video-card">
                           <div class="padding-horizontal flex">
-                            <div class="two-column">
+                            <div class="two-column-track">
                               <%= video.title %>
                             </div>
-                            <div class="two-column right">
-                              01:02
+                            <div class="two-column-track right">
+                              <%= Time.at(video.video.duration).utc.strftime("%H:%M:%S") %>
                             </div>
                           </div>
                         </div>

@@ -38,18 +38,18 @@
 
       </div>
 
-      <%= @video.video_url.height %>
-
       <% unless @course.paid? %>
-        <div class="padding-bottom border-bottom">
+        <div class="padding-bottom-mini border-bottom">
           <div>
             <span class="ad-trash-text">Advertisement</span>
             <% if instructor_signed_in? && @instructor == current_instructor %>
               <span class="mini-text">- Ninth Valley uses ads on all free courses in order to support storage of its videos. Paid courses have zero ads on them!
             <% end %>
           </div>
-          <div class="blackbox">
+          <div>
+            <div>
             <%= render 'partials/ad_trash_video' %>
+          </div>
           </div>
         </div>
       <% end %>
@@ -99,11 +99,11 @@
                 <%= link_to(instructor_course_track_video_path(@instructor, @course, @track, video)) do %>
                   <div class="video-card">
                     <div class="padding-horizontal flex">
-                      <div class="two-column">
+                      <div class="two-column-track">
                         <%= video.title %>
                       </div>
-                      <div class="two-column right">
-                        01:02
+                      <div class="two-column-track right">
+                        <%= Time.at(@video.video.duration).utc.strftime("%H:%M:%S") %>
                       </div>
                     </div>
                   </div>
@@ -196,11 +196,11 @@
                 <%= link_to(instructor_course_track_video_path(@instructor, @course, @track, video)) do %>
                   <div class="video-card">
                     <div class="padding-horizontal flex">
-                      <div class="two-column">
+                      <div class="two-column-track">
                         <%= video.title %>
                       </div>
-                      <div class="two-column right">
-                        01:02
+                      <div class="two-column-track right">
+                        <%= Time.at(@video.video.duration).utc.strftime("%H:%M:%S") %>
                       </div>
                     </div>
                   </div>

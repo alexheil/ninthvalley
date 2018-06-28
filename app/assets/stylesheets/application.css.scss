@@ -75,6 +75,7 @@ img {
 
 video {
   display: block;
+  max-height: 75vh;
 }
 
 /* *************** FLASH ***************** */
@@ -191,6 +192,20 @@ video {
   display: none;
 }
 
+.profile-twitter {
+  color: #55acee;
+  &:hover {
+    color: $main;
+  }
+}
+
+.profile-youtube {
+  color: #bb0000;
+  &:hover {
+    color: $main;
+  }
+}
+
 .facebook {
   color: $white;
   &:hover {
@@ -212,31 +227,10 @@ video {
   }
 }
 
-.googleplus {
-  color: $white;
-  &:hover {
-    color: #dd4b39;
-  }
-}
-
 .instagram {
   color: $white;
   &:hover {
     color: #517fa4;
-  }
-}
-
-.tumblr {
-  color: $white;
-  &:hover {
-    color: #32506d;
-  }
-}
-
-.pinterest {
-  color: $white;
-  &:hover {
-    color: #cb2027;
   }
 }
 
@@ -480,6 +474,13 @@ video {
   vertical-align: top;
 }
 
+.two-column-track {
+  margin: 0;
+  width: 49%;
+  display: inline-block;
+  vertical-align: top;
+}
+
 .two-column-course {
   margin: 0;
   width: 49%;
@@ -548,6 +549,10 @@ video {
 
 .padding-bottom-large {
   padding-bottom: 10vh;
+}
+
+.padding-bottom-mini {
+  padding-bottom: 1vh;
 }
 
 .padding-horizontal {
@@ -2018,6 +2023,15 @@ select {
 }
 
 @media screen and (max-width: 650px) {
+
+  .flash {
+    position: fixed;
+    margin: 0 auto;
+    z-index: 1006;
+    width: 94%;
+    top: 0;
+    left: 3%;
+  }
 
   .body-container {
     width: 100%;
