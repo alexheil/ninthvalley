@@ -38,6 +38,12 @@ var flashTimeout = function() {
     $('.flash_js').fadeOut();
   }, 5000);
 
+  $(".image-fade-in").fadeIn(500);
+  $(".thumbnail-image-home").fadeIn(500);
+  $(".thumbnail-image").fadeIn(500);
+  $(".video-player").fadeIn(500);
+  $("html").fadeIn(500);
+
 };
 
 $(document).ready(flashTimeout);
