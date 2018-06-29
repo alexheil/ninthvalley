@@ -111,7 +111,7 @@
               <% end %>
               <% if @track.videos.count > 3 %>
                 <div class="padding-bottom mini-text">
-                  <%= pluralize(track.videos.count - 3, "more video") %>
+                  <%= pluralize(@track.videos.count - 3, "more video") %>
                 </div>
               <% end %>
 

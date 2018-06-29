@@ -16,4 +16,9 @@ class VideoUploader < Shrine
 
   metadata_method :duration
 
+  Attacher.validate do
+    validate_max_size 200.megabyte, message: "is too large (max is 1 MB)"
+    puts get.mime_type
+    validate_mime_type_inclusion ['video/mp4']
+  end
 end
