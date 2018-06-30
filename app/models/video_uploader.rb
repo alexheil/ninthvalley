@@ -9,6 +9,15 @@ class VideoUploader < Shrine
   plugin :remove_attachment
   plugin :add_metadata
 
+  process(:store) do |io|
+    video = FFMPEG::Movie.new(io.path)
+    options = {
+      mime_type: "video/mp4"
+    }
+
+    video.transcode(io.path, options)
+  end
+
   add_metadata do |io|
     video = FFMPEG::Movie.new(io.path)
     { "duration" => video.duration, 
@@ -21,6 +30,6 @@ class VideoUploader < Shrine
 
   Attacher.validate do
     validate_max_size 200.megabyte, message: "is too large (max is 1 MB)"
-    validate_mime_type_inclusion ['video/mp4']
+    validate_mime_type_inclusion ['video/mp4, video/quicktime']
   end
 end
