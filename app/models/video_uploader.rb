@@ -11,10 +11,13 @@ class VideoUploader < Shrine
 
   add_metadata do |io|
     video = FFMPEG::Movie.new(io.path)
-    { "duration" => video.duration}
+    { "duration" => video.duration, 
+      "resolution" => video.resolution,
+      "bitrate" => video.bitrate,
+      "frame_rate" => video.frame_rate }
   end
 
-  metadata_method :duration
+  metadata_method :duration, :resolution, :bitrate, :frame_rate
 
   Attacher.validate do
     validate_max_size 200.megabyte, message: "is too large (max is 1 MB)"

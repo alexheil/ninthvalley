@@ -11,8 +11,11 @@
         <li><%= link_to "About", about_path, class: "nav-links" %></li>
       </ul>
     </nav>
-    <div class="footer-disclaimer">
+    <div class="home-footer-disclaimer padding-top">
       Built in Buffalo, New York, United States of America, Earth.
+    </div>
+    <div class="home-footer-disclaimer padding-bottom">
+      There are <%= pluralize(Student.count, "student") %> watching <%= pluralize(Video.count, "video") %> in <%= pluralize(Course.count, "course") %> or reading <%= pluralize(Post.count, "post") %> created by <%= pluralize(Instructor.count, "instructors") %> on Ninth Valley right now.
     </div>
   </div>
 </footer>

@@ -1,5 +1,13 @@
 <%= provide(:title, sanitize(@video.title)) %>
 
+<%= @video.video.duration %>,
+<%= @video.video.size %>,
+<%= @video.video.mime_type %>,
+<%= @video.video.resolution %>,
+<%= @video.video.bitrate %>,
+<%= @video.video.frame_rate %>
+
+
 <div class="wrapper">
   <div class="container">
     <div class="mid-container padding-top">
