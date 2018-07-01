@@ -384,9 +384,9 @@
                         </div>
                         
                         <div class="field">
-                          <label class="image-button" for="video-image">Upload a video</label>
+                          <label class="image-button" for="video-image-<%= track.id %>">Upload a video</label>
                           <%= f.hidden_field :video, value: @video.cached_video_data %>
-                          <span class="hidden"><%= f.file_field :video, id: "video-image" %></span>
+                          <span class="hidden"><%= f.file_field :video, id: "video-image-#{track.id}" %></span>
                         </div>
 
                         <div class="field">
