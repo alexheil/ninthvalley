@@ -314,7 +314,7 @@
         </div>
         <div class="flex border-bottom">
           <div class="field-two-column center">
-            <label class="image-button" for="video-image">Upload a video</label>
+            <label class="image-button" for="video-image">Upload a video (mp4)</label>
             <%= f.hidden_field :video, value: @video.cached_video_data %>
             <span class="hidden"><%= f.file_field :video, id: "video-image" %></span>
           </div>
@@ -325,7 +325,7 @@
         </div>
       <% else %>
         <div class="padding-bottom border-bottom">
-          <label class="image-button" for="video-image">Upload a video</label>
+          <label class="image-button" for="video-image">Upload a video (mp4)</label>
           <%= f.hidden_field :video, value: @video.cached_video_data %>
           <span class="hidden"><%= f.file_field :video, id: "video-image" %></span>
         </div>
