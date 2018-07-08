@@ -530,16 +530,11 @@
             </div>
           </div>
         <% else %>
-
-
           <div class="padding-bottom border-bottom">
             <label class="image-button" for="profile-image">Upload a profile image</label>
-            <%= f.hidden_field :image, value: @profile.cached_image_data, class: "upload-hidden" %>
-            <span class="hidden"><%= f.file_field :image, id: "profile-image", class: "upload-file" %></span>
+            <%= f.hidden_field :image, value: @profile.cached_image_data %>
+            <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
           </div>
-          <img class="upload-preview">
-
-          
         <% end %>
 
         <div class="field padding-top">
