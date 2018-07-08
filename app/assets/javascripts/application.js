@@ -710,6 +710,7 @@ var emailTabs = function() {
 $(document).ready(emailTabs);
 $(document).on('turbolinks:load', emailTabs);
 
+var directUpload = function() {
 
 function fileUpload(fileInput) {
   var imagePreview = document.querySelector('.upload-preview')
@@ -763,4 +764,7 @@ function fileUpload(fileInput) {
 document.querySelectorAll('.upload-file').forEach(function (fileInput) {
   fileUpload(fileInput)
 })
+
+$(document).ready(directUpload);
+$(document).on('turbolinks:load', directUpload);
 
