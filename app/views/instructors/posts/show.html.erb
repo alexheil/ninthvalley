@@ -24,11 +24,19 @@
           <ul>
             <li>Overview</li>
             <li>Content</li>
-            <li>Comments</li>
           </ul>
         </div>
 
         <div class="content">
+
+          <% if instructor_signed_in? && current_instructor == @instructor %>
+            <div class="padding-bottom">
+              <div id="post-button-click">
+                Edit your post
+              </div>
+            </div>
+          <% end %>
+
           <div class="padding-bottom mid-text">
             <%= @post.title %>
           </div>
@@ -42,3 +50,58 @@
 
   </div>
 </div>
+
+<% if instructor_signed_in? && current_instructor == @instructor %>
+
+  <div id="post-form">
+    <div class="popup-form-inside">
+      <div class="close"></div>
+
+      <div class="padding-bottom center mid-text border-bottom">
+        Edit your post
+      </div>
+
+      <%= form_for(@post, url: instructor_post_path(@instructor, @post)) do |f| %>
+        <span id="post_errors"><%= render 'partials/errors/post_errors' %></span>
+        
+        <div class="field padding-top">
+          <%= f.label :title %>
+          <%= f.text_field :title, class: "text-field" %>
+        </div>
+
+        <% if @post.image_data? %>
+          <div class="field">
+            <img class="thumbnail-image" src="<%= @post.image_url(:thumb) %>">
+          </div>
+          <div class="flex border-bottom">
+            <div class="field-two-column center">
+              <label class="image-button" for="post-image">Upload a post thumbnail</label>
+              <%= f.hidden_field :image, value: @post.cached_image_data %>
+              <span class="hidden"><%= f.file_field :image, id: "post-image" %></span>
+              <div class="file-name"></div>
+            </div>
+            <div class="field-two-column center">
+              <label class="inactive-removal-tab" id="remove-image-tab" for="remove-image-inactive">Remove image</label>
+              <span class="hidden"><%= f.check_box :remove_image, id: "remove-image-inactive" %></span>
+            </div>
+          </div>
+        <% else %>
+          <div class="padding-bottom border-bottom">
+            <label class="image-button" for="post-image">Upload a post thumbnail</label>
+            <%= f.hidden_field :image, value: @post.cached_image_data %>
+            <span class="hidden"><%= f.file_field :image, id: "post-image" %></span>
+            <div class="file-name"></div>
+          </div>
+        <% end %>
+
+        <div class="field padding-top">
+          <%= f.label :content %>
+          <%= f.text_area :content, class: "text-area" %>
+        </div>
+
+        <%= f.submit "Update post", data: { disable_with: 'Updating...' }, class: "submit-button" %>
+      <% end %>
+    </div>
+  </div>
+
+<% end %>

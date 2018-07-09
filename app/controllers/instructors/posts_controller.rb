@@ -10,6 +10,10 @@ class Instructors::PostsController < ApplicationController
     @post = Post.friendly.find(params[:id])
   end
 
+  def new
+    @instructor = Instructor.friendly.find(params[:instructor_id])
+    @post = Post.new
+
   def create
     @post = @instructor.posts.build(post_params)
     if @post.save
@@ -22,6 +26,11 @@ class Instructors::PostsController < ApplicationController
     end
   end
 
+  def edit
+    @instructor = Instructor.friendly.find(params[:instructor_id])
+    @post = Post.friendly.find(params[:id])
+  end
+
   def update
     @post = Post.friendly.find(params[:id])
     if @post.update_attributes(post_params)
@@ -29,7 +38,7 @@ class Instructors::PostsController < ApplicationController
       redirect_to instructor_post_path(@instructor, @post)
     else
       flash.now[:alert] = 'Whoa! Something went wrong!'
-      render 'new'
+      render 'edit'
     end
   end
 
