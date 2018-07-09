@@ -13,6 +13,7 @@ class Instructors::PostsController < ApplicationController
   def new
     @instructor = Instructor.friendly.find(params[:instructor_id])
     @post = Post.new
+  end
 
   def create
     @post = @instructor.posts.build(post_params)
@@ -67,7 +68,7 @@ class Instructors::PostsController < ApplicationController
     end
 
     def correct_post_instructor
-      @post = post.friendly.find(params[:id])
+      @post = Post.friendly.find(params[:id])
       redirect_to instructor_path(@post.instructor_id) if @post.instructor_id != current_instructor.id
     end
 

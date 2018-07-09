@@ -9,7 +9,7 @@
       </div>
 
       <div class="padding-top">
-        <%= form_for(@post, url: instructor_posts_path(@instructor)) do |f| %>
+        <%= form_for(@post, url: instructor_post_path(@instructor, @post)) do |f| %>
           <span id="post_errors"><%= render 'partials/errors/post_errors' %></span>
           
           <div class="field padding-top">
