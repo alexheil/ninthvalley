@@ -31,6 +31,7 @@
                   <label class="image-button" for="profile-image">Upload a profile image</label>
                   <%= f.hidden_field :image, value: @profile.cached_image_data %>
                   <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+                  <div class="file-name"></div>
                 </div>
                 <div class="field-two-column center">
                   <label class="inactive-removal-tab" id="remove-image-tab" for="remove-image-inactive">Remove image</label>
@@ -42,6 +43,7 @@
                 <label class="image-button" for="profile-image">Upload a profile image</label>
                 <%= f.hidden_field :image, value: @profile.cached_image_data %>
                 <span class="hidden"><%= f.file_field :image, id: "profile-image" %></span>
+                <div class="file-name"></div>
               </div>
             <% end %>
 

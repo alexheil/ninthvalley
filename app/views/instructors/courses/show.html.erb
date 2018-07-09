@@ -387,6 +387,7 @@
                           <label class="image-button" for="video-image-<%= track.id %>">Upload a video (mp4)</label>
                           <%= f.hidden_field :video, value: @video.cached_video_data %>
                           <span class="hidden"><%= f.file_field :video, id: "video-image-#{track.id}" %></span>
+                          <div class="file-name"></div>
                         </div>
 
                         <div class="field">
@@ -612,6 +613,7 @@
               <label class="image-button" for="course-image">Upload a new course thumbnail</label>
               <%= f.hidden_field :image, value: @course.cached_image_data %>
               <span class="hidden"><%= f.file_field :image, id: "course-image" %></span>
+              <div class="file-name"></div>
             </div>
             <div class="field-two-column center">
               <label class="inactive-removal-tab" id="remove-image-tab" for="remove-image-inactive">Remove image</label>
@@ -623,6 +625,7 @@
             <label class="image-button" for="course-image">Upload a course thumbnail</label>
             <%= f.hidden_field :image, value: @course.cached_image_data %>
             <span class="hidden"><%= f.file_field :image, id: "course-image" %></span>
+            <div class="file-name"></div>
           </div>
         <% end %>
 

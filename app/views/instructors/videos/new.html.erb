@@ -21,6 +21,7 @@
             <label class="image-button" for="video-image">Upload a video</label>
             <%= f.hidden_field :video, value: @video.cached_video_data %>
             <span class="hidden"><%= f.file_field :video, id: "video-image" %></span>
+            <div class="file-name"></div>
           </div>
 
           <div class="field">

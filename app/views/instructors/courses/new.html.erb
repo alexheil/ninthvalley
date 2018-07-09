@@ -27,6 +27,7 @@
             <label class="image-button" for="course-image">Upload a course thumbnail</label>
             <%= f.hidden_field :image, value: @course.cached_image_data %>
             <span class="hidden"><%= f.file_field :image, id: "course-image" %></span>
+            <div class="file-name"></div>
           </div>
           
           <div class="field padding-top">
