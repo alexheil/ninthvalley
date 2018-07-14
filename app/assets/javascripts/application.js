@@ -41,6 +41,7 @@ var flashTimeout = function() {
   $(".image-fade-in").fadeIn(500);
   $(".thumbnail-image-home").fadeIn(500);
   $(".thumbnail-image").fadeIn(500);
+  $(".tall-thumbnail-image").fadeIn(500);
   $(".video-player").fadeIn(500);
 
 };

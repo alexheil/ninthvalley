@@ -22,7 +22,7 @@
         <div class="sidebar">
           <ul>
             <% @recent_posts.each do |post| %>
-              <li><%= link_to post.title, instructor_post_path(post) %></li>
+              <li><%= link_to post.title, instructor_post_path(@instructor, post) %></li>
             <% end %>
           </ul>
         </div>
@@ -36,7 +36,7 @@
               </div>
             </div>
           <% end %>
-          
+
           <div class="padding-bottom">
             Posted by <%= link_to @instructor.username, instructor_path(@instructor) unless @instructor.profile.first_name.present? || @instructor.profile.last_name.present? %>
             <%= link_to(instructor_path(@instructor)) do %>

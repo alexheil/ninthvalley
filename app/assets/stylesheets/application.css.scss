@@ -1155,11 +1155,11 @@ select {
 }
 
 .tall-thumbnail-image {
+  display: none;
   height: 50vh;
   width: 100%;
   border-radius: $radius;
   object-fit: cover;
-  display: block;
   -webkit-backface-visibility: hidden;
 }
 
