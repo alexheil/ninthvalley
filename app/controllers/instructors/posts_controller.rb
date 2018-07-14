@@ -8,6 +8,7 @@ class Instructors::PostsController < ApplicationController
   def show
     @instructor = Instructor.friendly.find(params[:instructor_id])
     @post = Post.friendly.find(params[:id])
+    @recent_posts = @instructor.posts.all.reorder("created_at desc").limit(5)
   end
 
   def new

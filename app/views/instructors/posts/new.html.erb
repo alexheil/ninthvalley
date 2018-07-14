@@ -8,7 +8,6 @@
         Create a post
       </div>
 
-      
       <%= form_for(@post, url: instructor_posts_path(@instructor)) do |f| %>
         <span id="post_errors"><%= render 'partials/errors/post_errors' %></span>
         
